@@ -218,3 +218,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---- TalentMatch: data and artifacts (never commit) ----
+data_raw/
+data/
+*.tsv
+*.zip
+*.parquet
+artifacts/*.npy
+artifacts/*.pkl
+artifacts/*.faiss
