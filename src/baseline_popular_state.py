@@ -5,9 +5,8 @@ K = 150
 tr = pd.read_csv("results/split/train.csv", usecols=["UserID", "WindowID", "JobID"])
 val_users = pd.read_csv("results/split/val.csv", usecols=["UserID"]).drop_duplicates()
 
-jobs = pd.read_csv("data/jobs/jobs.tsv", sep="\t", usecols=["JobID", "WindowID", "State"],
-                   on_bad_lines="skip", dtype={"State": str})
-users = pd.read_csv("data/users.tsv", sep="\t", usecols=["UserID", "WindowID", "State"],
+jobs = pd.read_csv("data/processed/jobs_clean.tsv", sep="\t", usecols=["JobID", "WindowID", "State"], dtype={"State": str})
+users = pd.read_csv("data/processed/users_clean.tsv", sep="\t", usecols=["UserID", "WindowID", "State"],
                     dtype={"State": str})
 
 # شهرة كل وظيفة من train فقط
@@ -27,3 +26,4 @@ vu = vu.dropna(subset=["State"])
 recs = vu.merge(pop, on=["WindowID", "State"], how="inner")[["UserID", "WindowID", "JobID", "rank"]]
 recs.to_csv("results/recs_popular_state.csv", index=False)
 print("users with recs:", recs.UserID.nunique(), "| rows:", len(recs))
+
