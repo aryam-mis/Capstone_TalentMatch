@@ -616,6 +616,16 @@ def predict(row, matcher, root_uri):
         row.get("Requirements", "")
     )
 
+    # Remove promotional statistics text from requirements.
+    promo = re.search(
+        r"if you meet the requirements of this position.{0,180}following statistics",
+        requirements,
+        re.IGNORECASE | re.DOTALL,
+    )
+
+    if promo:
+        requirements = requirements[:promo.start()].strip()
+
     if GENERIC_REQUIREMENTS.search(requirements):
         requirements = ""
 
