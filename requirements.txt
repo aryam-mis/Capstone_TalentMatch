@@ -3,3 +3,9 @@ pandas==3.0.6
 python-dateutil==2.9.0.post0
 six==1.17.0
 tzdata==2026.5
+pyyaml
+faiss-cpu
+scipy
+sentence-transformers
+pyarrow
+lightgbm
