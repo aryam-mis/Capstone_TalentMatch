@@ -180,3 +180,6 @@ artifacts/*.faiss
 
 # Generated outputs
 results/
+
+.venv-1/
+
