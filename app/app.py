@@ -1,4 +1,3 @@
-# app/app.py  (model-backed on the val sample; swap the features file for real candidates later)
 import os
 import sys
 import time
@@ -8,6 +7,7 @@ import streamlit as st
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from predict import load, rank  # noqa: E402
+from recruiter_candidates import RecruiterIndex  # noqa: E402
 
 ARTIFACT = "artifacts/reranker_v0"
 FEATS = "data/processed/features_val_sample.parquet"
@@ -22,20 +22,24 @@ def get_model():
 
 
 @st.cache_resource
-def get_data():
-    f = pd.read_parquet(FEATS)
-    keys = f[["UserID", "WindowID"]].drop_duplicates()
+def get_index():
+    return RecruiterIndex()
 
+
+@st.cache_resource
+def get_tables():
     jobs = pd.read_csv("data/processed/jobs_clean.tsv", sep="\t",
                        usecols=["JobID", "WindowID", "Title", "City", "State"])
-    jobs = jobs.merge(f[["JobID", "WindowID"]].drop_duplicates(),
-                      on=["JobID", "WindowID"], how="inner")
-
     users = pd.read_csv("data/processed/users_clean.tsv", sep="\t",
                         usecols=["UserID", "WindowID", "DegreeType", "Major",
                                  "TotalYearsExperience"])
-    users = users.merge(keys, on=["UserID", "WindowID"], how="inner")
+    return jobs, users
 
+
+@st.cache_resource
+def get_sample():
+    f = pd.read_parquet(FEATS)
+    keys = f[["UserID", "WindowID"]].drop_duplicates()
     hist = pd.read_csv("data/processed/user_history_clean.tsv", sep="\t", dtype=str,
                        on_bad_lines="skip",
                        usecols=["UserID", "WindowID", "Sequence", "JobTitle"])
@@ -45,15 +49,16 @@ def get_data():
     hist = hist.astype({"UserID": "int64", "WindowID": "int64"})
     hist = hist.merge(keys, on=["UserID", "WindowID"], how="inner")
     hist = hist.sort_values(["UserID", "Sequence"])
-    return f, jobs, users, hist
+    return f, hist
 
 
 booster, meta = get_model()
-feats, jobs, users, hist = get_data()
+jobs_all, users_all = get_tables()
+feats, hist = get_sample()
 
 
 def profile_text(uid):
-    u = users[users.UserID == uid]
+    u = users_all[users_all.UserID == uid]
     if u.empty:
         return "No profile found."
     u = u.iloc[0]
@@ -67,27 +72,31 @@ def jobs_for_user(uid, k=K):
     cand = feats[feats.UserID == uid]
     top = rank(booster, meta, cand, k).reset_index(drop=True)
     top.insert(0, "rank", range(1, len(top) + 1))
-    top = top.merge(jobs, on=["JobID", "WindowID"], how="left")
+    top = top.merge(jobs_all, on=["JobID", "WindowID"], how="left")
     top["score"] = top["score"].round(3)
     top["Why"] = "-"   # to be filled by the skills-matching explanation
     return top[["rank", "Title", "City", "State", "score", "Why", "JobID", "WindowID"]]
 
 
-def users_for_job(jid, wid, k=K):
-    cand = feats[(feats.JobID == jid) & (feats.WindowID == wid)]
-    if cand.empty:
-        return cand
-    top = rank(booster, meta, cand, k).reset_index(drop=True)
-    top.insert(0, "rank", range(1, len(top) + 1))
+def job_line(jid, wid):
+    j = jobs_all[(jobs_all.JobID == jid) & (jobs_all.WindowID == wid)]
+    if j.empty:
+        return "Job not found in the jobs table."
+    j = j.iloc[0]
+    return f"{j.Title} | {j.City}, {j.State}"
+
+
+def candidates_for_job(jid, wid, k=K):
+    top = get_index().top_users(jid, wid, k=k)
+    top = top.merge(users_all, on=["UserID", "WindowID"], how="left")
     top["score"] = top["score"].round(3)
     top["Why"] = "-"
-    top = top.merge(users, on=["UserID", "WindowID"], how="left")
     return top[["rank", "UserID", "DegreeType", "Major", "TotalYearsExperience", "score", "Why"]]
 
 
 st.title("TalentMatch")
-st.caption("Demo on a val sample with a smoke-test model (not final results). "
-           "Scores are ranking scores, comparable only within one list.")
+st.caption("Demo build: the job seeker view uses a smoke-test LightGBM model on a val sample "
+           "(not final results). Scores there are comparable only within one list.")
 
 tab1, tab2 = st.tabs(["Job seeker", "Recruiter"])
 
@@ -107,14 +116,16 @@ with tab2:
     c1, c2 = st.columns(2)
     jid = c1.number_input("JobID", min_value=0, value=int(top_job[0]), step=1)
     wid = c2.number_input("WindowID", min_value=0, value=int(top_job[1]), step=1)
-    st.caption("Candidates here are users who have this job in their candidate list; "
-               "scores come from lists built per user, so comparing across users is approximate.")
+    st.caption("Candidates are ranked by content similarity (bge-small cosine) between the job "
+               "and each user profile, within the job's window and state. Content only: no "
+               "collaborative signal, and the LightGBM re-ranker is not applied in this direction.")
     if st.button("Find candidates"):
         t = time.time()
-        out = users_for_job(int(jid), int(wid))
-        ms = (time.time() - t) * 1000
-        if out.empty:
-            st.warning("No candidates for this job in the demo sample.")
-        else:
+        try:
+            out = candidates_for_job(int(jid), int(wid))
+            ms = (time.time() - t) * 1000
+            st.write(job_line(int(jid), int(wid)))
             st.dataframe(out, width="stretch", hide_index=True)
-        st.caption(f"response time: {ms:.0f} ms")
+            st.caption(f"response time: {ms:.0f} ms")
+        except Exception as e:
+            st.warning(f"No candidates for this job (is it in the open-jobs index?). {e}")
