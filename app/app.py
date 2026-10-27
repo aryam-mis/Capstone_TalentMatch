@@ -53,6 +53,7 @@ def get_sample():
 
 
 booster, meta = get_model()
+get_index()  # warm-up at startup so the first Find candidates click is fast
 jobs_all, users_all = get_tables()
 feats, hist = get_sample()
 
