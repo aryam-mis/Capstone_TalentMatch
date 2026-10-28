@@ -1,7 +1,10 @@
 # src/build_features.py
 import argparse
+
 import numpy as np
 import pandas as pd
+
+from split_utils import load_apps
 
 KEYS = ["UserID", "WindowID", "JobID"]
 
@@ -14,6 +17,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--content", required=True)
     ap.add_argument("--collab", required=True)
+    ap.add_argument("--pop", default=None)           # optional third candidate source
     ap.add_argument("--labels", required=True)       # target-period applications
     ap.add_argument("--pop-before", required=True)   # popularity/history use applications before this date
     ap.add_argument("--period-start", required=True)
@@ -24,13 +28,19 @@ def main():
     pop_before = pd.Timestamp(a.pop_before)
     period_start = pd.Timestamp(a.period_start)
 
-    # 1) union of candidates from both retrievers
+    # 1) union of candidates from all sources
     ct = read_any(a.content)[KEYS + ["rank", "score"]]
     ct = ct.rename(columns={"rank": "content_rank", "score": "content_score"})
     cb = read_any(a.collab)[KEYS + ["rank", "score"]]
     cb = cb.rename(columns={"rank": "collab_rank", "score": "collab_score"})
     cand = ct.merge(cb, on=KEYS, how="outer")
     del ct, cb
+    if a.pop:
+        pp = read_any(a.pop)[KEYS + ["rank"]].rename(columns={"rank": "pop_rank"})
+        cand = cand.merge(pp, on=KEYS, how="outer")
+        del pp
+    else:
+        cand["pop_rank"] = np.nan
 
     if a.sample_users:
         rng = np.random.default_rng(42)
@@ -64,11 +74,9 @@ def main():
     cand["job_age_days"] = (period_start - cand.StartDate).dt.days
     cand["days_left"] = (cand.EndDate - period_start).dt.days
 
-    # 4) popularity + user history: applications BEFORE the cutoff only
-    tr = pd.read_csv("results/split/train.csv",
-                     usecols=["UserID", "WindowID", "ApplicationDate", "JobID"])
-    tr["ApplicationDate"] = pd.to_datetime(tr["ApplicationDate"], errors="coerce")
-    hist = tr[tr.ApplicationDate < pop_before]
+    # 4) popularity + user history: applications BEFORE the cutoff only (from all applications)
+    apps = load_apps()
+    hist = apps[apps.ApplicationDate < pop_before]
     print("history rows before", a.pop_before, ":", len(hist))
 
     pop = hist.groupby(["JobID", "WindowID"]).size().rename("job_pop").reset_index()
@@ -86,8 +94,8 @@ def main():
 
     # 6) keep needed columns, sort so each user's rows are contiguous (LightGBM groups)
     cols = KEYS + ["label", "content_score", "content_rank", "collab_score", "collab_rank",
-                   "same_state", "same_city", "job_pop", "job_age_days", "days_left",
-                   "user_n_hist", "TotalYearsExperience", "WorkHistoryCount"]
+                   "pop_rank", "same_state", "same_city", "job_pop", "job_age_days",
+                   "days_left", "user_n_hist", "TotalYearsExperience", "WorkHistoryCount"]
     cand = cand[cols].sort_values(["UserID", "WindowID"]).reset_index(drop=True)
     for c in cols[4:]:
         cand[c] = cand[c].astype("float32")
