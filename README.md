@@ -1,4 +1,4 @@
-# TalentMatch: Two-Sided Job and Candidate Recommendation Engine
+﻿# TalentMatch: Two-Sided Job and Candidate Recommendation Engine
 
 Olo Academy AI Engineering Bootcamp (AIEP), Module 8 capstone, Track C (HR tech, recommendation systems).
 Team: Aryam, Layan, Amnia.
@@ -108,7 +108,7 @@ All numbers are in `docs/test_results.csv`. Hard negatives beat random negatives
 
 ## Limitations and future work
 
-- One trained model per method, no confidence intervals; part of the validation-to-test gap is validation optimism.
+- One trained model per method: 95% bootstrap intervals over the 47,214 test users are in `docs/bootstrap_test_ci.csv`, but training was not repeated with several seeds; part of the validation-to-test gap is validation optimism.
 - The data is US applications from April to June 2012 in seven independent windows, not the Saudi market.
 - Popularity bias: the re-ranker favours popular jobs; the diversity weight only reduces it.
 - The skill matcher (ESCO, FlashText) is conservative and its precision is not measured.
