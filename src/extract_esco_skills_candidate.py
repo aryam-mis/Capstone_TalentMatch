@@ -214,7 +214,7 @@ ROLE_HEADING = re.compile(
     r"(?:\s+the\s+following)?)?|"
     r"(?:key|main|primary|job|general|specific)"
     r"\s+responsibilities|"
-    r"responsibilities(?:\s+of\s+[^:]{3,70})?|"
+    r"responsibilities(?:\s+include|\s+of\s+[^:]{3,70})?|"
     r"description\s+of\s+environment|"
     r"(?:selected\s+candidates\s+will\s+be\s+)?"
     r"responsible\s+for\s+the\s+following|"
@@ -380,6 +380,18 @@ def select_description(description, title=""):
             cleaned[first.start():].strip(),
             "role section",
         )
+
+    # Skip company introduction when the job duties
+    # clearly start with "The [Job Title] will ..."
+    if title:
+        role_start = re.search(
+            rf"\b(?:the\s+)?{re.escape(title)}\s+(?:will|must|is responsible for)\b",
+            cleaned,
+            re.IGNORECASE,
+        )
+
+        if role_start:
+            cleaned = cleaned[role_start.start():].strip()
 
     return (
         cleaned,
@@ -678,9 +690,6 @@ def predict(row, matcher, root_uri):
         if part
     )
 
-    if desc_type == "unsectioned - review" and match_skills(requirements, title, matcher, root_uri):
-        text = requirements
-        source = "requirements (unsectioned description skipped - review)"
 
     extracted = match_skills(
         text,
