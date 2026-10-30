@@ -12,3 +12,4 @@ lightgbm
 scikit-learn
 streamlit
 pytest
+flashtext

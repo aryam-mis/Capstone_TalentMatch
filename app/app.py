@@ -1,4 +1,4 @@
-# app/app.py  (Job seeker: free-text profile -> re-ranker v2 | Recruiter: typed new job or existing job, content-only)
+# app/app.py  (Job seeker: free-text profile -> re-ranker v2 + Why | Recruiter: typed new job or existing job)
 import os
 import sys
 import time
@@ -10,6 +10,7 @@ import streamlit as st
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from profile_recommender import ProfileRecommender  # noqa: E402
 from recruiter_candidates import RecruiterIndex  # noqa: E402
+from why_skills import WhyMatcher  # noqa: E402
 
 st.set_page_config(page_title="TalentMatch", layout="wide")
 
@@ -29,6 +30,11 @@ def get_index():
 
 
 @st.cache_resource
+def get_why():
+    return WhyMatcher()
+
+
+@st.cache_resource
 def get_users():
     return pd.read_csv("data/processed/users_clean.tsv", sep="\t",
                        usecols=["UserID", "WindowID", "DegreeType", "Major",
@@ -37,6 +43,7 @@ def get_users():
 
 rec = get_rec()
 index = get_index()
+why = get_why()
 users_all = get_users()
 states = sorted(rec.jobs.State.dropna().unique().tolist())
 
@@ -95,6 +102,8 @@ with tab1:
     years = c3.number_input("Years of experience", min_value=0, max_value=40, value=5)
     roles_text = st.text_area("Past roles (one per line)",
                               "Customer Service Representative\nSales Associate")
+    skills_text = st.text_area("Skills / CV text (optional, used for 'Why this job?')",
+                               "Customer service, SQL, communication")
     c4, c5 = st.columns(2)
     state = c4.selectbox("State", states, index=states.index("CA") if "CA" in states else 0)
     city = c5.text_input("City (optional)", "Los Angeles")
@@ -104,15 +113,28 @@ with tab1:
         deg = "" if degree == DEGREES[0] else degree
         t = time.time()
         res = rec.recommend(deg, major, years, roles, state, city, k=K)
-        ms = (time.time() - t) * 1000
+        t_rec = (time.time() - t) * 1000
+
+        t = time.time()
+        cv_text = ". ".join([skills_text, ". ".join(roles), major])
+        cv, expl = why.explain(cv_text, list(zip(res.JobID, res.WindowID)))
+        t_why = (time.time() - t) * 1000
+
         out = res.copy()
         out["score"] = out["score"].round(3)
         out["City"] = out["City"].str.title()
-        out["Why"] = "-"   # to be filled by the matched-skills explanation
+        out["Why"] = [", ".join(e["skills"]) if e["skills"] else "-" for e in expl]
         st.dataframe(out[["rank", "Title", "City", "State", "score", "Why", "JobID", "WindowID"]],
                      width="stretch", hide_index=True)
-        st.caption(f"response time: {ms:.0f} ms | window {res.attrs['window']} | "
-                   f"query text: {res.attrs['text']}")
+        st.caption(f"response time: {t_rec + t_why:.0f} ms (ranking {t_rec:.0f} ms, explanations "
+                   f"{t_why:.0f} ms) | window {res.attrs['window']} | query text: {res.attrs['text']}")
+        st.caption("Skills recognised in your text: "
+                   + (", ".join(s["skill"] for s in cv.values()) or "none"))
+        for rk, title, e in zip(out["rank"], out["Title"], expl):
+            if e["evidence"]:
+                with st.expander(f"#{rk} {title}: why this job?"):
+                    for ev in e["evidence"]:
+                        st.write(f"**{ev['skill']}** ({ev['source']}): ...{ev['context']}...")
 
 with tab2:
     st.caption("Candidates are ranked by content similarity (bge-small cosine) between the job "
