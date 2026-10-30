@@ -1,0 +1,8 @@
+﻿open catalogue: 332650 | head size: 3326 | min pop in head: 14
+                 file  users   recs  unique_jobs  coverage_%  head1%_share_%
+   rerank_v2_lam0.csv  46754 467528        61401       18.46            21.8
+rerank_v2_lam0.05.csv  46754 467528        64081       19.26            20.1
+ rerank_v2_lam0.1.csv  46754 467528        66701       20.05            18.4
+rerank_v2_lam0.15.csv  46754 467528        69187       20.80            16.7
+rerank_v2_lam0.25.csv  46754 467528        73991       22.24            13.3
+ rerank_v2_lam0.5.csv  46754 467528        83785       25.19             6.7

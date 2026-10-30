@@ -1,0 +1,72 @@
+{
+  "features": [
+    "content_score",
+    "content_rank",
+    "collab_score",
+    "collab_rank",
+    "pop_rank",
+    "same_city",
+    "job_pop",
+    "job_age_days",
+    "days_left",
+    "user_n_hist",
+    "TotalYearsExperience",
+    "WorkHistoryCount"
+  ],
+  "params": {
+    "objective": "lambdarank",
+    "n_estimators": 500,
+    "learning_rate": 0.05,
+    "num_leaves": 31,
+    "min_child_samples": 50
+  },
+  "seed": 42,
+  "best_iteration": 116,
+  "trained_on": "data\\processed\\features_train_rr3.parquet",
+  "early_stopped_on": "data\\processed\\features_val3.parquet",
+  "lightgbm": "4.7.0",
+  "python": "3.14.7",
+  "name": "talentmatch-reranker",
+  "version": "2.0",
+  "created": "2026-10-30",
+  "git_commit_at_creation": "19b97a59badf3f04c4aa13863521ce7f36560c0f",
+  "model_file": "model.txt",
+  "model_sha256": "51f92e5d0a26924d03573fe2c546fd90af3252ef84890e64abcace628dec9607",
+  "task": "LightGBM LambdaRank re-ranker over content, collaborative and popularity candidates",
+  "candidates": {
+    "content_k": 100,
+    "collab_k": 100,
+    "popularity_k": 50
+  },
+  "embedding_model": "BAAI/bge-small-en-v1.5",
+  "periods": {
+    "train": "2012-05-30..2012-06-05",
+    "val": "2012-06-06..2012-06-13",
+    "test": "2012-06-14..2012-06-26 (open jobs from 2012-06-18)"
+  },
+  "diversity_lambda_frozen": 0.15,
+  "results": {
+    "val_lambda0": {
+      "P@10": 0.0346,
+      "NDCG@10": 0.0876,
+      "MAP@10": 0.0568,
+      "Recall@50": 0.2551,
+      "Recall@100": 0.3195
+    },
+    "test_lambda0": {
+      "P@10": 0.0304,
+      "NDCG@10": 0.0801,
+      "MAP@10": 0.0513,
+      "Recall@50": 0.2425,
+      "Recall@100": 0.306
+    },
+    "test_lambda0.15": {
+      "P@10": 0.0291,
+      "NDCG@10": 0.0783,
+      "MAP@10": 0.0502,
+      "Recall@50": 0.2409,
+      "Recall@100": 0.3046
+    }
+  },
+  "usage": "python src/profile_recommender.py --state CA --degree \"Bachelor's\" --major \"Business Administration\" --years 5 --roles \"Sales Associate\""
+}
