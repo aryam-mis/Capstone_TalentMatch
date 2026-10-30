@@ -1,8 +1,9 @@
-# app/app.py  (Job seeker: free-text profile -> re-ranker v2 | Recruiter: RecruiterIndex, content-only)
+# app/app.py  (Job seeker: free-text profile -> re-ranker v2 | Recruiter: typed new job or existing job, content-only)
 import os
 import sys
 import time
 
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -48,12 +49,37 @@ def job_line(jid, wid):
     return f"{j.Title} | {j.City.title()}, {j.State}"
 
 
-def candidates_for_job(jid, wid, k=K):
-    top = index.top_users(jid, wid, k=k)
+def show_candidates(top, ms):
     top = top.merge(users_all, on=["UserID", "WindowID"], how="left")
     top["score"] = top["score"].round(3)
     top["Why"] = "-"
-    return top[["rank", "UserID", "DegreeType", "Major", "TotalYearsExperience", "score", "Why"]]
+    st.dataframe(top[["rank", "UserID", "DegreeType", "Major", "TotalYearsExperience", "score", "Why"]],
+                 width="stretch", hide_index=True)
+    st.caption(f"response time: {ms:.0f} ms")
+
+
+def candidates_for_job(jid, wid, k=K):
+    return index.top_users(jid, wid, k=k)
+
+
+def candidates_for_text(title, requirements, state, window=None, k=K):
+    """A job typed by the user (it may have no applications at all): content search over users."""
+    state = state.strip().upper()
+    cells = {w: len(ix) for (w, s), ix in index.user_cells.items() if s == state}
+    if not cells:
+        return None, None, None
+    if window is None:
+        window = max(cells, key=cells.get)
+    ix, uidx = index._index(window, state)
+    text = f"{title.strip()}. {requirements.strip()}".lower()
+    q = rec.model.encode([text], normalize_embeddings=True,
+                         convert_to_numpy=True).astype("float32")
+    scores, nn = ix.search(q, min(k, len(uidx)))
+    top = pd.DataFrame({"UserID": index.users["UserID"].values[uidx[nn[0]]],
+                        "WindowID": window,
+                        "rank": np.arange(1, len(nn[0]) + 1),
+                        "score": scores[0]})
+    return top, window, text
 
 
 st.title("TalentMatch")
@@ -89,20 +115,39 @@ with tab1:
                    f"query text: {res.attrs['text']}")
 
 with tab2:
-    top_job = rec.jobs.sort_values("job_pop").iloc[-1]
-    c1, c2 = st.columns(2)
-    jid = c1.number_input("JobID", min_value=0, value=int(top_job.JobID), step=1)
-    wid = c2.number_input("WindowID", min_value=0, value=int(top_job.WindowID), step=1)
     st.caption("Candidates are ranked by content similarity (bge-small cosine) between the job "
-               "and each user profile, within the job's window and state. Content only: no "
+               "and each user profile, within one window and state. Content only: no "
                "collaborative signal, and the LightGBM re-ranker is not applied in this direction.")
-    if st.button("Find candidates"):
-        t = time.time()
-        try:
-            out = candidates_for_job(int(jid), int(wid))
+    mode = st.radio("Job source", ["New job (type it)", "Existing job (by ID)"], horizontal=True)
+
+    if mode == "New job (type it)":
+        title = st.text_input("Job title", "Customer Service Representative")
+        reqs = st.text_area("Requirements / description",
+                            "Answer inbound customer calls, resolve billing questions and "
+                            "document each case. Previous call center experience preferred.")
+        jstate = st.selectbox("State of the job", states,
+                              index=states.index("CA") if "CA" in states else 0, key="jstate")
+        if st.button("Find candidates", key="find_new"):
+            t = time.time()
+            top, window, text = candidates_for_text(title, reqs, jstate)
             ms = (time.time() - t) * 1000
-            st.write(job_line(int(jid), int(wid)))
-            st.dataframe(out, width="stretch", hide_index=True)
-            st.caption(f"response time: {ms:.0f} ms")
-        except Exception as e:
-            st.warning(f"No candidates for this job (is it in the open-jobs index?). {e}")
+            if top is None:
+                st.warning("No users for this state in the index.")
+            else:
+                st.write(f"{title} | {jstate}")
+                show_candidates(top, ms)
+                st.caption(f"window {window} | query text: {text}")
+    else:
+        top_job = rec.jobs.sort_values("job_pop").iloc[-1]
+        c1, c2 = st.columns(2)
+        jid = c1.number_input("JobID", min_value=0, value=int(top_job.JobID), step=1)
+        wid = c2.number_input("WindowID", min_value=0, value=int(top_job.WindowID), step=1)
+        if st.button("Find candidates", key="find_old"):
+            t = time.time()
+            top = candidates_for_job(int(jid), int(wid))
+            ms = (time.time() - t) * 1000
+            if top.empty:
+                st.warning("No candidates for this job (is it in the open-jobs index?).")
+            else:
+                st.write(job_line(int(jid), int(wid)))
+                show_candidates(top, ms)
