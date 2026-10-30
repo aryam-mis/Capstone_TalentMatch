@@ -122,3 +122,7 @@ Hiring is high-stakes: the system ranks and explains and never rejects, scores a
 ## Repository layout
 
 `src/` code, `app/` Streamlit app, `tests/` smoke tests, `artifacts/` model and its notes, `docs/` result tables and frozen decisions. `data/` and `results/` are not versioned.
+
+## Human judgement set
+
+`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. The first pass was prepared with AI assistance, so the grades are provisional; reviewer agreement is 90.93% (Cohen's kappa 0.843). Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Amnia) and `src/judgement_metrics.py`.
