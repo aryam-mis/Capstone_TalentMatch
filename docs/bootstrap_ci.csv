@@ -1,0 +1,4 @@
+comparison,users,A,B,diff_A_minus_B,diff_ci_low,diff_ci_high,A_ci,B_ci
+"A: hybrid(content+collab+pop) vs pop, Recall@100, all users",46866,0.2934,0.2222,0.0712,0.0682,0.0743,"[0.2900, 0.2969]","[0.2190, 0.2254]"
+"B: hybrid(content+collab+pop) vs pop, Recall@100, users without history",28120,0.2632,0.2149,0.0482,0.0441,0.0522,"[0.2584, 0.2672]","[0.2106, 0.2188]"
+"C: content vs hybrid(content+collab+pop), Recall@100, new-job targets",22916,0.1858,0.1307,0.0551,0.0527,0.0579,"[0.1811, 0.1905]","[0.1266, 0.1348]"
