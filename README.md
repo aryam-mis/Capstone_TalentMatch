@@ -144,7 +144,7 @@ python -m pytest tests -q
 
 Expected: all tests pass (the model file matches its checksum, it ranks cold-start rows, and the judgement tools run).
 
-**Level 2, the full demo (needs the team's data files).** The CareerBuilder data (Kaggle competition https://www.kaggle.com/c/job-recommendation) is not redistributed here, and the app also needs the processed files and embeddings built from it. The team shares them with the instructor in a Drive folder (link in the delivery message). Unzip them so these paths exist: `data/apps/apps.tsv`, `data/processed/jobs_clean.tsv`, `data/processed/users_clean.tsv`, and the four files listed in `artifacts/README.md`. Then:
+**Level 2, the full demo (needs the team's data files).** The CareerBuilder data (Kaggle competition https://www.kaggle.com/c/job-recommendation) is not redistributed here, and the app also needs the processed files and embeddings built from it. They are not in the repository: the team runs the live demo on its own machine, and the files can be requested from the team. Place them so these paths exist: `data/apps/apps.tsv`, `data/processed/jobs_clean.tsv`, `data/processed/users_clean.tsv`, and the four files listed in `artifacts/README.md`. Then:
 
 ```
 python src/build_jobs_text.py

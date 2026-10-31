@@ -1,4 +1,4 @@
-# Capstone Project Report
+﻿# Capstone Project Report
 
 **Project Title:** TalentMatch: A Two-Sided Job and Candidate Recommendation Engine
 
@@ -52,7 +52,7 @@ Job platforms receive thousands of applications per posting. Keyword filters rej
 
 **Date Accessed:** not recorded; the files were obtained through the team's shared folder.
 
-The data matches the task: it contains real applications, user profiles and job texts, organised in time windows, so a time-based evaluation is possible. Restrictions: the raw and processed files stay outside the repository, and the team shares them privately with the instructor.
+The data matches the task: it contains real applications, user profiles and job texts, organised in time windows, so a time-based evaluation is possible. Restrictions: the raw and processed files stay outside the repository, and the team can provide them on request.
 
 ### 2.2 Data Collection and Reproducibility
 
@@ -271,7 +271,7 @@ We measure the share of top-10 recommendations that go to the 1% most popular op
 
 **Diversity re-scoring.** Inside each user's candidate list the final score subtracts a popularity penalty, so popular jobs lose ground to similar but less popular ones:
 
-adjusted score = z(model score) − λ · z(log(1 + job popularity))
+adjusted score = z(model score) âˆ’ خ» آ· z(log(1 + job popularity))
 
 ![E5: the diversity weight on validation](figures/fig_e5_lambda.png)
 
@@ -408,7 +408,7 @@ Try diversity-aware training and richer profile text, measure the precision and 
 
 **Dependencies:** `requirements.txt`.
 
-**Data Requirements:** the app needs the CareerBuilder data and the processed files and embeddings built from it (Section 2.2). They are shared privately with the instructor.
+**Data Requirements:** the app needs the CareerBuilder data and the processed files and embeddings built from it (Section 2.2). They can be requested from the team.
 
 ### 9.2 Installation
 
@@ -457,7 +457,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 3. Xiao, S., Liu, Z., Zhang, P., Muennighoff, N. C-Pack: packaged resources to advance general Chinese embedding (BGE models). 2023. Model: `BAAI/bge-small-en-v1.5`.
 4. Ke, G. et al. LightGBM: a highly efficient gradient boosting decision tree. NeurIPS 2017.
 5. Cormack, G., Clarke, C., Buettcher, S. Reciprocal rank fusion outperforms Condorcet and individual rank learning methods. SIGIR 2009.
-6. Johnson, J., Douze, M., Jégou, H. Billion-scale similarity search with GPUs (FAISS). IEEE Transactions on Big Data, 2021.
+6. Johnson, J., Douze, M., Jأ©gou, H. Billion-scale similarity search with GPUs (FAISS). IEEE Transactions on Big Data, 2021.
 7. Streamlit, sentence-transformers and scikit-learn documentation.
 
 ---
