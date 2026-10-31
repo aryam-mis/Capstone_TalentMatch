@@ -14,7 +14,7 @@ p.add_argument("--out", default="results/judgement/judgement_template.csv")
 p.add_argument("--period_start", default="2012-06-06")
 p.add_argument("--period_end", default="2012-06-14")
 p.add_argument("--k", type=int, default=10)
-p.add_argument("--pop_weight", type=float, default=1.0,
+p.add_argument("--pop_weight", type=float, default=0.0,
                help="weight of the popularity ranking inside RRF (0 = content only)")
 args = p.parse_args()
 
