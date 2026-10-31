@@ -126,3 +126,30 @@ Hiring is high-stakes: the system ranks and explains and never rejects, scores a
 ## Human judgement set
 
 `eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. The first pass was prepared with AI assistance; reviewer agreement on the original scores is 90.93% (Cohen's kappa 0.843). The 41 disagreements were then resolved by team-approved final scores (451 of 452 pairs have one; ITEM-0156 is unresolved), and the 411 agreed pairs stay provisional. Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
+
+## How to run (for reviewers)
+
+**Level 1, no data needed (about 5 minutes).** This checks that the code installs, the model artifact loads and the tests pass:
+
+```
+git clone https://github.com/aryam-mis/Capstone_TalentMatch.git
+cd Capstone_TalentMatch
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python -m pytest tests -q
+```
+
+Expected: all tests pass (the model file matches its checksum, it ranks cold-start rows, and the judgement tools run).
+
+**Level 2, the full demo (needs the team's data files).** The CareerBuilder data (Kaggle competition https://www.kaggle.com/c/job-recommendation) is not redistributed here, and the app also needs the processed files and embeddings built from it. The team shares them with the instructor in a Drive folder (link in the delivery message). Unzip them so these paths exist: `data/apps/apps.tsv`, `data/processed/jobs_clean.tsv`, `data/processed/users_clean.tsv`, and the four files listed in `artifacts/README.md`. Then:
+
+```
+python src/build_jobs_text.py
+python -m streamlit run app/app.py
+```
+
+Open http://localhost:8501 (the first search takes about a second, later ones about 100 ms).
+
+- Job seeker tab: Bachelor's, Business Administration, 5 years, past roles `customer service representative; sales associate`, skills `customer service, SQL, communication`, state CA, then Recommend jobs. Expected: ten ranked jobs, the shared skills in the Why column, and the supporting sentence in the expander.
+- Recruiter tab: choose a state and a job, or type a new one, then Find candidates. Expected: ten ranked candidates.
