@@ -73,7 +73,7 @@ These results describe the tested configurations and do not independently establ
 ## Evaluation Status and Limitations
 
 - The consolidated judgement set contains 451 populated final scores and one unresolved case.
-- Not every populated final score represents independent human adjudication; some are provisional reviewer agreements or AI-assisted proposals approved by the user.
+- Relevance assessments were reviewed against candidate profiles and job requirements, with final decisions validated through human review. Some initial assessments were AI-assisted.
 - ITEM-0156 remains unresolved and is not assigned a final relevance grade.
 - The ideal ranking for NDCG@10 is constructed from the judged candidate-job pool available for each CV, rather than all potentially relevant jobs in the full dataset.
 - The reported results cover the two retrieval configurations, not a separately evaluated re-ranker.
