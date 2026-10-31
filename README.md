@@ -3,6 +3,8 @@
 Olo Academy AI Engineering Bootcamp (AIEP), Module 8 capstone, Track C (HR tech, recommendation systems).
 Team: Aryam, Layan, Omnia.
 
+Technical report: [docs/report.md](docs/report.md)
+
 ## Problem and motivation
 
 Job platforms receive thousands of applications per posting. Keyword filters reject good candidates who describe their experience differently, and job seekers scroll through postings that do not fit. TalentMatch ranks jobs for a candidate and candidates for a job, works on a profile or a job typed in a few seconds with no application history, and shows why each job appears. It ranks and explains; the recruiter decides.
