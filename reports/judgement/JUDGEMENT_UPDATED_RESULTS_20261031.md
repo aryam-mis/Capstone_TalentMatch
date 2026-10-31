@@ -36,6 +36,7 @@ Primary policy: the unresolved recommendation receives zero gain for metric calc
 | Metric | pop_weight=0.0 | pop_weight=1.0 |
 |---|---:|---:|
 | Mean Relevance@10 | 0.8900 | 0.4833 |
+| Precision@3 (score >= 1) | 81.11% | 52.22% |
 | Precision@10 (score >= 1) | 73.33% | 38.67% |
 | Strict Precision@10 (score = 2) | 15.67% | 9.67% |
 | NDCG@10 | 0.8205 | 0.4900 |
@@ -55,6 +56,7 @@ NDCG@10 retains the original Top-10 positions and treats the unresolved item's g
 ## Metric Definitions
 
 - **Mean Relevance@10:** Average relevance grade (0–2) among the top 10 recommendations, averaged equally across 30 CVs.
+- **Precision@3:** Proportion of the top 3 recommendations with relevance grade >= 1, averaged equally across 30 CVs.
 - **Precision@10:** Proportion of the top 10 recommendations with relevance grade >= 1, averaged across CVs.
 - **Strict Precision@10:** Proportion of the top 10 recommendations with relevance grade = 2, averaged across CVs.
 - **NDCG@10:** Normalized discounted cumulative gain using linear relevance gains (0, 1, 2), logarithmic rank discounts, and an ideal ranking constructed from the available judged pool for each CV.
