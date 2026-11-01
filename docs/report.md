@@ -516,7 +516,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 - `docs/e3_by_history.csv`, `docs/e3_cold_jobs.csv`, `docs/metrics_layan.csv`: the retriever experiments.
 - `docs/e3_cold_users_test.csv` and `docs/e3_cold_jobs_test.csv`: cold-start results on test (new users by prior applications, new jobs), from `src/e3_cold_start_eval.py`.
 - `eval/judgement_set.csv` and `results/judgement/`: the human judgement set and its metrics.
-- `experiment/cold-start-ranking`: Experimental cold-start recommendation improvements, experience extraction, caching optimization, and evaluation limitations. Detailed documentation is available in `reports/cold_start/COLD_START_EXPERIMENT.md` on the experiment branch.
+- `experiment/cold-start-ranking`: Experimental cold-start recommendation improvements, experience extraction, caching optimization, and evaluation limitations. Detailed documentation is in `reports/cold_start/COLD_START_EXPERIMENT.md` and the comparison in `eval/cold_start/`; the experimental recommender (`src/profile_recommender_experiment.py`) is not used by the app, and its experience file is rebuilt with `scripts/build_cold_start_experience.py`.
 
 ## Appendix C. Reproducibility Notes
 
