@@ -57,6 +57,11 @@ The data matches the task: it contains real applications, user profiles and job 
 ### 2.2 Data Collection and Reproducibility
 
 The files come from the Kaggle competition page (a Kaggle account is needed) or from the team's shared folder. To prepare them, run the cleaning scripts in `src/` (`clean_*.py` and the job-text preparation), then `src/make_split.py` for the time-based split, `src/prepare_union.py` and the embedding notebook script `notebooks/colab_generate_embeddings.py` for the job embeddings. The README lists the commands in order.
+ **Job-Text Cleaning and Preparation**
+
+The job data was processed in batches of 5,000 records using `src/clean_jobs.py`. HTML tags, escaped line breaks, and unnecessary whitespace were removed from job titles, descriptions, and requirements.
+
+Next, `src/prepare_job_text.py` combined these cleaned fields into a unified `text_clean` column while preserving the original job information. This prepared the textual data for further processing and experimentation.
 
 ### 2.3 Dataset Card
 
@@ -153,6 +158,7 @@ The re-ranker sees content, collaborative and popularity signals for each user-j
 ### 4.2 Preprocessing and Feature Engineering
 
 - **Text:** jobs are embedded as "title. requirements"; users as "degree: ... major: ... experience: N years. past roles: ...". Embeddings come from `BAAI/bge-small-en-v1.5`, used frozen and normalised.
+- **Text Preparation:** The preprocessing pipeline created a combined `text_clean` field using job titles, descriptions, and requirements. However, the final content-based embedding approach used job titles and requirements, as this combination performed better than using the full job text in the team's experiments.
 - **Candidates:** for each user, the union of the top 100 jobs by content cosine, the top 100 by item-item collaborative filtering (users with history only) and the 50 most popular open jobs of the state, all inside the user's window and state.
 - **12 features per user-job pair:** `content_score`, `content_rank`, `collab_score`, `collab_rank`, `pop_rank`, `same_city`, `job_pop`, `job_age_days`, `days_left`, `user_n_hist`, `TotalYearsExperience`, `WorkHistoryCount`. `same_state` is left out because every candidate is already in the user's state.
 
@@ -185,6 +191,15 @@ All use the same open-jobs filter and skip jobs the user already applied to.
 - **The first re-ranker lacked popularity as a candidate source.** Its validation Recall@100 was 0.2511, below the 0.2934 of the RRF3 hybrid, because a popular job that neither retriever found could never be shown. Adding the 50 most popular open jobs of the state as a third source (feature `pop_rank`) raised it to 0.3195. The final model is this second version (`reranker_v2`).
 - **Random negatives trained a worse ranker** than hard negatives (experiment E4).
 - **The e5-base embedding run was inconclusive**: it ran without its query and passage prefixes, so we cannot tell whether the model or the setup caused its low score (experiment E2).
+- **Experimental Cold-Start Ranking Improvements (Not Integrated)**
+
+A separate experiment explored improving recommendations for users without previous application history. The approach combined semantic similarity with experience requirements, job seniority, and city matching.
+
+An updated experience extraction process increased detection coverage from 16.1% to 46.5% across 1,092,096 job records.
+
+A caching optimization reduced observed initialization time from 76.8 seconds to 18.4 seconds in local testing.
+
+However, higher extraction coverage does not necessarily indicate higher accuracy. The updated recommendation approach requires further evaluation and was not integrated into the final LightGBM ranking pipeline.
 
 ---
 
@@ -469,6 +484,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 - `docs/e5_test.txt` and `docs/e5_val_v2.txt`: coverage and popularity concentration on test and validation.
 - `docs/e3_by_history.csv`, `docs/e3_cold_jobs.csv`, `docs/metrics_layan.csv`: the retriever experiments.
 - `eval/judgement_set.csv` and `results/judgement/`: the human judgement set and its metrics.
+- - `experiment/cold-start-ranking`: Experimental cold-start recommendation improvements, experience extraction, caching optimization, and evaluation limitations. Detailed documentation is available in `reports/cold_start/COLD_START_EXPERIMENT.md` on the experiment branch.
 
 ## Appendix C. Reproducibility Notes
 
