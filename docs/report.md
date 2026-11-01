@@ -4,7 +4,7 @@
 
 **Student Name:** Aryam Almohammadi, Layan Almohammadi, Omnia Alsadi
 
-**Cohort:** Olo Academy AI Engineering Bootcamp (AIEP), Module 8 capstone, Track C
+**Cohort:** Madinah
 
 **Date:** 31 Oct 2026
 
