@@ -20,8 +20,8 @@ TalentMatch ranks jobs for a candidate and candidates for a job, and it works on
 
 ### 1.2 Intended Users and Decisions
 
-- **Job seeker:** types a short profile (degree, major, years of experience, past roles, state, optional city and skills) and gets ten ranked jobs, with the matched skills and the sentence that supports each match.
-- **Recruiter:** types or picks a job and gets ten ranked candidates by content similarity. The re-ranker is not applied in this direction. The system ranks and never rejects, so the recruiter stays in control.
+- **Job seeker:** types a short profile (degree, major, years of experience, past roles, state, optional city and skills) and gets ten ranked jobs, either from the re-ranker (default) or from Profile match, a cold-start mode that ranks by similarity to the profile and skills. Each job shows the matched skills, the most similar past role and whether it is in the same city, with the sentence that supports each skill.
+- **Recruiter:** types or picks a job and gets ten ranked candidates by content similarity, each with their past roles, the job skills found in their major or past roles, and their past role most similar to the job title. The re-ranker is not applied in this direction. The system ranks and never rejects, so the recruiter stays in control.
 - **Platform team:** needs to know whether the recommendations are accurate, diverse and not dominated by a few popular jobs.
 
 ### 1.3 Why This Problem Matters
@@ -153,7 +153,7 @@ flowchart LR
   J[Typed job] --> U[User index: bge-small, window and state] --> K[Top 10 candidates, content only]
 ```
 
-The re-ranker sees content, collaborative and popularity signals for each user-job pair. A new user has no collaborative signal, so those two features stay empty. The Why column comes from the skills the profile and the job share (ESCO matching).
+The re-ranker sees content, collaborative and popularity signals for each user-job pair. A new user has no collaborative signal, so those two features stay empty. The Why column shows the ESCO skills the profile and the job share, the past role most similar to the job title, and the location match. For new users the app also offers Profile match, which ranks the content candidates by cosine to the profile plus the typed skills and pushes titles such as Senior, Lead or Manager down for users with under 3 years of experience; the frozen re-ranker is unchanged.
 
 ### 4.2 Preprocessing and Feature Engineering
 
@@ -201,7 +201,7 @@ An updated experience extraction process increased detection coverage from 16.1%
 
 A caching optimization reduced observed initialization time from 76.8 seconds to 18.4 seconds in local testing.
 
-However, higher extraction coverage does not necessarily indicate higher accuracy. The updated recommendation approach requires further evaluation and was not integrated into the final LightGBM ranking pipeline.
+However, higher extraction coverage does not necessarily indicate higher accuracy. The updated recommendation approach requires further evaluation and was not integrated into the final LightGBM ranking pipeline. It is separate from the Profile match mode of the app (Section 5.6), which is integrated and uses only the content candidates, the typed skills and a senior-title penalty.
 
 ## 5. Results
 
@@ -273,6 +273,31 @@ All rows are the content retriever on validation. Restricting the search to open
 
 Validation users are split by prior applications. For users with no history (28,120, 60% of validation users) the collaborative retriever scores 0, and the fusion with popularity (RRF3) is best at 0.2632, ahead of popularity alone (0.2149) and content (0.1806). With 3 or more prior applications (9,887 users) collaborative filtering becomes the strongest single retriever (0.3584) and the fusion still leads (0.3639). Content falls from 0.1806 to 0.1376 as history grows, probably because users with history apply to jobs that match their profile text less; we did not test this. So popularity and content carry the cold start and collaborative filtering carries users with history, which is why the pipeline keeps all three. Jobs behave the same way (Section 3.3).
 
+**E3 on the test period** (`src/e3_cold_start_eval.py`). We repeated the analysis on test for every method, the re-ranker and Profile match included, separately for new users and new jobs.
+
+| NDCG@10 on test | 0 prior (28,911 users) | 1-2 (8,962) | 3+ (9,341) | All |
+| --- | --- | --- | --- | --- |
+| Collaborative | 0.0000 | 0.0457 | 0.0949 | 0.0274 |
+| Content | 0.0313 | 0.0334 | 0.0226 | 0.0300 |
+| Profile match | 0.0315 | 0.0335 | 0.0226 | 0.0301 |
+| Popularity | 0.0320 | 0.0327 | 0.0514 | 0.0360 |
+| TF-IDF | 0.0371 | 0.0334 | 0.0247 | 0.0340 |
+| Hybrid RRF3 | 0.0444 | 0.0712 | 0.1012 | 0.0607 |
+| Logistic Regression | 0.0466 | 0.0688 | 0.1084 | 0.0631 |
+| LightGBM re-ranker | 0.0639 | 0.0881 | 0.1227 | 0.0801 |
+
+| New jobs on test (27.4% of targets, 23,160 users) | Recall@10 | Recall@50 | Recall@100 |
+| --- | --- | --- | --- |
+| Popularity | 0.0000 | 0.0000 | 0.0000 |
+| Collaborative | 0.0000 | 0.0000 | 0.0000 |
+| Logistic Regression | 0.0099 | 0.0582 | 0.1225 |
+| Hybrid RRF3 | 0.0217 | 0.0796 | 0.1214 |
+| LightGBM re-ranker | 0.0316 | 0.0770 | 0.1233 |
+| Content / Profile match | 0.0515 | 0.1239 | 0.1754 |
+| TF-IDF | 0.0592 | 0.1407 | 0.1962 |
+
+61% of test users had no prior application. The re-ranker remains the best method for them (NDCG@10 0.064, twice popularity and Profile match), and its advantage grows with history (0.123 for 3 or more applications); collaborative filtering gives nothing for new users. For new jobs, popularity and collaborative filtering cannot recommend them at all, and only the content retrievers reach them (TF-IDF Recall@100 0.196, embeddings 0.175), while the re-ranker drops to 0.123 because it favours jobs with many past applications. Offline logs reward popular local jobs because they record what new users applied to, not what fits their skills; this is why the app also offers Profile match and why the human judgement set is needed to judge relevance for cold-start users. Profile match is evaluated here without the typed skills text, which dataset users do not have, so its score is close to the content retriever.
+
 #### E4. Hard or random negatives?
 
 Both models use the same positives and the same features, limited to features that can be computed for any user-job pair (content cosine, same city, job popularity, job age, days left, history count, years of experience, work history count). The collaborative and rank features are left out so that random negatives, which have none, cannot be told apart by their missing values. Both were early-stopped on validation and scored on all validation candidates.
@@ -292,7 +317,7 @@ We measure the share of top-10 recommendations that go to the 1% most popular op
 
 **Diversity re-scoring.** Inside each user's candidate list the final score subtracts a popularity penalty, so popular jobs lose ground to similar but less popular ones:
 
-adjusted score = z(model score) âˆ’ خ» آ· z(log(1 + job popularity))
+adjusted score = z(model score) − λ · z(log(1 + job popularity))
 
 ![E5: the diversity weight on validation](figures/fig_e5_lambda.png)
 
@@ -326,19 +351,19 @@ The figures in Section 5.4 show the stage-by-stage gain (E1), the choice of text
 
 ### 5.6 Practical Interpretation
 
-The Streamlit app answers a typed profile in 105 ms once warm (1.3 seconds on the first call, including the explanations), on a CPU.
+The Streamlit app answers a typed profile in about 100 ms, on a CPU. The job text of the most used windows and the text encoder are loaded at startup, so the first request also stays fast (88 ms).
 
 | Request | First call | Later calls |
 | --- | --- | --- |
-| Job seeker, ranking and explanations | 1,258 ms (ranking 450, explanations 809) | 105 ms |
+| Job seeker, ranking and explanations | 88 ms after the startup warm-up (1,258 ms before it) | 92 to 107 ms |
 | Recruiter, first click after start (index warmed at startup) | 233 ms (1,668 ms before the warm-up) | 81 to 159 ms |
 | Recruiter, other timed runs | 182 to 471 ms | included in the range |
 
-**Job seeker.** The user types degree, major, years, past roles, optional skills or CV text, a state and an optional city. The profile is encoded with bge-small; the app takes the top 100 jobs by cosine and the 50 most popular jobs of the state, builds the cold-start features and ranks them with `reranker_v2`. The search stays inside one window, by default the one with the most open jobs in that state.
+**Job seeker.** The user types degree, major, years, past roles, optional skills or CV text, a state and an optional city. The profile is encoded with bge-small; the app takes the top 100 jobs by cosine and the 50 most popular jobs of the state, builds the cold-start features and ranks them with `reranker_v2`. In Profile match mode the app instead ranks the 100 content candidates by cosine to the profile plus skills, and pushes senior titles down for users with under 3 years of experience. The search stays inside one window, by default the one with the most open jobs in that state.
 
-**Why this job?** The skills in the user's text and in each recommended job's requirements and description are extracted with Omnia's ESCO matcher (FlashText over ESCO v1.2.1). The shared skills appear in the Why column, and an expander shows each skill with its source and the sentence around it. A job with no shared skill shows a dash instead of an invented reason.
+**Why this job?** The skills in the user's text and in each recommended job's requirements and description are extracted with Omnia's ESCO matcher (FlashText over ESCO v1.2.1). The shared skills appear in the Why column, and an expander shows each skill with its source and the sentence around it. The Why column also names the user's past role most similar to the job title (shared occupation words, ignoring words such as senior or associate) and marks jobs in the typed city. A job with no reason of any kind shows a dash instead of an invented reason.
 
-**Recruiter.** The user types a job title and requirements (or gives an existing JobID) and gets the ten users whose profile embedding is closest to the job, inside the job's window and state. It needs no application history, so it also works for a job nobody has applied to. It is content only, and the Why column is not filled in this direction.
+**Recruiter.** The user types a job title and requirements (or gives an existing JobID) and gets the ten users whose profile embedding is closest to the job, inside the job's window and state. It needs no application history, so it also works for a job nobody has applied to. It is content only. The table shows each candidate's first five past roles, and the Why column lists the job's ESCO skills found in the candidate's major or past roles and the past role most similar to the job title.
 
 **Model artifact.** `artifacts/reranker_v2` holds `model.txt` (LightGBM, 419 KB) and `meta.json` (version 2.0, SHA-256 of the model, feature order, parameters, seed 42, best iteration 116, the three periods, candidate sizes, embedding model, frozen diversity weight and the validation and test results). `tests/test_artifact.py` checks the checksum and loads the model to rank cold-start rows.
 
@@ -348,7 +373,7 @@ The Streamlit app answers a typed profile in 105 ms once warm (1.3 seconds on th
 
 ### 6.1 Error Identification
 
-The failures we can document fall into six categories. Two have counts (validation optimism and popularity concentration); the other four rest on examples and still need a measured count.
+The failures we can document fall into six categories. Three have counts (validation optimism, popularity concentration and cold start); the other three rest on examples and still need a measured count.
 
 ### 6.2 Common Error Patterns
 
@@ -359,7 +384,7 @@ The failures we can document fall into six categories. Two have counts (validati
 | Weak signal for generic jobs | Typed examples: Registered Nurse and Software Developer return nursing and computer-science candidates; Warehouse Associate returns mostly high-school or education profiles with scores 0.702 to 0.727 | A profile text of degree, major and role titles says little about manual work | Embed richer profile text; add skills as a feature |
 | Embeddings no better than keywords | TF-IDF beats bge-small on test (NDCG@10 0.0340 vs 0.0300) | User text is short, so exact words help more than semantics | Fine-tune the embedding model on application pairs |
 | Thin skill matching | From "Customer service, SQL, project management, communication, leadership, sales" the matcher recognised three skills; some evidence sentences are generic or marketing text | The ESCO matcher is deliberately conservative, and generic skills match almost any posting | Measure precision and recall on a labelled sample; weight skills by rarity |
-| Cold start | 38.8% of test users have history; a typed profile has none, so collaborative features are empty. E3 on validation (Recall@100, RRF3): 0.2632 without history, 0.3107 with 1 to 2 prior applications, 0.3639 with 3 or more; the collaborative retriever alone scores 0, 0.1613 and 0.3584 | Without collaborative features the model leans on content, popularity and city, and its quality for fully cold users is not measured here | Evaluate cold and warm users separately for the re-ranker |
+| Cold start | 61% of test users have no prior application. On test the re-ranker scores NDCG@10 0.064 for them against 0.032 for popularity and Profile match, and 0.123 for users with 3 or more applications; collaborative filtering scores 0. For new jobs (27% of test targets) the re-ranker's Recall@100 is 0.123 against 0.196 for TF-IDF and 0.175 for content | Without history the model leans on popularity and city, and a new job has job_pop 0 | Profile match mode in the app; reserve slots or boost exposure for new jobs |
 
 Two smaller issues: some users have no degree or major recorded (several recruiter examples showed this), so their similarity rests on past roles alone, and 57 validation users have no state or window information, so the state-based baselines recommend nothing for them.
 
@@ -377,7 +402,7 @@ A job seeker with a generic profile gets generic jobs; a user with missing field
 
 ### 7.1 Main Threat to Validity
 
-The evaluation is offline and uses implicit feedback: an application is a positive and a missing application is not a dislike, so the metrics reward what users already did, including any bias in what they were shown.
+The evaluation is offline and uses implicit feedback: an application is a positive and a missing application is not a dislike, so the metrics reward what users already did, including any bias in what they were shown. For new users this matters directly: the re-ranker wins offline (E3) because new users mostly applied to popular local jobs, while Profile match returns jobs that fit the typed skills in the demo; the human judgement set is the evidence for which is more relevant.
 
 ### 7.2 Data Limitations
 
@@ -391,10 +416,10 @@ Each method is one trained model, with confidence intervals over users but not o
 
 Hiring is high-stakes, so the system ranks and explains and never rejects: the recruiter reads the list and decides, and a low rank is not a reason to discard a candidate. Scores are ranking scores, comparable only inside one list; in the recruiter view they sit in a narrow band (0.626 to 0.657 in one example), so small differences carry little meaning.
 
-- **Popularity feedback loop.** The re-ranker sends 18.9% of top-10 recommendations to the 1% most popular jobs on test, so less popular and new jobs get fewer views and then fewer applications. The diversity weight lowers this to 14.2% at a cost of 2.2% NDCG@10; the recruiter view reaches jobs with no applications because it uses content only.
+- **Popularity feedback loop.** The re-ranker sends 18.9% of top-10 recommendations to the 1% most popular jobs on test, so less popular and new jobs get fewer views and then fewer applications. The diversity weight lowers this to 14.2% at a cost of 2.2% NDCG@10; the recruiter view reaches jobs with no applications because it uses content only. On test the re-ranker also reaches fewer new jobs than the content retrievers (Recall@100 0.123 against 0.175).
 - **Location as a proxy.** `same_city` is one of the three strongest features of the final model, and the candidate pool is limited to the user's state. City can stand in for income or background, and it should be audited before any real use.
 - **Missing profile fields.** Some users have no degree or major, so their similarity rests on past roles alone and they may be ranked below users with complete profiles.
-- **Explanations.** Matched skills come with the sentence that supports them, and a job with no shared skill shows a dash. The matcher is conservative and its precision and recall are not measured, so a matched skill is evidence to read, not proof of fit.
+- **Explanations.** Matched skills come with the sentence that supports them, the most similar past role is named, and a recommendation with no reason shows a dash. The matcher is conservative and its precision and recall are not measured, so a matched skill is evidence to read, not proof of fit.
 - **Privacy.** The app uses typed profiles only. Any CV used in a demo must be anonymised, and the repository holds no raw data or embeddings.
 
 ### 7.5 Evidence Needed for Trust
@@ -411,7 +436,7 @@ Grade the re-ranker's 186 ungraded recommendations with two independent graders,
 
 ### Priority 2: Make the numbers firmer
 
-Repeat the training with several seeds, because the user-level bootstrap does not cover training randomness, and evaluate cold and warm users separately for the re-ranker.
+Repeat the training with several seeds, because the user-level bootstrap does not cover training randomness, and grade Profile match and the re-ranker side by side on the cold-start CVs of the judgement set.
 
 ### Priority 3 (Optional): Improve the model
 
@@ -459,15 +484,15 @@ python src/build_jobs_text.py
 python -m streamlit run app/app.py
 ```
 
-Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, Business Administration, 5 years, past roles `customer service representative; sales associate`, skills `customer service, SQL, communication`, state CA, then Recommend jobs. **Expected output:** ten ranked jobs with the shared skills in the Why column and the supporting sentence in the expander. In the Recruiter tab, choose a state and a job, or type a new one, then Find candidates for ten ranked candidates.
+Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, Business Administration, 5 years, past roles `customer service representative; sales associate`, skills `customer service, SQL, communication`, state CA, then Recommend jobs. **Expected output:** ten ranked jobs with the shared skills in the Why column and the supporting sentence in the expander. In the Recruiter tab, choose a state and a job, or type a new one, then Find candidates for ten ranked candidates. To show the cold-start mode, set Ranking to Profile match (for example Bachelor's, Artificial Intelligence, 0 years, no past roles, skills `Python, Machine Learning, SQL, Data Analysis`, state CA).
 
 ---
 
 ## Team contributions
 
-- **Aryam:** the open-jobs filter and the fair popularity and TF-IDF baselines, the feature builder and the time-based leakage controls, the LightGBM re-ranker with the popularity candidate source, the Logistic Regression comparison, the hybrid RRF script, experiments E4 and E5, the test pipeline, the Streamlit application, the model artifact with its tests, the bootstrap confidence intervals, and the report.
-- **Layan** : the content (bge-small, FAISS) and collaborative (item-item) retrievers; embedding generation in Colab and its verification; leak-free candidate generation for the training, validation and test periods; the recruiter index and its baselines; experiments E1 to E3 with user-level bootstrap intervals and the popularity-weight sweep; the CV recommendation script used for the judgement set.
-- **Omnia**  job-text cleaning and preparation, ESCO skill extraction and matching for recommendation explanations, participation in the team-built judgement set, and a separate experimental cold-start ranking approach involving experience extraction, seniority matching, location preferences, and caching optimization. The cold-start experiment was not integrated into the final ranking pipeline.
+- **Aryam:** the time-based split and its checks, the open-jobs filter and the fair popularity and TF-IDF baselines (validation and test), the training-period and test candidate runs and the popularity candidate source, the feature builder and the time-based leakage controls, the LightGBM re-ranker, the Logistic Regression comparison, the hybrid RRF script, experiments E4 and E5 and the frozen test run, the cold-start evaluation on test (E3 on test), the Streamlit application (typed-profile recommender, Profile match cold-start mode, typed new-job search for recruiters, and the Why explanations by skills, past roles and location, built on Omnia's ESCO matcher), the model artifact with its tests, the bootstrap confidence intervals, the README and the report.
+- **Layan:** the content (bge-small, FAISS) and collaborative (item-item) retrievers; embedding generation in Colab and its verification; leak-free candidate generation for the training, validation and test periods; the recruiter index and its baselines; experiments E1 to E3 with user-level bootstrap intervals and the popularity-weight sweep; the CV recommendation script used for the judgement set.
+- **Omnia:** job-text cleaning and preparation, ESCO skill extraction and matching for recommendation explanations, participation in the team-built judgement set, and a separate experimental cold-start ranking approach involving experience extraction, seniority matching, location preferences, and caching optimization. The cold-start experiment was not integrated into the final ranking pipeline.
 
 ---
 
@@ -478,7 +503,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 3. Xiao, S., Liu, Z., Zhang, P., Muennighoff, N. C-Pack: packaged resources to advance general Chinese embedding (BGE models). 2023. Model: `BAAI/bge-small-en-v1.5`.
 4. Ke, G. et al. LightGBM: a highly efficient gradient boosting decision tree. NeurIPS 2017.
 5. Cormack, G., Clarke, C., Buettcher, S. Reciprocal rank fusion outperforms Condorcet and individual rank learning methods. SIGIR 2009.
-6. Johnson, J., Douze, M., Jأ©gou, H. Billion-scale similarity search with GPUs (FAISS). IEEE Transactions on Big Data, 2021.
+6. Johnson, J., Douze, M., Jégou, H. Billion-scale similarity search with GPUs (FAISS). IEEE Transactions on Big Data, 2021.
 7. Streamlit, sentence-transformers and scikit-learn documentation.
 
 ---
@@ -489,6 +514,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 - `docs/bootstrap_test_ci.csv`: the bootstrap intervals for P@10, NDCG@10, MAP@10 and Recall@100.
 - `docs/e5_test.txt` and `docs/e5_val_v2.txt`: coverage and popularity concentration on test and validation.
 - `docs/e3_by_history.csv`, `docs/e3_cold_jobs.csv`, `docs/metrics_layan.csv`: the retriever experiments.
+- `docs/e3_cold_users_test.csv` and `docs/e3_cold_jobs_test.csv`: cold-start results on test (new users by prior applications, new jobs), from `src/e3_cold_start_eval.py`.
 - `eval/judgement_set.csv` and `results/judgement/`: the human judgement set and its metrics.
 - `experiment/cold-start-ranking`: Experimental cold-start recommendation improvements, experience extraction, caching optimization, and evaluation limitations. Detailed documentation is available in `reports/cold_start/COLD_START_EXPERIMENT.md` on the experiment branch.
 
