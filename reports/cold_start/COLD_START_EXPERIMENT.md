@@ -53,3 +53,41 @@ Pending:
 1. Human review of recommendation relevance and experience suitability.
 2. Team code review.
 3. Approval before integration into the main recommender.
+
+## Experience Extraction Update (November 1, 2026)
+
+A standalone extraction script was added:
+`scripts/build_cold_start_experience.py`.
+
+The script processes job descriptions and requirements in batches and
+rebuilds `artifacts/cold_start_experience.parquet`.
+
+### Extraction Coverage
+
+| Metric | Previous | Updated |
+|---|---:|---:|
+| Total job records | 1,092,096 | 1,092,096 |
+| Records with detected experience years | 175,281 | 507,611 |
+| Detection coverage | 16.1% | 46.5% |
+
+The updated extraction handles additional expressions such as
+"3-5 years", "5 or more years", and "at least 2-4 years".
+
+### Validation and Limitations
+
+- The extraction script passed its built-in pattern tests.
+- Manual inspection confirmed improved detection for several previously
+  missed experience requirements.
+- Some expressions, including "several years", remain undetected.
+- Higher detection coverage does not establish higher extraction accuracy.
+- The full recommendation comparison was not completed after this update.
+- Previous city-matching and recommendation results refer to the earlier
+  experimental configuration and should not be interpreted as results
+  of the updated experience cache.
+- Recommendation relevance and experience suitability require further
+  evaluation before merging into the main branch.
+
+### Delivery Status
+
+The updated extraction script and cache were pushed in commit `df04b3a`
+to branch `experiment/cold-start-ranking` for team review.
