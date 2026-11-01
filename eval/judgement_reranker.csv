@@ -1,0 +1,301 @@
+cv_id,rank,JobID,WindowID,job_title,job_city,job_state,final_grade,grade_source
+CV-01,1,431409,1,Plant Supervisor,RANCHO CUCAMONGA,CA,0.0,round2_consensus
+CV-01,2,250395,4,Shipping Clerk,GARDEN GROVE,CA,0.0,round2_consensus
+CV-01,3,24143,7,College Recruiter,SANTA MONICA,CA,0.0,round2_consensus
+CV-01,4,357052,5,Health and Fitness Coach,HAYWARD,CA,2.0,round1_agreement
+CV-01,5,73388,5,Sports Minded Professional Entry Level Management Opportunities,SAN DIEGO,CA,0.0,round2_consensus
+CV-01,6,381847,5,Secretary - Immediate Opening,RIVERSIDE,CA,0.0,round2_consensus
+CV-01,7,175117,3,HUMAN RESOURCES GENERALIST,PANORAMA CITY,CA,0.0,round2_consensus
+CV-01,8,199789,7,Fitness Manager,LOS ANGELES,CA,1.0,round1_agreement
+CV-01,9,798421,3,Payroll Assistant,NORTHRIDGE,CA,0.0,round2_consensus
+CV-01,10,797947,5,General Manager,FULLERTON,CA,0.0,round2_consensus
+CV-02,1,477209,3,Registration Coordinator,CARROLLTON,TX,0.0,round2_consensus
+CV-02,2,1091556,3,Healthcare Director of Business Development,ARLINGTON,TX,0.0,round2_consensus
+CV-02,3,897834,6,Medical Sales Representative,HOUSTON,TX,1.0,round2_consensus
+CV-02,4,190924,4,Business Development & Physician Staffing,AUSTIN,TX,0.0,round2_consensus
+CV-02,5,216242,4,Administrative Assistant-$18/hour-Growing Company! -,GRAPEVINE,TX,0.0,round1_agreement
+CV-02,6,1092029,5,Call Center Reps Needed,MESQUITE,TX,0.0,round1_agreement
+CV-02,7,27292,5,CUSTOMER SERVICE,LEWISVILLE,TX,0.0,round2_consensus
+CV-02,8,1113221,4,Customer Service Representatives,RICHARDSON,TX,0.0,round1_agreement
+CV-02,9,562680,5,Customer Service Representative,IRVING,TX,0.0,round1_agreement
+CV-02,10,912402,4,Customer Service Representative,FORT WORTH,TX,0.0,round1_agreement
+CV-03,1,57514,5,Financial Analyst,TAMPA,FL,2.0,round2_consensus
+CV-03,2,860765,5,Financial analyst,MIAMI,FL,2.0,round2_consensus
+CV-03,3,818000,5,Senior Financial Analyst (Budget and Planning),CORAL GABLES,FL,2.0,round2_consensus
+CV-03,4,1090723,5,Financial Analyst,MIAMI,FL,2.0,round2_consensus
+CV-03,5,667393,5,Junior Financial Analyst,TAMPA,FL,1.0,round2_consensus
+CV-03,6,613738,7,Senior Financial Analyst,CELEBRATION,FL,2.0,round2_consensus
+CV-03,7,502447,7,SENIOR FINANCIAL ANALYST,TAMPA,FL,2.0,round1_agreement
+CV-03,8,1114222,4,Senior Financial Analyst,OCOEE,FL,2.0,round2_consensus
+CV-03,9,928680,5,Financial Analyst,BOCA RATON,FL,2.0,round2_consensus
+CV-03,10,143429,6,Sr. Financial Analyst,DORAL,FL,2.0,round2_consensus
+CV-04,1,284122,5,Manager of Supply Chain Operations,CHICAGO,IL,2.0,round1_agreement
+CV-04,2,661733,5,CATEGORY BUYER,CHICAGO,IL,1.0,round2_consensus
+CV-04,3,1062915,6,"Planner - Supply Chain Strategic and Project - Chicago, IL (Tech",CHICAGO,IL,2.0,round2_consensus
+CV-04,4,502797,5,Logistics Inventory Planner,CHICAGO,IL,1.0,round2_consensus
+CV-04,5,1084188,5,Plant Supply Chain and Logistics Manager,BUFFALO GROVE,IL,2.0,round2_consensus
+CV-04,6,634557,5,Transportation Load Planner,DES PLAINES,IL,1.0,round2_consensus
+CV-04,7,595897,4,DIVISION SUPPLY CHAIN MANAGER (5501015),LINCOLNSHIRE,IL,2.0,round1_agreement
+CV-04,8,582030,6,Operations Manager,LIBERTYVILLE,IL,1.0,round2_consensus
+CV-04,9,1055617,5,Supply Chain Analyst,ALSIP,IL,2.0,round2_consensus
+CV-04,10,812773,4,Project Manager,ADDISON,IL,1.0,round2_consensus
+CV-05,1,819541,7,Coll Grad/Receptionist/Recruiting Assistant!!!,NEW YORK,NY,0.0,round2_consensus
+CV-05,2,211303,6,Manager (Database Administration),NEW YORK,NY,1.0,round1_agreement
+CV-05,3,519708,5,Admin/Receptionist with Accounts Payable Skills!,NEW YORK,NY,0.0,round2_consensus
+CV-05,4,851237,6,Payroll/ Human Resources Administrator,NEW YORK,NY,0.0,round2_consensus
+CV-05,5,249546,5,Adminstrative Assistant,NEW YORK,NY,0.0,round2_consensus
+CV-05,6,819544,7,Entry Level Human Resources Assistant,NEW YORK,NY,0.0,round2_consensus
+CV-05,7,842289,4,Administrative Assistant,NEW YORK,NY,0.0,round2_consensus
+CV-05,8,874255,5,DataBase Administrator,SYRACUSE,NY,2.0,round2_consensus
+CV-05,9,954020,7,Admin; SQL Database,LATHAM,NY,2.0,round1_agreement
+CV-05,10,164754,4,Data Entry/Customer Service Specialist,NEW YORK,NY,0.0,round2_consensus
+CV-06,1,1082271,4,STRUCTURAL CAD TECHNICIAN/DESIGNER,TACOMA,WA,1.0,round1_agreement
+CV-06,2,97690,4,Property Manager,KENT,WA,0.0,round2_consensus
+CV-06,3,17650,7,SR. PROJECT DEVELOPER/ CONSTRUCTION MANAGER,SPOKANE,WA,1.0,round1_agreement
+CV-06,4,552406,5,All Positions,TACOMA,WA,0.0,round1_agreement
+CV-06,5,164281,4,Entry Level Management Available Now for Marketing Firm,TUKWILA,WA,0.0,round2_consensus
+CV-06,6,773042,5,Support Staff Position,SHORELINE,WA,0.0,round1_agreement
+CV-06,7,772936,5,Project Coordinator,BELLEVUE,WA,1.0,round1_agreement
+CV-06,8,1084199,5,Customer Relationship Manager,KENT,WA,0.0,round2_consensus
+CV-06,9,816288,4,Office Coordinator - Excellent Pay & Great Benefits!,KIRKLAND,WA,0.0,round2_consensus
+CV-06,10,334793,5,Admin Assistant/Data Entry Specialist,VANCOUVER,WA,0.0,round2_consensus
+CV-07,1,338916,7,General Manager f/Processing/Service & Manufacturing Plant,ATLANTA,GA,2.0,round2_consensus
+CV-07,2,760356,4,Plant Manager / Operations Manager,ATLANTA,GA,2.0,round2_consensus
+CV-07,3,595824,5,Logistics Manager,ATLANTA,GA,1.0,round2_consensus
+CV-07,4,276009,5,Account Manager,SANDY SPRINGS,GA,1.0,round1_recorded_approval
+CV-07,5,255227,5,Operations Manager and Supervisor,MCDONOUGH,GA,2.0,round2_consensus
+CV-07,6,1008511,4,Operations Manager,AUSTELL,GA,2.0,round2_consensus
+CV-07,7,338369,7,Operations Manager,ATLANTA,GA,2.0,round1_agreement
+CV-07,8,150002,5,Inventory Control Analyst,ATLANTA,GA,1.0,round2_consensus
+CV-07,9,638949,5,Project Manager,KENNESAW,GA,1.0,round2_consensus
+CV-07,10,267384,5,Store Manager,MARIETTA,GA,1.0,round2_consensus
+CV-08,1,746522,5,Security Analyst,BOSTON,MA,1.0,round1_recorded_approval
+CV-08,2,323580,7,Recruiting Coordinator,BOSTON,MA,0.0,round2_consensus
+CV-08,3,969610,5,Clinical Liason,SPRINGFIELD,MA,0.0,round1_agreement
+CV-08,4,178596,5,Director of Distribution - Warehouse/Distribution,WORCESTER,MA,0.0,round1_agreement
+CV-08,5,1115349,4,Systems Administrator Jr - Mid Level,FRAMINGHAM,MA,1.0,round2_consensus
+CV-08,6,755853,5,Receptionist,BOSTON,MA,0.0,round1_agreement
+CV-08,7,102606,5,Assistant to the CEO,BOSTON,MA,0.0,round2_consensus
+CV-08,8,879296,4,Customer Service Representative,QUINCY,MA,0.0,round1_agreement
+CV-08,9,402822,5,Front Desk Manager,NEEDHAM,MA,0.0,round2_consensus
+CV-08,10,213291,5,Customer Service Representative,WOBURN,MA,0.0,round1_agreement
+CV-09,1,562807,5,Senior Software Engineer,MORRISVILLE,NC,1.0,round1_agreement
+CV-09,2,964662,5,Software Developer,RALEIGH,NC,2.0,round1_agreement
+CV-09,3,808489,1,Order Processing Specialist,CHARLOTTE,NC,0.0,round2_consensus
+CV-09,4,334371,3,Management Trainees,RALEIGH,NC,0.0,round2_consensus
+CV-09,5,582688,5,Senior Software Engineer,RALEIGH,NC,1.0,round1_recorded_approval
+CV-09,6,189086,6,Senior Software Test Engineer,RALEIGH,NC,1.0,round1_agreement
+CV-09,7,996746,5,HR Call Center Representative,CHARLOTTE,NC,0.0,round1_agreement
+CV-09,8,608971,3,Recieving & Packing Warehouse Associate,MOORESVILLE,NC,0.0,round2_consensus
+CV-09,9,1060948,5,Senior Embedded Software Engineer,GREENSBORO,NC,2.0,round2_consensus
+CV-09,10,900240,5,Receptionist / Administrative Assistant needed immediately,CHARLOTTE,NC,0.0,round1_agreement
+CV-10,1,1072172,5,Development Coordinator,MESA,AZ,2.0,round1_agreement
+CV-10,2,16808,5,Project Manager,PHOENIX,AZ,1.0,round2_consensus
+CV-10,3,980678,4,PROJECT COORDINATOR,CHANDLER,AZ,1.0,round1_agreement
+CV-10,4,911378,4,PROJECT MANAGERS,PHOENIX,AZ,1.0,round2_consensus
+CV-10,5,179038,4,Production Positions,TOLLESON,AZ,0.0,round2_consensus
+CV-10,6,315296,5,Community Manager,PHOENIX,AZ,1.0,round2_consensus
+CV-10,7,1005258,4,Production Planner,TEMPE,AZ,0.0,round1_agreement
+CV-10,8,1022375,6,Sr. Project Manager,PHOENIX,AZ,1.0,round1_recorded_approval
+CV-10,9,933528,3,Medical Billing - NextGen,PHOENIX,AZ,0.0,round2_consensus
+CV-10,10,31715,5,CONSTRUCTION PROJECT COORDINATOR,PHOENIX,AZ,1.0,round2_consensus
+CV-11,1,431409,1,Plant Supervisor,RANCHO CUCAMONGA,CA,0.0,round2_consensus
+CV-11,2,382533,6,Senior Data Scientist- Machine Learning & Algorithms,SAN FRANCISCO,CA,2.0,round1_agreement
+CV-11,3,175117,3,HUMAN RESOURCES GENERALIST,PANORAMA CITY,CA,0.0,round2_consensus
+CV-11,4,962743,3,Computer Tech,LAKE FOREST,CA,0.0,round2_consensus
+CV-11,5,697993,5,Data Analysts - TWO POSITIONS AVAILABLE,ORANGE,CA,1.0,round2_consensus
+CV-11,6,883750,5,Sr Sortware Engineer - Python,LOS ANGELES,CA,1.0,round1_agreement
+CV-11,7,798421,3,Payroll Assistant,NORTHRIDGE,CA,0.0,round2_consensus
+CV-11,8,971581,5,Data Business Analyst,ORANGE,CA,1.0,round2_consensus
+CV-11,9,60706,5,Senior Data Analytics Engineer,CALABASAS,CA,1.0,round1_agreement
+CV-11,10,785417,4,Energy Data Analyst & Programmer,OAKLAND,CA,1.0,round2_consensus
+CV-12,1,1114409,4,LIFE ENRICHMENT AND VOLUNTEER COORDINATOR,MANSFIELD,TX,1.0,round1_recorded_approval
+CV-12,2,378571,3,Technical Recruiter,HOUSTON,TX,0.0,round2_consensus
+CV-12,3,477209,3,Registration Coordinator,CARROLLTON,TX,0.0,round2_consensus
+CV-12,4,564223,5,HR Generalist,HOUSTON,TX,0.0,round2_consensus
+CV-12,5,27292,5,CUSTOMER SERVICE,LEWISVILLE,TX,0.0,round2_consensus
+CV-12,6,216242,4,Administrative Assistant-$18/hour-Growing Company! -,GRAPEVINE,TX,0.0,round1_agreement
+CV-12,7,1092029,5,Call Center Reps Needed,MESQUITE,TX,0.0,round1_agreement
+CV-12,8,562680,5,Customer Service Representative,IRVING,TX,0.0,round1_agreement
+CV-12,9,1113221,4,Customer Service Representatives,RICHARDSON,TX,0.0,round1_agreement
+CV-12,10,912402,4,Customer Service Representative,FORT WORTH,TX,0.0,round1_agreement
+CV-13,1,820968,4,Medical,MIAMI,FL,0.0,round1_agreement
+CV-13,2,78484,3,Externship Coordinator,TAMPA,FL,0.0,round2_consensus
+CV-13,3,578810,6,Patient Recruiter,DELAND,FL,1.0,round1_agreement
+CV-13,4,26851,3,Client Services Coordinator,FORT LAUDERDALE,FL,0.0,round2_consensus
+CV-13,5,220913,5,Medical,MIAMI,FL,0.0,round2_consensus
+CV-13,6,221093,4,medical front/medical assistant,MIAMI,FL,0.0,round2_consensus
+CV-13,7,820985,5,Medical,MIAMI,FL,0.0,round2_consensus
+CV-13,8,1059847,4,Medical Asst,MIAMI,FL,0.0,round2_consensus
+CV-13,9,520842,5,Medical,HOMESTEAD,FL,0.0,round2_consensus
+CV-13,10,300061,1,Customer Service / Administrative Support,ORLANDO,FL,0.0,round2_consensus
+CV-14,1,449205,3,Social Worker,DEERFIELD,IL,1.0,round2_consensus
+CV-14,2,603400,4,PRSC: Social Services,CHICAGO,IL,1.0,round2_consensus
+CV-14,3,851014,5,PRSC / Case Manager,ROCKFORD,IL,1.0,round2_consensus
+CV-14,4,940900,5,Office Services Clerk,CHICAGO,IL,0.0,round1_agreement
+CV-14,5,448879,5,Health Coach,ROCKFORD,IL,1.0,round2_consensus
+CV-14,6,1096776,5,Clinical Documentation Specialist,CHICAGO,IL,2.0,round2_consensus
+CV-14,7,312176,5,3rd shift Shipping,CHICAGO,IL,0.0,round1_agreement
+CV-14,8,1092923,6,"Program Manager, Healthcare Skills Training",CHICAGO,IL,1.0,round1_agreement
+CV-14,9,511754,5,Warehouse/Forklift Operator,NILES,IL,0.0,round1_agreement
+CV-14,10,517202,5,Caregiver,NORTHBROOK,IL,1.0,round2_consensus
+CV-15,1,38663,7,Business Analyst,MOUNT KISCO,NY,2.0,round2_consensus
+CV-15,2,559106,5,Data Entry Processor,WESTBURY,NY,0.0,round2_consensus
+CV-15,3,151457,6,Junior Analyst/ Operation Specialist,NEW YORK,NY,0.0,round2_consensus
+CV-15,4,1008732,4,Financial Analyst - Modeling,NEW YORK,NY,0.0,round2_consensus
+CV-15,5,901005,5,Strategic Marketing Analyst,NEW HYDE PARK,NY,1.0,round2_consensus
+CV-15,6,35152,5,Application Systems Architect,BRONX,NY,1.0,round2_consensus
+CV-15,7,861255,6,IT Business Analyst,CORNING,NY,1.0,round1_agreement
+CV-15,8,479943,5,Business Analyst,NEW YORK,NY,2.0,round2_consensus
+CV-15,9,368723,5,Summer Temp Receptionists,NEW YORK,NY,0.0,round1_agreement
+CV-15,10,663642,3,Seeking an Administrative Assistant / Receptionist,NEW YORK,NY,0.0,round2_consensus
+CV-16,1,1084199,5,Customer Relationship Manager,KENT,WA,1.0,round2_consensus
+CV-16,2,164281,4,Entry Level Management Available Now for Marketing Firm,TUKWILA,WA,0.0,round2_consensus
+CV-16,3,8390,7,Product Manager,ISSAQUAH,WA,1.0,round1_agreement
+CV-16,4,902383,6,"Manager, Application Portfolio & Software Development",SEATTLE,WA,1.0,round1_agreement
+CV-16,5,15873,5,Entry Level Supply Chain Specialist,EVERETT,WA,0.0,round2_consensus
+CV-16,6,47313,6,"Sr. Product Manager, Handset Protection",BELLEVUE,WA,2.0,round1_agreement
+CV-16,7,760230,6,Senior Product Manager,SEATTLE,WA,2.0,round1_agreement
+CV-16,8,547827,3,IT Project Manager,EVERETT,WA,1.0,round2_consensus
+CV-16,9,1080971,7,"Manager, Store Programs",BELLEVUE,WA,1.0,round1_agreement
+CV-16,10,181243,6,Quality Manager (Product Testing/Project Management),BELLEVUE,WA,1.0,round2_consensus
+CV-17,1,883852,3,Staff Accountant to 42k! (Entry Level/Direct Hire),ATLANTA,GA,0.0,round2_consensus
+CV-17,2,388895,5,****Entry Level – 8 POSITIONS – FILLING IMMEDIATELY!!!****,ATLANTA,GA,0.0,round1_agreement
+CV-17,3,897313,2,Processing Technician,ALPHARETTA,GA,0.0,round2_consensus
+CV-17,4,657326,4,Part-Time Help Desk Producers,ATLANTA,GA,1.0,round1_agreement
+CV-17,5,345660,2,Client Services Support Analyst,NORCROSS,GA,0.0,round2_consensus
+CV-17,6,253860,6,Administrative Coordinator,ATLANTA,GA,0.0,round2_consensus
+CV-17,7,457102,3,Marketing Coordinator,POWDER SPRINGS,GA,1.0,round2_consensus
+CV-17,8,568048,5,Insurance Underwriting Support,MARIETTA,GA,0.0,round2_consensus
+CV-17,9,964825,6,Full Time Entry Level Positions,ATLANTA,GA,0.0,round2_consensus
+CV-17,10,165973,5,HR Generalist,ALPHARETTA,GA,0.0,round2_consensus
+CV-18,1,899997,6,Sourcing / Purchasing Pharma R & D,BOSTON,MA,1.0,round2_consensus
+CV-18,2,1009275,6,Pharmacist (20120340),SOUTHBOROUGH,MA,1.0,round1_agreement
+CV-18,3,797104,7,Intake Specialist,WAKEFIELD,MA,1.0,round2_consensus
+CV-18,4,736604,5,Medical Writer,MARLBOROUGH,MA,1.0,round1_agreement
+CV-18,5,1102894,4,Long Term Care Pharmacist,SPRINGFIELD,MA,2.0,round2_consensus
+CV-18,6,1000516,5,Part-Time Pharmacy Technician,CONCORD,MA,1.0,round2_consensus
+CV-18,7,812647,7,Analytical Biochemist,CAMBRIDGE,MA,1.0,round2_consensus
+CV-18,8,360909,4,Senior Apps Chemist BIO,MILFORD,MA,0.0,round1_agreement
+CV-18,9,460843,6,Compliance Specialist,WELLESLEY,MA,1.0,round2_consensus
+CV-18,10,880911,5,Clinical Pharmacist,DORCHESTER,MA,1.0,round1_agreement
+CV-19,1,234893,5,Restaurant Manager,CHARLOTTE,NC,1.0,round2_consensus
+CV-19,2,333206,6,Restaurant Management,CHARLOTTE,NC,1.0,round1_agreement
+CV-19,3,334371,3,Management Trainees,RALEIGH,NC,0.0,round2_consensus
+CV-19,4,808489,1,Order Processing Specialist,CHARLOTTE,NC,0.0,round2_consensus
+CV-19,5,640956,4,5 POSITIONS IMMEDIATLEY AVAILABLE**FULL TRAINING**ENTRY LEVEL,CHARLOTTE,NC,0.0,round2_consensus
+CV-19,6,1062804,6,Culinary Arts Instructor,WILSON,NC,1.0,round1_recorded_approval
+CV-19,7,996746,5,HR Call Center Representative,CHARLOTTE,NC,0.0,round1_agreement
+CV-19,8,900240,5,Receptionist / Administrative Assistant needed immediately,CHARLOTTE,NC,0.0,round1_agreement
+CV-19,9,517780,5,Front Office Person,CHARLOTTE,NC,0.0,round1_agreement
+CV-19,10,1062808,7,"Institutional Cook, Prep-Cook",RALEIGH,NC,2.0,round1_agreement
+CV-20,1,27450,5,Medical Front Office,PHOENIX,AZ,0.0,round2_consensus
+CV-20,2,1051665,4,Technical Support Associate,SCOTTSDALE,AZ,0.0,round2_consensus
+CV-20,3,31744,5,Medical Front Office Receptionist,PHOENIX,AZ,0.0,round2_consensus
+CV-20,4,516250,4,Office Assistant -,PEORIA,AZ,0.0,round1_agreement
+CV-20,5,627888,4,Scientific Research Positions,PHOENIX,AZ,1.0,round2_consensus
+CV-20,6,933528,3,Medical Billing - NextGen,PHOENIX,AZ,0.0,round2_consensus
+CV-20,7,31688,4,Workers Needed,PHOENIX,AZ,0.0,round1_agreement
+CV-20,8,839717,6,Legal Assistant,SCOTTSDALE,AZ,0.0,round2_consensus
+CV-20,9,214618,5,Data Entry Clerk / Healthcare Data Entry / Clerical,PHOENIX,AZ,0.0,round2_consensus
+CV-20,10,631466,4,Vet Receptionist,PHOENIX,AZ,0.0,round1_agreement
+CV-21,1,211208,5,Trial Analyst / Business Analyst,SAN JOSE,CA,1.0,round2_consensus
+CV-21,2,297203,5,Business Analyst,IRVINE,CA,1.0,round2_consensus
+CV-21,3,697993,5,Data Analysts - TWO POSITIONS AVAILABLE,ORANGE,CA,1.0,round1_agreement
+CV-21,4,971581,5,Data Business Analyst,ORANGE,CA,1.0,round1_agreement
+CV-21,5,610709,4,Business Intelligence Analyst,DUBLIN,CA,2.0,round2_consensus
+CV-21,6,1031143,5,System Business Analyst,SAN DIEGO,CA,1.0,round2_consensus
+CV-21,7,355901,6,Data Analyst,LOS ANGELES,CA,2.0,round1_agreement
+CV-21,8,917249,6,Financial Systems Analyst,PASADENA,CA,1.0,round2_consensus
+CV-21,9,478944,6,Operations Excel Analyst,SIMI VALLEY,CA,2.0,round2_consensus
+CV-21,10,845272,5,Sr. Financial Analyst,BURLINGAME,CA,1.0,round2_consensus
+CV-22,1,531193,6,Clinical Director,AUSTIN,TX,1.0,round1_agreement
+CV-22,2,266207,5,Chemical Dependency Unit Manager,ARLINGTON,TX,1.0,round2_consensus
+CV-22,3,740448,7,Behavioral Health Services Therapist,VICTORIA,TX,1.0,round1_agreement
+CV-22,4,531194,6,Clinical Director,DALLAS,TX,1.0,round1_agreement
+CV-22,5,831162,7,Clinical Director,ARLINGTON,TX,1.0,round1_agreement
+CV-22,6,531127,6,Psychologist (5807),AMARILLO,TX,1.0,round2_consensus
+CV-22,7,38594,6,Clinical Director,SAN MARCOS,TX,1.0,round2_consensus
+CV-22,8,27292,5,CUSTOMER SERVICE,LEWISVILLE,TX,0.0,round2_consensus
+CV-22,9,1092029,5,Call Center Reps Needed,MESQUITE,TX,0.0,round1_agreement
+CV-22,10,216242,4,Administrative Assistant-$18/hour-Growing Company! -,GRAPEVINE,TX,0.0,round1_agreement
+CV-23,1,10932,5,Senior Estimator,ORLANDO,FL,1.0,round2_consensus
+CV-23,2,520846,5,Construction,MIAMI,FL,0.0,round2_consensus
+CV-23,3,300061,1,Customer Service / Administrative Support,ORLANDO,FL,0.0,round2_consensus
+CV-23,4,460350,3,Administrative Construction Project Manager,JACKSONVILLE,FL,1.0,round2_consensus
+CV-23,5,764391,5,Building Maintenance Engineer,DAVIE,FL,1.0,round2_consensus
+CV-23,6,751221,6,Structural Engineer,LAKE WORTH,FL,1.0,round2_consensus
+CV-23,7,328329,5,Receptionist,HOLLYWOOD,FL,0.0,round1_agreement
+CV-23,8,300156,3,PROJECT MANAGER,APOPKA,FL,1.0,round2_consensus
+CV-23,9,900787,5,Customer Service/Receptionist - Front Desk Assistant,MIAMI,FL,0.0,round1_agreement
+CV-23,10,771740,4,Customer Service Representative,FORT LAUDERDALE,FL,0.0,round1_agreement
+CV-24,1,1070937,5,Senior Staff Accountant,CHICAGO,IL,2.0,round2_consensus
+CV-24,2,392139,4,"Senior Accountant- $60,000-$80,000",CHICAGO,IL,2.0,round2_consensus
+CV-24,3,1268,6,Senior Accountant,CHICAGO,IL,2.0,round2_consensus
+CV-24,4,575994,5,Senior Accountant,CRETE,IL,2.0,round1_agreement
+CV-24,5,1014501,7,Senior Accountant - Chicago Loop!,CHICAGO,IL,2.0,round2_consensus
+CV-24,6,778062,5,Accountant (2012097),CHICAGO,IL,2.0,round2_consensus
+CV-24,7,782691,5,Financial Analyst,WOODRIDGE,IL,1.0,round2_consensus
+CV-24,8,578526,4,Accountant for top tier investment management firm,CHICAGO,IL,2.0,round2_consensus
+CV-24,9,543926,4,Accounting Clerk,LOMBARD,IL,1.0,round2_consensus
+CV-24,10,235308,6,Senior Accountant,LAKE FOREST,IL,2.0,round1_agreement
+CV-25,1,798952,5,Graphic Designer,NEW YORK,NY,2.0,round1_agreement
+CV-25,2,146608,6,Junior Designer,NEW YORK,NY,2.0,round1_agreement
+CV-25,3,642529,5,Senior Graphic Designer,NEW YORK,NY,2.0,round1_agreement
+CV-25,4,23301,6,Graphic Artist,NEW YORK,NY,2.0,round2_consensus
+CV-25,5,1062238,7,Digital Marketing & Design Coordinator,NEW YORK,NY,2.0,round1_agreement
+CV-25,6,581700,5,Graphic Designer,NEW YORK,NY,1.0,round1_agreement
+CV-25,7,663642,3,Seeking an Administrative Assistant / Receptionist,NEW YORK,NY,0.0,round2_consensus
+CV-25,8,35487,6,Senior Designer,MANHASSET,NY,2.0,round2_consensus
+CV-25,9,925651,5,Senior Designer,NEW YORK,NY,2.0,round2_consensus
+CV-25,10,819541,7,Coll Grad/Receptionist/Recruiting Assistant!!!,NEW YORK,NY,0.0,round2_consensus
+CV-26,1,501344,7,Web Developer,REDMOND,WA,1.0,round1_agreement
+CV-26,2,78813,6,Web Developer II,SEATTLE,WA,2.0,round1_agreement
+CV-26,3,1031842,7,Web Developer/Designer 1,BELLEVUE,WA,1.0,round1_agreement
+CV-26,4,910187,7,Web Applications Developer,TACOMA,WA,1.0,round1_agreement
+CV-26,5,32384,4,Accounts Payable Specialist,KIRKLAND,WA,0.0,round2_consensus
+CV-26,6,317997,6,"Front-End Developer: Ruby, HTML/CSS/JavaScript",SEATTLE,WA,1.0,round1_agreement
+CV-26,7,402851,6,Web Developer (Level V),LYNNWOOD,WA,1.0,round1_agreement
+CV-26,8,552406,5,All Positions,TACOMA,WA,0.0,round1_agreement
+CV-26,9,773042,5,Support Staff Position,SHORELINE,WA,0.0,round1_agreement
+CV-26,10,772936,5,Project Coordinator,BELLEVUE,WA,0.0,round1_agreement
+CV-27,1,897313,2,Processing Technician,ALPHARETTA,GA,0.0,round2_consensus
+CV-27,2,345660,2,Client Services Support Analyst,NORCROSS,GA,0.0,round2_consensus
+CV-27,3,311075,1,Outside Sales Consultant for Food and Janitorial Industry,ATLANTA,GA,0.0,round2_consensus
+CV-27,4,368785,5,Administrative Assistant,ATLANTA,GA,0.0,round1_agreement
+CV-27,5,149439,6,Principal Staff Software Engineer - Cloud Architecture,ALPHARETTA,GA,1.0,round1_agreement
+CV-27,6,771886,6,Network Operations Manager,ATLANTA,GA,1.0,round2_consensus
+CV-27,7,151832,4,Mail Clerk/ Runner,ATLANTA,GA,0.0,round1_agreement
+CV-27,8,156020,5,Cloud Technical Support,ATLANTA,GA,1.0,round1_agreement
+CV-27,9,754869,6,Cloud Architect,ALPHARETTA,GA,1.0,round1_recorded_approval
+CV-27,10,42838,5,Receptionist/ Accounting Assistant,ATLANTA,GA,0.0,round2_consensus
+CV-28,1,969610,5,Clinical Liason,SPRINGFIELD,MA,0.0,round1_agreement
+CV-28,2,178596,5,Director of Distribution - Warehouse/Distribution,WORCESTER,MA,0.0,round1_agreement
+CV-28,3,755853,5,Receptionist,BOSTON,MA,0.0,round1_agreement
+CV-28,4,305850,5,Entry Level Engineer,BOSTON,MA,0.0,round2_consensus
+CV-28,5,102606,5,Assistant to the CEO,BOSTON,MA,0.0,round2_consensus
+CV-28,6,879296,4,Customer Service Representative,QUINCY,MA,0.0,round1_agreement
+CV-28,7,402822,5,Front Desk Manager,NEEDHAM,MA,0.0,round2_consensus
+CV-28,8,213291,5,Customer Service Representative,WOBURN,MA,0.0,round1_agreement
+CV-28,9,559246,5,Administrative Assistant / Receptionist,BOSTON,MA,0.0,round2_consensus
+CV-28,10,759166,5,Call Center Representative,BEDFORD,MA,0.0,round2_consensus
+CV-29,1,597790,5,Dental Administrator,RALEIGH,NC,1.0,round1_agreement
+CV-29,2,1082778,4,Office Leader,WILMINGTON,NC,1.0,round1_agreement
+CV-29,3,553145,4,Front Desk Receptionist / Patient Relations Coordinator,SALISBURY,NC,0.0,round2_consensus
+CV-29,4,808489,1,Order Processing Specialist,CHARLOTTE,NC,0.0,round2_consensus
+CV-29,5,608971,3,Recieving & Packing Warehouse Associate,MOORESVILLE,NC,0.0,round2_consensus
+CV-29,6,524919,6,Dentist,WILSON,NC,1.0,round1_agreement
+CV-29,7,334371,3,Management Trainees,RALEIGH,NC,0.0,round2_consensus
+CV-29,8,996746,5,HR Call Center Representative,CHARLOTTE,NC,0.0,round1_agreement
+CV-29,9,1082783,5,Front Desk Receptionist / Patient Relations Coordinator,JACKSONVILLE,NC,0.0,round2_consensus
+CV-29,10,817984,6,Admissions Specialist,CHARLOTTE,NC,0.0,round2_consensus
+CV-30,1,980678,4,PROJECT COORDINATOR,CHANDLER,AZ,0.0,round2_consensus
+CV-30,2,1072172,5,Development Coordinator,MESA,AZ,0.0,round2_consensus
+CV-30,3,179038,4,Production Positions,TOLLESON,AZ,0.0,round2_consensus
+CV-30,4,919913,3,Medical Assistant (MA),PHOENIX,AZ,0.0,round2_consensus
+CV-30,5,933528,3,Medical Billing - NextGen,PHOENIX,AZ,0.0,round2_consensus
+CV-30,6,338885,4,Career Services Coordinator,SCOTTSDALE,AZ,0.0,round2_consensus
+CV-30,7,186372,7,Composite Aircraft Technician,SCOTTSDALE,AZ,1.0,round2_consensus
+CV-30,8,747907,3,"Account Administrator, Executive Benefits",SCOTTSDALE,AZ,0.0,round2_consensus
+CV-30,9,27450,5,Medical Front Office,PHOENIX,AZ,0.0,round2_consensus
+CV-30,10,1100056,4,Field Resource Coordinator / Dispatcher,GILBERT,AZ,0.0,round2_consensus

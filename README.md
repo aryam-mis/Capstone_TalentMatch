@@ -116,8 +116,8 @@ All numbers are in `docs/test_results.csv`. Hard negatives beat random negatives
 - The data is US applications from April to June 2012 in seven independent windows, not the Saudi market.
 - Popularity bias: the re-ranker favours popular jobs; the diversity weight only reduces it.
 - The skill matcher (ESCO, FlashText) is conservative and its precision is not measured.
-- The recruiter view is content only and does not match years of experience. The re-ranker favours popular jobs and ranks new jobs lower. Its own recommendations are not yet graded in the human judgement set.
-- Next: grade the re-ranker and Profile match in the judgement set, repeat training with several seeds, support Arabic and English CVs with a multilingual embedding model, richer profile text, diversity-aware training and fairer exposure for new jobs.
+- The recruiter view is content only and does not match years of experience. The re-ranker favours popular jobs and ranks new jobs lower. In the human judgement set its recommendations are less relevant than content only (Precision@10 50.3% against 73.3%).
+- Next: re-grade a sample with two independent human graders, grade Profile match on the same CVs, repeat training with several seeds, support Arabic and English CVs with a multilingual embedding model, richer profile text, diversity-aware training and fairer exposure for new jobs.
 
 ## Responsible AI
 
@@ -129,7 +129,7 @@ Hiring is high-stakes: the system ranks and explains and never rejects, scores a
 
 ## Human judgement set
 
-`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. Because of the time available, the first pass was AI-assisted, so the reviewer agreement (90.93%, Cohen's kappa 0.843) is an upper bound; 40 of the 41 disagreements were resolved with team approval (ITEM-0156 is unresolved). Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
+`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. Because of the time available, the grades were AI-assisted drafts approved by team members, so the draft agreement (90.93%, Cohen's kappa 0.843) is not independent human agreement; 40 of the 41 disagreements were resolved with team approval (ITEM-0156 is unresolved). The re-ranker's top 10 for the same CVs (300 pairs) was graded the same way in a second round (`eval/judgement_reranker.csv`): Precision@10 73.3% for content only, 50.3% for the re-ranker and 38.7% for content with popularity. Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
 
 ## How to run (for reviewers)
 
