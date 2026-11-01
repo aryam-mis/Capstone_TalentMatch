@@ -1,0 +1,301 @@
+cv_id,rank,Title,City,State,JobID,WindowID,job_pop,score,content_cos,item_id,already_graded,final_grade,grade_source
+CV-01,1,Plant Supervisor,RANCHO CUCAMONGA,CA,431409,1,14.0,0.1217280107220401,0.62948644,,False,0.0,round2_consensus
+CV-01,2,Shipping Clerk,GARDEN GROVE,CA,250395,4,37.0,0.0893176151602096,0.6985566,,False,0.0,round2_consensus
+CV-01,3,College Recruiter,SANTA MONICA,CA,24143,7,4.0,0.0590628975679166,0.745781,,False,0.0,round2_consensus
+CV-01,4,Health and Fitness Coach,HAYWARD,CA,357052,5,1.0,0.0503648422022033,0.8445945,ITEM-0221,True,2.0,round1_agreement
+CV-01,5,Sports Minded Professional Entry Level Management Opportunities,SAN DIEGO,CA,73388,5,3.0,-0.0197365848082152,0.7573496,,False,0.0,round2_consensus
+CV-01,6,Secretary - Immediate Opening,RIVERSIDE,CA,381847,5,16.0,-0.070089274929971,0.7179598,,False,0.0,round2_consensus
+CV-01,7,HUMAN RESOURCES GENERALIST,PANORAMA CITY,CA,175117,3,15.0,-0.0906310661679667,0.6499411,,False,0.0,round2_consensus
+CV-01,8,Fitness Manager,LOS ANGELES,CA,199789,7,0.0,-0.1174429976681821,0.8027427,ITEM-0300,True,1.0,round1_agreement
+CV-01,9,Payroll Assistant,NORTHRIDGE,CA,798421,3,9.0,-0.1300239761905411,0.6076328,,False,0.0,round2_consensus
+CV-01,10,General Manager,FULLERTON,CA,797947,5,14.0,-0.1467568442666383,0.7195311,,False,0.0,round2_consensus
+CV-02,1,Registration Coordinator,CARROLLTON,TX,477209,3,6.0,0.670917217716355,0.76754725,,False,0.0,round2_consensus
+CV-02,2,Healthcare Director of Business Development,ARLINGTON,TX,1091556,3,4.0,0.2612205785612003,0.74258393,,False,0.0,round2_consensus
+CV-02,3,Medical Sales Representative,HOUSTON,TX,897834,6,6.0,0.238193448352168,0.7679144,,False,1.0,round2_consensus
+CV-02,4,Business Development & Physician Staffing,AUSTIN,TX,190924,4,6.0,0.2196515721021686,0.76334214,,False,0.0,round2_consensus
+CV-02,5,Administrative Assistant-$18/hour-Growing Company! -,GRAPEVINE,TX,216242,4,118.0,0.1955357152585153,,ITEM-0172,True,0.0,round1_agreement
+CV-02,6,Call Center Reps Needed,MESQUITE,TX,1092029,5,110.0,0.1955357152585153,,ITEM-0222,True,0.0,round1_agreement
+CV-02,7,CUSTOMER SERVICE,LEWISVILLE,TX,27292,5,106.0,0.1870910595027592,,,False,0.0,round2_consensus
+CV-02,8,Customer Service Representatives,RICHARDSON,TX,1113221,4,140.0,0.1530851819283227,,ITEM-0227,True,0.0,round1_agreement
+CV-02,9,Customer Service Representative,IRVING,TX,562680,5,113.0,0.1530851819283227,,ITEM-0105,True,0.0,round1_agreement
+CV-02,10,Customer Service Representative,FORT WORTH,TX,912402,4,112.0,0.1363080949512495,,ITEM-0345,True,0.0,round1_agreement
+CV-03,1,Financial Analyst,TAMPA,FL,57514,5,9.0,0.9148304923052636,0.84842825,,False,2.0,round2_consensus
+CV-03,2,Financial analyst,MIAMI,FL,860765,5,18.0,0.8928575057395342,0.84718376,,False,2.0,round2_consensus
+CV-03,3,Senior Financial Analyst (Budget and Planning),CORAL GABLES,FL,818000,5,8.0,0.8217292970134037,0.8321535,,False,2.0,round2_consensus
+CV-03,4,Financial Analyst,MIAMI,FL,1090723,5,4.0,0.7093335265200073,0.83436,,False,2.0,round2_consensus
+CV-03,5,Junior Financial Analyst,TAMPA,FL,667393,5,14.0,0.659979278564108,0.80048853,,False,1.0,round2_consensus
+CV-03,6,Senior Financial Analyst,CELEBRATION,FL,613738,7,2.0,0.6397359839303327,0.84038806,,False,2.0,round2_consensus
+CV-03,7,SENIOR FINANCIAL ANALYST,TAMPA,FL,502447,7,2.0,0.6021497509855754,0.85327536,ITEM-0095,True,2.0,round1_agreement
+CV-03,8,Senior Financial Analyst,OCOEE,FL,1114222,4,4.0,0.5708168447944842,0.8395405,,False,2.0,round2_consensus
+CV-03,9,Financial Analyst,BOCA RATON,FL,928680,5,3.0,0.5581448186473811,0.84121907,,False,2.0,round2_consensus
+CV-03,10,Sr. Financial Analyst,DORAL,FL,143429,6,3.0,0.5546836963537249,0.826761,,False,2.0,round2_consensus
+CV-04,1,Manager of Supply Chain Operations,CHICAGO,IL,284122,5,14.0,0.9227113419019404,0.8820163,ITEM-0099,True,2.0,round1_agreement
+CV-04,2,CATEGORY BUYER,CHICAGO,IL,661733,5,7.0,0.7233770279700112,0.8137138,,False,1.0,round2_consensus
+CV-04,3,"Planner - Supply Chain Strategic and Project - Chicago, IL (Tech",CHICAGO,IL,1062915,6,2.0,0.6178250615797903,0.827083,,False,2.0,round2_consensus
+CV-04,4,Logistics Inventory Planner,CHICAGO,IL,502797,5,5.0,0.5622450616673527,0.825097,,False,1.0,round2_consensus
+CV-04,5,Plant Supply Chain and Logistics Manager,BUFFALO GROVE,IL,1084188,5,18.0,0.5577144170618943,0.8129997,,False,2.0,round2_consensus
+CV-04,6,Transportation Load Planner,DES PLAINES,IL,634557,5,23.0,0.5119513615489997,0.7715582,,False,1.0,round2_consensus
+CV-04,7,DIVISION SUPPLY CHAIN MANAGER (5501015),LINCOLNSHIRE,IL,595897,4,3.0,0.5086667474524842,0.8844651,ITEM-0285,True,2.0,round1_agreement
+CV-04,8,Operations Manager,LIBERTYVILLE,IL,582030,6,6.0,0.4165848810901418,0.7678059,,False,1.0,round2_consensus
+CV-04,9,Supply Chain Analyst,ALSIP,IL,1055617,5,3.0,0.4119818126701607,0.81443965,,False,2.0,round2_consensus
+CV-04,10,Project Manager,ADDISON,IL,812773,4,24.0,0.4032610611892536,0.75381136,,False,1.0,round2_consensus
+CV-05,1,Coll Grad/Receptionist/Recruiting Assistant!!!,NEW YORK,NY,819541,7,17.0,0.7096396099926795,0.7364122,,False,0.0,round2_consensus
+CV-05,2,Manager (Database Administration),NEW YORK,NY,211303,6,1.0,0.3824728374313286,0.8345506,ITEM-0262,True,1.0,round1_agreement
+CV-05,3,Admin/Receptionist with Accounts Payable Skills!,NEW YORK,NY,519708,5,58.0,0.3563839745483116,0.7183931,,False,0.0,round2_consensus
+CV-05,4,Payroll/ Human Resources Administrator,NEW YORK,NY,851237,6,11.0,0.3455021466631679,0.7154616,,False,0.0,round2_consensus
+CV-05,5,Adminstrative Assistant,NEW YORK,NY,249546,5,69.0,0.3432733662734738,0.72096705,,False,0.0,round2_consensus
+CV-05,6,Entry Level Human Resources Assistant,NEW YORK,NY,819544,7,25.0,0.2980739479333101,0.68852085,,False,0.0,round2_consensus
+CV-05,7,Administrative Assistant,NEW YORK,NY,842289,4,88.0,0.2900583020134626,0.68265486,,False,0.0,round2_consensus
+CV-05,8,DataBase Administrator,SYRACUSE,NY,874255,5,2.0,0.2461617965930087,0.8002008,,False,2.0,round2_consensus
+CV-05,9,Admin; SQL Database,LATHAM,NY,954020,7,0.0,0.2270826486335478,0.8374716,ITEM-0117,True,2.0,round1_agreement
+CV-05,10,Data Entry/Customer Service Specialist,NEW YORK,NY,164754,4,37.0,0.1479970559830838,0.6953542,,False,0.0,round2_consensus
+CV-06,1,STRUCTURAL CAD TECHNICIAN/DESIGNER,TACOMA,WA,1082271,4,5.0,0.3132902777976934,0.72795665,ITEM-0127,True,1.0,round1_agreement
+CV-06,2,Property Manager,KENT,WA,97690,4,6.0,-0.0273517924348388,0.6937672,,False,0.0,round2_consensus
+CV-06,3,SR. PROJECT DEVELOPER/ CONSTRUCTION MANAGER,SPOKANE,WA,17650,7,1.0,-0.1072351752313346,0.7462746,ITEM-0408,True,1.0,round1_agreement
+CV-06,4,All Positions,TACOMA,WA,552406,5,17.0,-0.2797578546313858,,ITEM-0368,True,0.0,round1_agreement
+CV-06,5,Entry Level Management Available Now for Marketing Firm,TUKWILA,WA,164281,4,4.0,-0.2904745273904153,0.6836575,,False,0.0,round2_consensus
+CV-06,6,Support Staff Position,SHORELINE,WA,773042,5,20.0,-0.3032803070007712,,ITEM-0356,True,0.0,round1_agreement
+CV-06,7,Project Coordinator,BELLEVUE,WA,772936,5,15.0,-0.343107496420947,,ITEM-0235,True,1.0,round1_agreement
+CV-06,8,Customer Relationship Manager,KENT,WA,1084199,5,14.0,-0.3590284892971163,,,False,0.0,round2_consensus
+CV-06,9,Office Coordinator - Excellent Pay & Great Benefits!,KIRKLAND,WA,816288,4,14.0,-0.3653473876047919,,,False,0.0,round2_consensus
+CV-06,10,Admin Assistant/Data Entry Specialist,VANCOUVER,WA,334793,5,12.0,-0.3766065843476349,,,False,0.0,round2_consensus
+CV-07,1,General Manager f/Processing/Service & Manufacturing Plant,ATLANTA,GA,338916,7,5.0,0.8538778507698077,0.7777668,,False,2.0,round2_consensus
+CV-07,2,Plant Manager / Operations Manager,ATLANTA,GA,760356,4,16.0,0.8285877317730249,0.7896229,,False,2.0,round2_consensus
+CV-07,3,Logistics Manager,ATLANTA,GA,595824,5,6.0,0.8105743322242945,0.79742885,,False,1.0,round2_consensus
+CV-07,4,Account Manager,SANDY SPRINGS,GA,276009,5,28.0,0.7005740053674961,0.78457355,ITEM-0154,True,1.0,round1_recorded_approval
+CV-07,5,Operations Manager and Supervisor,MCDONOUGH,GA,255227,5,5.0,0.6811568185118806,0.7960849,,False,2.0,round2_consensus
+CV-07,6,Operations Manager,AUSTELL,GA,1008511,4,19.0,0.6544177335107417,0.78482985,,False,2.0,round2_consensus
+CV-07,7,Operations Manager,ATLANTA,GA,338369,7,2.0,0.6395662270957246,0.84409654,ITEM-0383,True,2.0,round1_agreement
+CV-07,8,Inventory Control Analyst,ATLANTA,GA,150002,5,60.0,0.5515861995498461,0.7550224,,False,1.0,round2_consensus
+CV-07,9,Project Manager,KENNESAW,GA,638949,5,17.0,0.5182263869735562,0.78706217,,False,1.0,round2_consensus
+CV-07,10,Store Manager,MARIETTA,GA,267384,5,25.0,0.4982974823459168,0.76449823,,False,1.0,round2_consensus
+CV-08,1,Security Analyst,BOSTON,MA,746522,5,0.0,0.0306872765521945,0.79937696,ITEM-0171,True,1.0,round1_recorded_approval
+CV-08,2,Recruiting Coordinator,BOSTON,MA,323580,7,3.0,-0.0992493140642644,0.6708961,,False,0.0,round2_consensus
+CV-08,3,Clinical Liason,SPRINGFIELD,MA,969610,5,22.0,-0.2160515372112189,,ITEM-0432,True,0.0,round1_agreement
+CV-08,4,Director of Distribution - Warehouse/Distribution,WORCESTER,MA,178596,5,24.0,-0.2251907853345836,,ITEM-0338,True,0.0,round1_agreement
+CV-08,5,Systems Administrator Jr - Mid Level,FRAMINGHAM,MA,1115349,4,4.0,-0.2479374972685426,0.7022524,,False,1.0,round2_consensus
+CV-08,6,Receptionist,BOSTON,MA,755853,5,19.0,-0.2618514981499938,,ITEM-0446,True,0.0,round1_agreement
+CV-08,7,Assistant to the CEO,BOSTON,MA,102606,5,17.0,-0.30506481067591,,,False,0.0,round2_consensus
+CV-08,8,Customer Service Representative,QUINCY,MA,879296,4,20.0,-0.3131305137956256,,ITEM-0378,True,0.0,round1_agreement
+CV-08,9,Front Desk Manager,NEEDHAM,MA,402822,5,16.0,-0.324653881342486,,,False,0.0,round2_consensus
+CV-08,10,Customer Service Representative,WOBURN,MA,213291,5,18.0,-0.3418423556347481,,ITEM-0009,True,0.0,round1_agreement
+CV-09,1,Senior Software Engineer,MORRISVILLE,NC,562807,5,1.0,0.399167074942618,0.85014737,ITEM-0067,True,1.0,round1_agreement
+CV-09,2,Software Developer,RALEIGH,NC,964662,5,1.0,0.1594439582393036,0.8130124,ITEM-0324,True,2.0,round1_agreement
+CV-09,3,Order Processing Specialist,CHARLOTTE,NC,808489,1,5.0,0.1357423120130534,0.5708345,,False,0.0,round2_consensus
+CV-09,4,Management Trainees,RALEIGH,NC,334371,3,31.0,0.1045675042721401,0.671181,,False,0.0,round2_consensus
+CV-09,5,Senior Software Engineer,RALEIGH,NC,582688,5,0.0,0.103507549790269,0.85020345,ITEM-0302,True,1.0,round1_recorded_approval
+CV-09,6,Senior Software Test Engineer,RALEIGH,NC,189086,6,0.0,0.0821646097055258,0.8264993,ITEM-0269,True,1.0,round1_agreement
+CV-09,7,HR Call Center Representative,CHARLOTTE,NC,996746,5,97.0,0.0791766563163444,,ITEM-0397,True,0.0,round1_agreement
+CV-09,8,Recieving & Packing Warehouse Associate,MOORESVILLE,NC,608971,3,21.0,0.04904835189125,0.5398735,,False,0.0,round2_consensus
+CV-09,9,Senior Embedded Software Engineer,GREENSBORO,NC,1060948,5,2.0,0.0442298372342525,0.8043319,,False,2.0,round2_consensus
+CV-09,10,Receptionist / Administrative Assistant needed immediately,CHARLOTTE,NC,900240,5,94.0,0.0289886602829697,,ITEM-0241,True,0.0,round1_agreement
+CV-10,1,Development Coordinator,MESA,AZ,1072172,5,13.0,0.6412374056040372,0.767251,ITEM-0350,True,2.0,round1_agreement
+CV-10,2,Project Manager,PHOENIX,AZ,16808,5,11.0,0.255464293903223,0.73086274,,False,1.0,round2_consensus
+CV-10,3,PROJECT COORDINATOR,CHANDLER,AZ,980678,4,31.0,0.244143384613738,0.6999124,ITEM-0110,True,1.0,round1_agreement
+CV-10,4,PROJECT MANAGERS,PHOENIX,AZ,911378,4,10.0,0.1886377253297325,0.72578335,,False,1.0,round2_consensus
+CV-10,5,Production Positions,TOLLESON,AZ,179038,4,41.0,0.0308271057976822,0.6844431,,False,0.0,round2_consensus
+CV-10,6,Community Manager,PHOENIX,AZ,315296,5,6.0,0.0103102429129017,0.72286624,,False,1.0,round2_consensus
+CV-10,7,Production Planner,TEMPE,AZ,1005258,4,4.0,0.003424526939174,0.733501,ITEM-0363,True,0.0,round1_agreement
+CV-10,8,Sr. Project Manager,PHOENIX,AZ,1022375,6,1.0,-0.0978238455254712,0.7482524,ITEM-0340,True,1.0,round1_recorded_approval
+CV-10,9,Medical Billing - NextGen,PHOENIX,AZ,933528,3,8.0,-0.0980234752881082,0.58086985,,False,0.0,round2_consensus
+CV-10,10,CONSTRUCTION PROJECT COORDINATOR,PHOENIX,AZ,31715,5,10.0,-0.1149311654286805,0.6855943,,False,1.0,round2_consensus
+CV-11,1,Plant Supervisor,RANCHO CUCAMONGA,CA,431409,1,14.0,0.188396207736379,0.5809705,,False,0.0,round2_consensus
+CV-11,2,Senior Data Scientist- Machine Learning & Algorithms,SAN FRANCISCO,CA,382533,6,0.0,0.0173985505144068,0.8008326,ITEM-0139,True,2.0,round1_agreement
+CV-11,3,HUMAN RESOURCES GENERALIST,PANORAMA CITY,CA,175117,3,15.0,-0.0265124455167641,0.5643635,,False,0.0,round2_consensus
+CV-11,4,Computer Tech,LAKE FOREST,CA,962743,3,18.0,-0.0334637971823861,0.62030375,,False,0.0,round2_consensus
+CV-11,5,Data Analysts - TWO POSITIONS AVAILABLE,ORANGE,CA,697993,5,8.0,-0.0498614240782546,0.72529984,,False,1.0,round2_consensus
+CV-11,6,Sr Sortware Engineer - Python,LOS ANGELES,CA,883750,5,1.0,-0.0661307206080651,0.7770779,ITEM-0016,True,1.0,round1_agreement
+CV-11,7,Payroll Assistant,NORTHRIDGE,CA,798421,3,9.0,-0.0928629337050739,0.5727082,,False,0.0,round2_consensus
+CV-11,8,Data Business Analyst,ORANGE,CA,971581,5,5.0,-0.0930730110430433,0.7174493,,False,1.0,round2_consensus
+CV-11,9,Senior Data Analytics Engineer,CALABASAS,CA,60706,5,1.0,-0.1505741343260986,0.74590635,ITEM-0270,True,1.0,round1_agreement
+CV-11,10,Energy Data Analyst & Programmer,OAKLAND,CA,785417,4,4.0,-0.2425157696768483,0.7096276,,False,1.0,round2_consensus
+CV-12,1,LIFE ENRICHMENT AND VOLUNTEER COORDINATOR,MANSFIELD,TX,1114409,4,12.0,0.4402900345057696,0.74847925,ITEM-0137,True,1.0,round1_recorded_approval
+CV-12,2,Technical Recruiter,HOUSTON,TX,378571,3,23.0,0.1572723296180503,0.6346034,,False,0.0,round2_consensus
+CV-12,3,Registration Coordinator,CARROLLTON,TX,477209,3,6.0,0.1396631136765558,0.68143785,,False,0.0,round2_consensus
+CV-12,4,HR Generalist,HOUSTON,TX,564223,5,19.0,0.0480538094361788,0.71258175,,False,0.0,round2_consensus
+CV-12,5,CUSTOMER SERVICE,LEWISVILLE,TX,27292,5,106.0,0.0414506965774648,,,False,0.0,round2_consensus
+CV-12,6,Administrative Assistant-$18/hour-Growing Company! -,GRAPEVINE,TX,216242,4,118.0,0.0360151643146621,,ITEM-0246,True,0.0,round1_agreement
+CV-12,7,Call Center Reps Needed,MESQUITE,TX,1092029,5,110.0,0.0360151643146621,,ITEM-0190,True,0.0,round1_agreement
+CV-12,8,Customer Service Representative,IRVING,TX,562680,5,113.0,-0.0064353690155305,,ITEM-0399,True,0.0,round1_agreement
+CV-12,9,Customer Service Representatives,RICHARDSON,TX,1113221,4,140.0,-0.0064353690155305,,ITEM-0199,True,0.0,round1_agreement
+CV-12,10,Customer Service Representative,FORT WORTH,TX,912402,4,112.0,-0.0093322679740449,,ITEM-0144,True,0.0,round1_agreement
+CV-13,1,Medical,MIAMI,FL,820968,4,50.0,0.7145312668912303,0.73017275,ITEM-0402,True,0.0,round1_agreement
+CV-13,2,Externship Coordinator,TAMPA,FL,78484,3,16.0,0.3965514439963261,0.69581383,,False,0.0,round2_consensus
+CV-13,3,Patient Recruiter,DELAND,FL,578810,6,6.0,0.3162933146202503,0.75969505,ITEM-0057,True,1.0,round1_agreement
+CV-13,4,Client Services Coordinator,FORT LAUDERDALE,FL,26851,3,25.0,0.2641658068295952,0.68524504,,False,0.0,round2_consensus
+CV-13,5,Medical,MIAMI,FL,220913,5,19.0,0.2127416293554613,0.73017275,,False,0.0,round2_consensus
+CV-13,6,medical front/medical assistant,MIAMI,FL,221093,4,55.0,0.1637606789869174,0.691151,,False,0.0,round2_consensus
+CV-13,7,Medical,MIAMI,FL,820985,5,32.0,0.1583709662030151,0.73017275,,False,0.0,round2_consensus
+CV-13,8,Medical Asst,MIAMI,FL,1059847,4,13.0,0.132769515644353,0.7178464,,False,0.0,round2_consensus
+CV-13,9,Medical,HOMESTEAD,FL,520842,5,10.0,0.1258723919183134,0.73017275,,False,0.0,round2_consensus
+CV-13,10,Customer Service / Administrative Support,ORLANDO,FL,300061,1,34.0,0.1191874077865468,0.5657689,,False,0.0,round2_consensus
+CV-14,1,Social Worker,DEERFIELD,IL,449205,3,6.0,0.7648249188611348,0.7558908,,False,1.0,round2_consensus
+CV-14,2,PRSC: Social Services,CHICAGO,IL,603400,4,22.0,0.3208486109605828,0.7466458,,False,1.0,round2_consensus
+CV-14,3,PRSC / Case Manager,ROCKFORD,IL,851014,5,21.0,0.2605372244649024,0.752702,,False,1.0,round2_consensus
+CV-14,4,Office Services Clerk,CHICAGO,IL,940900,5,139.0,0.0791766563163444,,ITEM-0097,True,0.0,round1_agreement
+CV-14,5,Health Coach,ROCKFORD,IL,448879,5,6.0,0.0789440039997938,0.74566185,,False,1.0,round2_consensus
+CV-14,6,Clinical Documentation Specialist,CHICAGO,IL,1096776,5,11.0,0.0375702006054513,0.7406815,,False,2.0,round2_consensus
+CV-14,7,3rd shift Shipping,CHICAGO,IL,312176,5,154.0,0.0247327043733695,,ITEM-0017,True,0.0,round1_agreement
+CV-14,8,"Program Manager, Healthcare Skills Training",CHICAGO,IL,1092923,6,1.0,0.0033559171759077,0.7873725,ITEM-0306,True,1.0,round1_agreement
+CV-14,9,Warehouse/Forklift Operator,NILES,IL,511754,5,128.0,0.0005179388208095,,ITEM-0341,True,0.0,round1_agreement
+CV-14,10,Caregiver,NORTHBROOK,IL,517202,5,4.0,-0.0009285273729561,0.74647415,,False,1.0,round2_consensus
+CV-15,1,Business Analyst,MOUNT KISCO,NY,38663,7,5.0,0.6535762642894964,0.79231286,,False,2.0,round2_consensus
+CV-15,2,Data Entry Processor,WESTBURY,NY,559106,5,10.0,0.5345768737081771,0.7869068,,False,0.0,round2_consensus
+CV-15,3,Junior Analyst/ Operation Specialist,NEW YORK,NY,151457,6,12.0,0.5266239336278246,0.7726952,,False,0.0,round2_consensus
+CV-15,4,Financial Analyst - Modeling,NEW YORK,NY,1008732,4,33.0,0.4496125305425166,0.7383106,,False,0.0,round2_consensus
+CV-15,5,Strategic Marketing Analyst,NEW HYDE PARK,NY,901005,5,2.0,0.3218853492360125,0.8081558,,False,1.0,round2_consensus
+CV-15,6,Application Systems Architect,BRONX,NY,35152,5,9.0,0.3190977691363424,0.77492094,,False,1.0,round2_consensus
+CV-15,7,IT Business Analyst,CORNING,NY,861255,6,1.0,0.2960319361680612,0.8262229,ITEM-0187,True,1.0,round1_agreement
+CV-15,8,Business Analyst,NEW YORK,NY,479943,5,4.0,0.2746998314182216,0.77716386,,False,2.0,round2_consensus
+CV-15,9,Summer Temp Receptionists,NEW YORK,NY,368723,5,92.0,0.2402263556605962,,ITEM-0175,True,0.0,round1_agreement
+CV-15,10,Seeking an Administrative Assistant / Receptionist,NEW YORK,NY,663642,3,45.0,0.2169113881829858,0.62479204,,False,0.0,round2_consensus
+CV-16,1,Customer Relationship Manager,KENT,WA,1084199,5,14.0,0.5677303680146505,0.7251914,,False,1.0,round2_consensus
+CV-16,2,Entry Level Management Available Now for Marketing Firm,TUKWILA,WA,164281,4,4.0,0.2574672273032804,0.73969084,,False,0.0,round2_consensus
+CV-16,3,Product Manager,ISSAQUAH,WA,8390,7,0.0,0.1877759740869818,0.8195698,ITEM-0123,True,1.0,round1_agreement
+CV-16,4,"Manager, Application Portfolio & Software Development",SEATTLE,WA,902383,6,0.0,0.0396240623892688,0.8124991,ITEM-0304,True,1.0,round1_agreement
+CV-16,5,Entry Level Supply Chain Specialist,EVERETT,WA,15873,5,5.0,-0.0004982584908261,0.7216208,,False,0.0,round2_consensus
+CV-16,6,"Sr. Product Manager, Handset Protection",BELLEVUE,WA,47313,6,0.0,-0.1106765595894009,0.80462265,ITEM-0074,True,2.0,round1_agreement
+CV-16,7,Senior Product Manager,SEATTLE,WA,760230,6,0.0,-0.1157892235508272,0.832665,ITEM-0331,True,2.0,round1_agreement
+CV-16,8,IT Project Manager,EVERETT,WA,547827,3,1.0,-0.1521215893451038,0.7647393,,False,1.0,round2_consensus
+CV-16,9,"Manager, Store Programs",BELLEVUE,WA,1080971,7,0.0,-0.1608897949483822,0.8108372,ITEM-0219,True,1.0,round1_agreement
+CV-16,10,Quality Manager (Product Testing/Project Management),BELLEVUE,WA,181243,6,1.0,-0.2103143800407133,0.7744075,,False,1.0,round2_consensus
+CV-17,1,Staff Accountant to 42k! (Entry Level/Direct Hire),ATLANTA,GA,883852,3,13.0,0.4568007875699981,0.7079625,,False,0.0,round2_consensus
+CV-17,2,****Entry Level – 8 POSITIONS – FILLING IMMEDIATELY!!!****,ATLANTA,GA,388895,5,83.0,0.3489623576643367,0.71196395,ITEM-0157,True,0.0,round1_agreement
+CV-17,3,Processing Technician,ALPHARETTA,GA,897313,2,28.0,0.2360031706245106,0.629317,,False,0.0,round2_consensus
+CV-17,4,Part-Time Help Desk Producers,ATLANTA,GA,657326,4,94.0,0.2171081883458891,0.700889,ITEM-0122,True,1.0,round1_agreement
+CV-17,5,Client Services Support Analyst,NORCROSS,GA,345660,2,42.0,0.2142048070963541,0.6071545,,False,0.0,round2_consensus
+CV-17,6,Administrative Coordinator,ATLANTA,GA,253860,6,20.0,0.188377772144381,0.6946258,,False,0.0,round2_consensus
+CV-17,7,Marketing Coordinator,POWDER SPRINGS,GA,457102,3,5.0,0.1881015807191371,0.6918335,,False,1.0,round2_consensus
+CV-17,8,Insurance Underwriting Support,MARIETTA,GA,568048,5,86.0,0.1780952879107298,0.6888169,,False,0.0,round2_consensus
+CV-17,9,Full Time Entry Level Positions,ATLANTA,GA,964825,6,23.0,0.1754301888125416,0.68929815,,False,0.0,round2_consensus
+CV-17,10,HR Generalist,ALPHARETTA,GA,165973,5,45.0,0.161802199603598,0.69499695,,False,0.0,round2_consensus
+CV-18,1,Sourcing / Purchasing Pharma R & D,BOSTON,MA,899997,6,2.0,-0.0362140638697929,0.75772244,,False,1.0,round2_consensus
+CV-18,2,Pharmacist (20120340),SOUTHBOROUGH,MA,1009275,6,0.0,-0.0423705387923599,0.81631184,ITEM-0087,True,1.0,round1_agreement
+CV-18,3,Intake Specialist,WAKEFIELD,MA,797104,7,1.0,-0.0978238455254712,0.74785495,,False,1.0,round2_consensus
+CV-18,4,Medical Writer,MARLBOROUGH,MA,736604,5,0.0,-0.1384016605861038,0.8047792,ITEM-0133,True,1.0,round1_agreement
+CV-18,5,Long Term Care Pharmacist,SPRINGFIELD,MA,1102894,4,1.0,-0.1577505047434594,0.7679497,,False,2.0,round2_consensus
+CV-18,6,Part-Time Pharmacy Technician,CONCORD,MA,1000516,5,2.0,-0.2358896171386898,0.7442204,,False,1.0,round2_consensus
+CV-18,7,Analytical Biochemist,CAMBRIDGE,MA,812647,7,1.0,-0.2778691231121866,0.7411878,,False,1.0,round2_consensus
+CV-18,8,Senior Apps Chemist BIO,MILFORD,MA,360909,4,1.0,-0.3071461460839312,0.78129566,ITEM-0178,True,0.0,round1_agreement
+CV-18,9,Compliance Specialist,WELLESLEY,MA,460843,6,3.0,-0.3133842179383741,0.7228068,,False,1.0,round2_consensus
+CV-18,10,Clinical Pharmacist,DORCHESTER,MA,880911,5,0.0,-0.3347281433554156,0.79911995,ITEM-0303,True,1.0,round1_agreement
+CV-19,1,Restaurant Manager,CHARLOTTE,NC,234893,5,16.0,0.5066425352921321,0.7657322,,False,1.0,round2_consensus
+CV-19,2,Restaurant Management,CHARLOTTE,NC,333206,6,2.0,0.5037988836768531,0.79955333,ITEM-0096,True,1.0,round1_agreement
+CV-19,3,Management Trainees,RALEIGH,NC,334371,3,31.0,0.2300844648616184,0.6732189,,False,0.0,round2_consensus
+CV-19,4,Order Processing Specialist,CHARLOTTE,NC,808489,1,5.0,0.1357423120130534,0.5779597,,False,0.0,round2_consensus
+CV-19,5,5 POSITIONS IMMEDIATLEY AVAILABLE**FULL TRAINING**ENTRY LEVEL,CHARLOTTE,NC,640956,4,18.0,0.1053358920003658,0.68916655,,False,0.0,round2_consensus
+CV-19,6,Culinary Arts Instructor,WILSON,NC,1062804,6,0.0,0.0808951127549924,0.8045461,ITEM-0355,True,1.0,round1_recorded_approval
+CV-19,7,HR Call Center Representative,CHARLOTTE,NC,996746,5,97.0,0.0791766563163444,,ITEM-0103,True,0.0,round1_agreement
+CV-19,8,Receptionist / Administrative Assistant needed immediately,CHARLOTTE,NC,900240,5,94.0,0.0289886602829697,,ITEM-0348,True,0.0,round1_agreement
+CV-19,9,Front Office Person,CHARLOTTE,NC,517780,5,122.0,0.003414837779324,,ITEM-0093,True,0.0,round1_agreement
+CV-19,10,"Institutional Cook, Prep-Cook",RALEIGH,NC,1062808,7,0.0,0.0030878861417029,0.7995907,ITEM-0393,True,2.0,round1_agreement
+CV-20,1,Medical Front Office,PHOENIX,AZ,27450,5,53.0,-0.1160669734723614,,,False,0.0,round2_consensus
+CV-20,2,Technical Support Associate,SCOTTSDALE,AZ,1051665,4,16.0,-0.1381488658710001,0.6484084,,False,0.0,round2_consensus
+CV-20,3,Medical Front Office Receptionist,PHOENIX,AZ,31744,5,57.0,-0.1532377873441411,,,False,0.0,round2_consensus
+CV-20,4,Office Assistant -,PEORIA,AZ,516250,4,75.0,-0.1592284654740438,,ITEM-0094,True,0.0,round1_agreement
+CV-20,5,Scientific Research Positions,PHOENIX,AZ,627888,4,7.0,-0.1608448687682873,0.6938131,,False,1.0,round2_consensus
+CV-20,6,Medical Billing - NextGen,PHOENIX,AZ,933528,3,8.0,-0.1838539454339313,0.60418826,,False,0.0,round2_consensus
+CV-20,7,Workers Needed,PHOENIX,AZ,31688,4,76.0,-0.2016789988042364,,ITEM-0138,True,0.0,round1_agreement
+CV-20,8,Legal Assistant,SCOTTSDALE,AZ,839717,6,18.0,-0.2062591123784352,,,False,0.0,round2_consensus
+CV-20,9,Data Entry Clerk / Healthcare Data Entry / Clerical,PHOENIX,AZ,214618,5,47.0,-0.2184560857813096,,,False,0.0,round2_consensus
+CV-20,10,Vet Receptionist,PHOENIX,AZ,631466,4,70.0,-0.2184560857813096,,ITEM-0384,True,0.0,round1_agreement
+CV-21,1,Trial Analyst / Business Analyst,SAN JOSE,CA,211208,5,5.0,0.7575889484213532,0.8237858,,False,1.0,round2_consensus
+CV-21,2,Business Analyst,IRVINE,CA,297203,5,12.0,0.746928092988574,0.83995223,,False,1.0,round2_consensus
+CV-21,3,Data Analysts - TWO POSITIONS AVAILABLE,ORANGE,CA,697993,5,8.0,0.6578582049845548,0.8833886,ITEM-0281,True,1.0,round1_agreement
+CV-21,4,Data Business Analyst,ORANGE,CA,971581,5,5.0,0.6071603448523715,0.86211175,ITEM-0386,True,1.0,round1_agreement
+CV-21,5,Business Intelligence Analyst,DUBLIN,CA,610709,4,4.0,0.5427475586721916,0.7981829,,False,2.0,round2_consensus
+CV-21,6,System Business Analyst,SAN DIEGO,CA,1031143,5,7.0,0.5228929767305264,0.8151371,,False,1.0,round2_consensus
+CV-21,7,Data Analyst,LOS ANGELES,CA,355901,6,2.0,0.488603398526477,0.8717327,ITEM-0050,True,2.0,round1_agreement
+CV-21,8,Financial Systems Analyst,PASADENA,CA,917249,6,2.0,0.4627232561775064,0.8201565,,False,1.0,round2_consensus
+CV-21,9,Operations Excel Analyst,SIMI VALLEY,CA,478944,6,4.0,0.4563210207827144,0.8014628,,False,2.0,round2_consensus
+CV-21,10,Sr. Financial Analyst,BURLINGAME,CA,845272,5,4.0,0.4502009491878199,0.7984042,,False,1.0,round2_consensus
+CV-22,1,Clinical Director,AUSTIN,TX,531193,6,0.0,0.1877759740869818,0.80697817,ITEM-0289,True,1.0,round1_agreement
+CV-22,2,Chemical Dependency Unit Manager,ARLINGTON,TX,266207,5,11.0,0.1055019515573532,0.72339594,,False,1.0,round2_consensus
+CV-22,3,Behavioral Health Services Therapist,VICTORIA,TX,740448,7,0.0,0.0808951127549924,0.8139021,ITEM-0258,True,1.0,round1_agreement
+CV-22,4,Clinical Director,DALLAS,TX,531194,6,0.0,0.0692567179309594,0.80697817,ITEM-0153,True,1.0,round1_agreement
+CV-22,5,Clinical Director,ARLINGTON,TX,831162,7,0.0,0.0692567179309594,0.80697817,ITEM-0332,True,1.0,round1_agreement
+CV-22,6,Psychologist (5807),AMARILLO,TX,531127,6,0.0,0.0459766852381877,0.79679084,,False,1.0,round2_consensus
+CV-22,7,Clinical Director,SAN MARCOS,TX,38594,6,0.0,0.0459766852381877,0.7978662,,False,1.0,round2_consensus
+CV-22,8,CUSTOMER SERVICE,LEWISVILLE,TX,27292,5,106.0,0.0414506965774648,,,False,0.0,round2_consensus
+CV-22,9,Call Center Reps Needed,MESQUITE,TX,1092029,5,110.0,0.0360151643146621,,ITEM-0271,True,0.0,round1_agreement
+CV-22,10,Administrative Assistant-$18/hour-Growing Company! -,GRAPEVINE,TX,216242,4,118.0,0.0360151643146621,,ITEM-0231,True,0.0,round1_agreement
+CV-23,1,Senior Estimator,ORLANDO,FL,10932,5,2.0,0.3090441133186611,0.7776397,,False,1.0,round2_consensus
+CV-23,2,Construction,MIAMI,FL,520846,5,27.0,0.2897077148089536,0.7408618,,False,0.0,round2_consensus
+CV-23,3,Customer Service / Administrative Support,ORLANDO,FL,300061,1,34.0,0.2786388659754277,0.58727276,,False,0.0,round2_consensus
+CV-23,4,Administrative Construction Project Manager,JACKSONVILLE,FL,460350,3,4.0,0.2363025595494918,0.71411866,,False,1.0,round2_consensus
+CV-23,5,Building Maintenance Engineer,DAVIE,FL,764391,5,16.0,0.1665165199891534,0.74272937,,False,1.0,round2_consensus
+CV-23,6,Structural Engineer,LAKE WORTH,FL,751221,6,2.0,0.1536385332054843,0.7793348,,False,1.0,round2_consensus
+CV-23,7,Receptionist,HOLLYWOOD,FL,328329,5,122.0,0.093404626538162,,ITEM-0230,True,0.0,round1_agreement
+CV-23,8,PROJECT MANAGER,APOPKA,FL,300156,3,8.0,0.0568933922497263,0.6909312,,False,1.0,round2_consensus
+CV-23,9,Customer Service/Receptionist - Front Desk Assistant,MIAMI,FL,900787,5,125.0,0.0420058424445648,,ITEM-0245,True,0.0,round1_agreement
+CV-23,10,Customer Service Representative,FORT LAUDERDALE,FL,771740,4,119.0,0.0360151643146621,,ITEM-0336,True,0.0,round1_agreement
+CV-24,1,Senior Staff Accountant,CHICAGO,IL,1070937,5,7.0,0.8695400339472319,0.82195586,,False,2.0,round2_consensus
+CV-24,2,"Senior Accountant- $60,000-$80,000",CHICAGO,IL,392139,4,8.0,0.7990396316399554,0.82414746,,False,2.0,round2_consensus
+CV-24,3,Senior Accountant,CHICAGO,IL,1268,6,5.0,0.6867427637077556,0.8113931,,False,2.0,round2_consensus
+CV-24,4,Senior Accountant,CRETE,IL,575994,5,2.0,0.6395662270957246,0.8314324,ITEM-0079,True,2.0,round1_agreement
+CV-24,5,Senior Accountant - Chicago Loop!,CHICAGO,IL,1014501,7,6.0,0.6210664109177034,0.78171307,,False,2.0,round2_consensus
+CV-24,6,Accountant (2012097),CHICAGO,IL,778062,5,2.0,0.6178250615797903,0.82806957,,False,2.0,round2_consensus
+CV-24,7,Financial Analyst,WOODRIDGE,IL,782691,5,13.0,0.5690949255374522,0.7952653,,False,1.0,round2_consensus
+CV-24,8,Accountant for top tier investment management firm,CHICAGO,IL,578526,4,4.0,0.5154904098909675,0.8201281,,False,2.0,round2_consensus
+CV-24,9,Accounting Clerk,LOMBARD,IL,543926,4,13.0,0.5068701618558459,0.7889138,,False,1.0,round2_consensus
+CV-24,10,Senior Accountant,LAKE FOREST,IL,235308,6,2.0,0.4855482385386809,0.8282614,ITEM-0216,True,2.0,round1_agreement
+CV-25,1,Graphic Designer,NEW YORK,NY,798952,5,23.0,0.5479993562542871,0.80790395,ITEM-0054,True,2.0,round1_agreement
+CV-25,2,Junior Designer,NEW YORK,NY,146608,6,2.0,0.5431663406791906,0.8148644,ITEM-0060,True,2.0,round1_agreement
+CV-25,3,Senior Graphic Designer,NEW YORK,NY,642529,5,2.0,0.5037988836768531,0.81610864,ITEM-0194,True,2.0,round1_agreement
+CV-25,4,Graphic Artist,NEW YORK,NY,23301,6,2.0,0.4012589422550839,0.80602235,,False,2.0,round2_consensus
+CV-25,5,Digital Marketing & Design Coordinator,NEW YORK,NY,1062238,7,1.0,0.3430739898198001,0.81090575,ITEM-0078,True,2.0,round1_agreement
+CV-25,6,Graphic Designer,NEW YORK,NY,581700,5,1.0,0.2538386233853836,0.85776937,ITEM-0291,True,1.0,round1_agreement
+CV-25,7,Seeking an Administrative Assistant / Receptionist,NEW YORK,NY,663642,3,45.0,0.2239456081500798,0.5949321,,False,0.0,round2_consensus
+CV-25,8,Senior Designer,MANHASSET,NY,35487,6,1.0,0.1852683949674274,0.807865,,False,2.0,round2_consensus
+CV-25,9,Senior Designer,NEW YORK,NY,925651,5,1.0,0.1594439582393036,0.807865,,False,2.0,round2_consensus
+CV-25,10,Coll Grad/Receptionist/Recruiting Assistant!!!,NEW YORK,NY,819541,7,17.0,0.152296310572041,0.6801314,,False,0.0,round2_consensus
+CV-26,1,Web Developer,REDMOND,WA,501344,7,0.0,0.0918002656541945,0.81038845,ITEM-0254,True,1.0,round1_agreement
+CV-26,2,Web Developer II,SEATTLE,WA,78813,6,0.0,-0.0244287791609634,0.80692273,ITEM-0415,True,2.0,round1_agreement
+CV-26,3,Web Developer/Designer 1,BELLEVUE,WA,1031842,7,0.0,-0.0342824676342974,0.8082769,ITEM-0211,True,1.0,round1_agreement
+CV-26,4,Web Applications Developer,TACOMA,WA,910187,7,0.0,-0.1441059229278629,0.79755044,ITEM-0406,True,1.0,round1_agreement
+CV-26,5,Accounts Payable Specialist,KIRKLAND,WA,32384,4,7.0,-0.1626371631634134,0.68705726,,False,0.0,round2_consensus
+CV-26,6,"Front-End Developer: Ruby, HTML/CSS/JavaScript",SEATTLE,WA,317997,6,0.0,-0.1915059842162995,0.81658566,ITEM-0449,True,1.0,round1_agreement
+CV-26,7,Web Developer (Level V),LYNNWOOD,WA,402851,6,0.0,-0.2356943133264212,0.8289978,ITEM-0263,True,1.0,round1_agreement
+CV-26,8,All Positions,TACOMA,WA,552406,5,17.0,-0.2797578546313858,,ITEM-0069,True,0.0,round1_agreement
+CV-26,9,Support Staff Position,SHORELINE,WA,773042,5,20.0,-0.3032803070007712,,ITEM-0294,True,0.0,round1_agreement
+CV-26,10,Project Coordinator,BELLEVUE,WA,772936,5,15.0,-0.343107496420947,,ITEM-0111,True,0.0,round1_agreement
+CV-27,1,Processing Technician,ALPHARETTA,GA,897313,2,28.0,0.2360031706245106,0.6011509,,False,0.0,round2_consensus
+CV-27,2,Client Services Support Analyst,NORCROSS,GA,345660,2,42.0,0.2142048070963541,0.5905062,,False,0.0,round2_consensus
+CV-27,3,Outside Sales Consultant for Food and Janitorial Industry,ATLANTA,GA,311075,1,5.0,0.1354010434831427,0.6136881,,False,0.0,round2_consensus
+CV-27,4,Administrative Assistant,ATLANTA,GA,368785,5,157.0,0.1040712669373672,,ITEM-0373,True,0.0,round1_agreement
+CV-27,5,Principal Staff Software Engineer - Cloud Architecture,ALPHARETTA,GA,149439,6,0.0,0.103507549790269,0.824553,ITEM-0250,True,1.0,round1_agreement
+CV-27,6,Network Operations Manager,ATLANTA,GA,771886,6,4.0,0.0969211599109063,0.746198,,False,1.0,round2_consensus
+CV-27,7,Mail Clerk/ Runner,ATLANTA,GA,151832,4,153.0,0.0867981288661719,,ITEM-0029,True,0.0,round1_agreement
+CV-27,8,Cloud Technical Support,ATLANTA,GA,156020,5,2.0,0.0823328646334015,0.77526456,ITEM-0329,True,1.0,round1_agreement
+CV-27,9,Cloud Architect,ALPHARETTA,GA,754869,6,0.0,0.0616932407984899,0.8109933,ITEM-0253,True,1.0,round1_recorded_approval
+CV-27,10,Receptionist/ Accounting Assistant,ATLANTA,GA,42838,5,120.0,0.0414506965774648,,,False,0.0,round2_consensus
+CV-28,1,Clinical Liason,SPRINGFIELD,MA,969610,5,22.0,-0.2160515372112189,,ITEM-0007,True,0.0,round1_agreement
+CV-28,2,Director of Distribution - Warehouse/Distribution,WORCESTER,MA,178596,5,24.0,-0.2251907853345836,,ITEM-0296,True,0.0,round1_agreement
+CV-28,3,Receptionist,BOSTON,MA,755853,5,19.0,-0.2618514981499938,,ITEM-0409,True,0.0,round1_agreement
+CV-28,4,Entry Level Engineer,BOSTON,MA,305850,5,4.0,-0.2748840119424461,0.7020749,,False,0.0,round2_consensus
+CV-28,5,Assistant to the CEO,BOSTON,MA,102606,5,17.0,-0.30506481067591,,,False,0.0,round2_consensus
+CV-28,6,Customer Service Representative,QUINCY,MA,879296,4,20.0,-0.3131305137956256,,ITEM-0071,True,0.0,round1_agreement
+CV-28,7,Front Desk Manager,NEEDHAM,MA,402822,5,16.0,-0.324653881342486,,,False,0.0,round2_consensus
+CV-28,8,Customer Service Representative,WOBURN,MA,213291,5,18.0,-0.3418423556347481,,ITEM-0229,True,0.0,round1_agreement
+CV-28,9,Administrative Assistant / Receptionist,BOSTON,MA,559246,5,18.0,-0.3650030709430908,,,False,0.0,round2_consensus
+CV-28,10,Call Center Representative,BEDFORD,MA,759166,5,18.0,-0.3650030709430908,,,False,0.0,round2_consensus
+CV-29,1,Dental Administrator,RALEIGH,NC,597790,5,7.0,0.8554524414161342,0.7821878,ITEM-0375,True,1.0,round1_agreement
+CV-29,2,Office Leader,WILMINGTON,NC,1082778,4,5.0,0.4713404566110832,0.77696335,ITEM-0362,True,1.0,round1_agreement
+CV-29,3,Front Desk Receptionist / Patient Relations Coordinator,SALISBURY,NC,553145,4,6.0,0.1874772062074496,0.74775904,,False,0.0,round2_consensus
+CV-29,4,Order Processing Specialist,CHARLOTTE,NC,808489,1,5.0,0.1357423120130534,0.58692586,,False,0.0,round2_consensus
+CV-29,5,Recieving & Packing Warehouse Associate,MOORESVILLE,NC,608971,3,21.0,0.1086609771630651,0.566435,,False,0.0,round2_consensus
+CV-29,6,Dentist,WILSON,NC,524919,6,0.0,0.103507549790269,0.8252132,ITEM-0220,True,1.0,round1_agreement
+CV-29,7,Management Trainees,RALEIGH,NC,334371,3,31.0,0.0879796371191872,0.6597716,,False,0.0,round2_consensus
+CV-29,8,HR Call Center Representative,CHARLOTTE,NC,996746,5,97.0,0.0791766563163444,,ITEM-0411,True,0.0,round1_agreement
+CV-29,9,Front Desk Receptionist / Patient Relations Coordinator,JACKSONVILLE,NC,1082783,5,5.0,0.0775342154175516,0.72733164,,False,0.0,round2_consensus
+CV-29,10,Admissions Specialist,CHARLOTTE,NC,817984,6,10.0,0.0630333681532412,0.68977743,,False,0.0,round2_consensus
+CV-30,1,PROJECT COORDINATOR,CHANDLER,AZ,980678,4,31.0,-0.0259147912050825,0.67331797,,False,0.0,round2_consensus
+CV-30,2,Development Coordinator,MESA,AZ,1072172,5,13.0,-0.055841963547665,0.6929688,,False,0.0,round2_consensus
+CV-30,3,Production Positions,TOLLESON,AZ,179038,4,41.0,-0.0633489297891531,0.6538881,,False,0.0,round2_consensus
+CV-30,4,Medical Assistant (MA),PHOENIX,AZ,919913,3,9.0,-0.1075604585281117,0.56709254,,False,0.0,round2_consensus
+CV-30,5,Medical Billing - NextGen,PHOENIX,AZ,933528,3,8.0,-0.1359075335459555,0.55661505,,False,0.0,round2_consensus
+CV-30,6,Career Services Coordinator,SCOTTSDALE,AZ,338885,4,15.0,-0.1714359624386211,0.6561637,,False,0.0,round2_consensus
+CV-30,7,Composite Aircraft Technician,SCOTTSDALE,AZ,186372,7,2.0,-0.1948064351770866,0.69266504,,False,1.0,round2_consensus
+CV-30,8,"Account Administrator, Executive Benefits",SCOTTSDALE,AZ,747907,3,2.0,-0.2490227610538266,0.68770105,,False,0.0,round2_consensus
+CV-30,9,Medical Front Office,PHOENIX,AZ,27450,5,53.0,-0.2515054523976356,,,False,0.0,round2_consensus
+CV-30,10,Field Resource Coordinator / Dispatcher,GILBERT,AZ,1100056,4,3.0,-0.2530047071340296,0.71375334,,False,0.0,round2_consensus
