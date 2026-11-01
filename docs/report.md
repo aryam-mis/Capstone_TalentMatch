@@ -191,7 +191,8 @@ All use the same open-jobs filter and skip jobs the user already applied to.
 - **The first re-ranker lacked popularity as a candidate source.** Its validation Recall@100 was 0.2511, below the 0.2934 of the RRF3 hybrid, because a popular job that neither retriever found could never be shown. Adding the 50 most popular open jobs of the state as a third source (feature `pop_rank`) raised it to 0.3195. The final model is this second version (`reranker_v2`).
 - **Random negatives trained a worse ranker** than hard negatives (experiment E4).
 - **The e5-base embedding run was inconclusive**: it ran without its query and passage prefixes, so we cannot tell whether the model or the setup caused its low score (experiment E2).
-- **Experimental Cold-Start Ranking Improvements (Not Integrated)**
+
+#### Experimental Cold-Start Ranking Improvements (Not Integrated)
 
 A separate experiment explored improving recommendations for users without previous application history. The approach combined semantic similarity with experience requirements, job seniority, and city matching.
 
@@ -200,8 +201,6 @@ An updated experience extraction process increased detection coverage from 16.1%
 A caching optimization reduced observed initialization time from 76.8 seconds to 18.4 seconds in local testing.
 
 However, higher extraction coverage does not necessarily indicate higher accuracy. The updated recommendation approach requires further evaluation and was not integrated into the final LightGBM ranking pipeline.
-
----
 
 ## 5. Results
 
@@ -461,7 +460,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 
 - **Aryam:** the open-jobs filter and the fair popularity and TF-IDF baselines, the feature builder and the time-based leakage controls, the LightGBM re-ranker with the popularity candidate source, the Logistic Regression comparison, the hybrid RRF script, experiments E4 and E5, the test pipeline, the Streamlit application, the model artifact with its tests, the bootstrap confidence intervals, and the report.
 - **Layan** (to be confirmed by her): the content and collaborative retrievers, the candidate generation and recruiter index scripts, and experiments E1 to E3.
-- **Omnia** (to be confirmed by her): ESCO skill extraction and matching, which feeds the Why column, and the team-built judgement set.
+- **Omnia**  job-text cleaning and preparation, ESCO skill extraction and matching for recommendation explanations, participation in the team-built judgement set, and a separate experimental cold-start ranking approach involving experience extraction, seniority matching, location preferences, and caching optimization. The cold-start experiment was not integrated into the final ranking pipeline.
 
 ---
 
@@ -484,7 +483,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 - `docs/e5_test.txt` and `docs/e5_val_v2.txt`: coverage and popularity concentration on test and validation.
 - `docs/e3_by_history.csv`, `docs/e3_cold_jobs.csv`, `docs/metrics_layan.csv`: the retriever experiments.
 - `eval/judgement_set.csv` and `results/judgement/`: the human judgement set and its metrics.
-- - `experiment/cold-start-ranking`: Experimental cold-start recommendation improvements, experience extraction, caching optimization, and evaluation limitations. Detailed documentation is available in `reports/cold_start/COLD_START_EXPERIMENT.md` on the experiment branch.
+- `experiment/cold-start-ranking`: Experimental cold-start recommendation improvements, experience extraction, caching optimization, and evaluation limitations. Detailed documentation is available in `reports/cold_start/COLD_START_EXPERIMENT.md` on the experiment branch.
 
 ## Appendix C. Reproducibility Notes
 
