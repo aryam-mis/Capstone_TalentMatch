@@ -329,9 +329,9 @@ On validation, ranking the candidates of the same window and state by content si
 
 #### Team-built human judgement set
 
-The brief asks for at least 30 CVs whose top-10 recommendations are graded by two members, with their agreement reported. The 30 CV profiles (degree, experience level, target role and skills, with states assigned for the test) have 452 distinct CV-job pairs graded by two reviewers from 0 (not relevant) to 2 (highly relevant); the pairs cover the top 10 of two configurations, content only and content fused with popularity. Because of the time available, the two first-pass grades of each pair were AI-assisted drafts, so their agreement (411 of 452 pairs, 90.93%, Cohen's kappa 0.843, quadratic-weighted 0.898; every disagreement differs by one grade) describes those drafts and is not independent human agreement.
+The brief asks for at least 30 CVs whose top-10 recommendations are graded by two members, with their agreement reported. The 30 CV profiles (degree, experience level, target role and skills, with states assigned for the test) have 452 distinct CV-job pairs graded by two reviewers from 0 (not relevant) to 2 (highly relevant); the pairs cover the top 10 of two configurations, content only and content fused with popularity. Because of the time available, the grades were AI-assisted drafts approved by the team, so the agreement between the two drafts (90.93%, Cohen's kappa 0.843) is not independent human agreement.
 
-40 of the 41 disagreements were resolved with a team member's approval, and ITEM-0156 stays unresolved. The final scores are therefore human-approved but not independently double-graded.
+40 of the 41 disagreements were resolved by the team; ITEM-0156 stays unresolved.
 
 | Final scores (30 CVs, equal weight per CV) | Content only | Content with popularity | LightGBM re-ranker |
 | --- | --- | --- | --- |
@@ -343,7 +343,7 @@ The brief asks for at least 30 CVs whose top-10 recommendations are graded by tw
 
 The unresolved item counts as zero (99.67% of the content-only lists are judged); leaving it out gives 0.893 and 73.6% for the content-only mean relevance and Precision@10. NDCG uses an ideal ranking built from the judged pool of each CV, not from every relevant job in the data (`results/judgement/final_score_metrics_20261031.csv`; the scores are in `eval/judgement_set.csv`, without job texts).
 
-Popularity raises recall on historical applications (E1) yet lowers relevance in human judgement, the gap between logs and preference that the brief warns about. The re-ranker's top 10 for the same CVs (300 pairs: 114 already in the graded set and 186 new) was graded in a second round with the same procedure, AI-assisted drafts with final scores approved by a team member; we do not report an agreement figure for this round. Its final grades are 149 not relevant, 99 partly relevant and 52 highly relevant (`eval/judgement_reranker.csv`). The re-ranker sits between the two retrieval configurations: it beats content with popularity on every measure and has the highest share of highly relevant jobs (17.3%), but its Precision@10 (50.3%, 95% interval 38.7% to 62.0% over CVs) is well below content only. This matches E3: trained on applications, the re-ranker learned that popular local jobs get applied to, which helps offline recall but not relevance to the profile, and it is why the app also offers Profile match. *Its NDCG@10 uses an ideal ranking from a larger judged pool (all graded jobs of each CV, including its own 186 new pairs), so it is not strictly comparable with the other two columns; its MAP@10 is 0.46.
+Popularity raises recall on historical applications (E1) yet lowers relevance in human judgement, the gap between logs and preference that the brief warns about. The re-ranker's top 10 (300 pairs) was graded the same way (`eval/judgement_reranker.csv`). It beats content with popularity on every measure and has the highest share of highly relevant jobs (17.3%), but stays below content only (Precision@10 50.3% against 73.3%): trained on applications, it learned that people apply to popular local jobs, which is why the app also offers Profile match. *Its NDCG@10 uses a larger judged pool, so it is not strictly comparable with the other two columns.
 
 ### 5.5 Visual Evaluation
 
@@ -410,7 +410,7 @@ The data is US applications from April to June 2012 in seven independent windows
 
 ### 7.3 Evaluation Limitations
 
-Each method is one trained model, with confidence intervals over users but not over training seeds. The human judgement set is provisional (Section 5.4): the grades were AI-assisted drafts approved by team members, so no independent inter-annotator agreement is available.
+Each method is one trained model, with confidence intervals over users but not over training seeds. The human judgement set is provisional (Section 5.4): the grades were AI-assisted drafts approved by the team, so there is no independent agreement.
 
 ### 7.4 Deployment Risks
 
