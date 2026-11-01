@@ -259,7 +259,7 @@ Recall@100 is capped by the candidate pool. The re-ranker's pool holds 50 popula
 
 We swept the weight of the popularity source in the reciprocal rank fusion (0, 0.1, 0.3, 0.5 and 1.0) on validation, for the fusion of content, collaborative and popularity and for content with popularity only (figure below). Recall@100 stays almost flat up to a weight of 0.3 and rises sharply from 0.5. For the three-source fusion, going from weight 0 to weight 1 raises Recall@100 from 0.2361 to 0.2934 for all users and from 0.1806 to 0.2632 for users without history. The same weight lowers Recall@100 on new jobs (jobs nobody applied to before the period) from about 0.18 to 0.1307, because popularity can only rank jobs that already have applications. So popularity helps the average user and the cold start, and hurts new jobs. The best value in the sweep is the largest tested weight (1.0), so the true optimum may lie above it; we did not test larger weights. This trade-off is the reason the final system lets the re-ranker learn how to combine the sources instead of using one fixed weight.
 
-![E1b: popularity weight in the fusion](figures/fig_e1_popweight.png)
+![E1b: popularity weight in the fusion](e1_pop_weight.png)
 
 #### E2. Which text and which embedding model?
 
