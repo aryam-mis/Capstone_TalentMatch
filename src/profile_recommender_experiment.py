@@ -37,6 +37,8 @@ class ProfileRecommender:
                                 usecols=["JobID", "WindowID", "Title", "City"],
                                 dtype={"City": str})
         jobs = jobs.merge(meta_jobs, on=["JobID", "WindowID"], how="left")
+        experience = pd.read_parquet("artifacts/cold_start_experience.parquet")
+        jobs = jobs.merge(experience, on=["JobID", "WindowID"], how="left")
         jobs["City"] = jobs["City"].fillna("").astype(str).str.strip().str.upper()
 
         # popularity from applications before the cutoff only
@@ -123,7 +125,16 @@ class ProfileRecommender:
             out.loc[senior, "adjusted_score"] -= 0.10
         if city.strip():
             same_city = out["City"].fillna("").str.strip().str.upper().eq(city.strip().upper())
-            out.loc[same_city, "adjusted_score"] += 0.03
+            out.loc[same_city & out["content_cos"].ge(0.68), "adjusted_score"] += 0.05
+
+        # Experience-aware ranking using cached job metadata
+        experience_penalty = j["required_years"].gt(float(years)).fillna(False)
+        out.loc[experience_penalty.to_numpy(), "adjusted_score"] -= 0.12
+
+        if years < 2:
+            lead_qa = j["lead_qa"].fillna(False).astype(bool)
+            out.loc[lead_qa.to_numpy(), "adjusted_score"] -= 0.10
+
         out = out.sort_values(
             "adjusted_score", ascending=False
         ).head(k).reset_index(drop=True)
