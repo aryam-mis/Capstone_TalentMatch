@@ -22,7 +22,7 @@ def rank(booster, meta, feats, k=10):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--artifact", default="artifacts/reranker_v0")
+    ap.add_argument("--artifact", default="artifacts/reranker_v2")
     ap.add_argument("--features", required=True)
     ap.add_argument("--user", type=int, default=None)
     ap.add_argument("--k", type=int, default=10)

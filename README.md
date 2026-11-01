@@ -9,8 +9,8 @@ Read the Full Capstone Project Report: [docs/report.md](docs/report.md)
 
 Job platforms receive thousands of applications per posting. Keyword filters reject good candidates who describe their experience differently, and job seekers scroll through postings that do not fit. TalentMatch ranks jobs for a candidate and candidates for a job, works on a profile or a job typed in a few seconds with no application history, and shows why each job appears. It ranks and explains; the recruiter decides.
 
-- **Job seeker view:** type degree, major, years, past roles, skills, state and city, and get ten ranked jobs with the matched skills and the sentence that supports each one.
-- **Recruiter view:** type a job (or pick one) and get ten ranked candidates by content similarity.
+- **Job seeker view:** type degree, major, years, past roles, skills, state and city, and get ten ranked jobs from the re-ranker (default) or from Profile match, a cold-start mode that ranks by similarity to the profile and skills and pushes senior titles down for users with under 3 years. Each job shows the matched skills, the most similar past role and whether it is in the same city, with the sentence that supports each skill.
+- **Recruiter view:** type a job (or pick one) and get ten ranked candidates by content similarity, with their past roles, the job skills found in their major or past roles, and their most similar past role.
 
 ## Architecture
 
@@ -91,7 +91,7 @@ python src/e5_diversity_v1.py --artifact artifacts/reranker_v2 --features data/p
 python src/evaluate.py --recs results/recs/test_rerank_v2_lam0.csv --split test --name test_rerank_v2_lam0
 ```
 
-Other scripts: `src/rrf_hybrid.py` (hybrid), `src/baseline_tfidf_period.py` (TF-IDF), `src/compare_lr_real.py` (Logistic Regression), `src/make_random_negs.py`, `src/add_cos.py` and `src/e4_real.py` (E4), `src/e5_popularity.py` and `src/e5_diversity_v1.py` (E5). Seeds are fixed to 42.
+Other scripts: `src/rrf_hybrid.py` (hybrid), `src/baseline_tfidf_period.py` (TF-IDF), `src/compare_lr_real.py` (Logistic Regression), `src/make_random_negs.py`, `src/add_cos.py` and `src/e4_real.py` (E4), `src/e5_popularity.py` and `src/e5_diversity_v1.py` (E5), `src/e3_cold_start_eval.py` (cold start on test: new users by prior applications, new jobs). Early smoke-test scripts that are not used for the reported results are in `archive/early/`. Seeds are fixed to 42.
 
 ## Results (test period, `evaluate.py`, 47,214 users)
 
@@ -106,7 +106,9 @@ Other scripts: `src/rrf_hybrid.py` (hybrid), `src/baseline_tfidf_period.py` (TF-
 | Logistic Regression | 0.0262 | 0.0631 | 0.0391 | 0.2999 |
 | **LightGBM re-ranker** | **0.0304** | **0.0801** | **0.0513** | **0.3060** |
 
-All numbers are in `docs/test_results.csv`. Hard negatives beat random negatives (E4), and a popularity penalty of 0.15 lowers the share of recommendations on the 1% most popular jobs from 18.9% to 14.2% at a 2.2% NDCG@10 cost (E5; `docs/e5_test.txt`, `docs/e5_val_v2.txt`). A typed profile is answered in about 100 ms once warm (1.3 s on the first call).
+All numbers are in `docs/test_results.csv`. Hard negatives beat random negatives (E4), and a popularity penalty of 0.15 lowers the share of recommendations on the 1% most popular jobs from 18.9% to 14.2% at a 2.2% NDCG@10 cost (E5; `docs/e5_test.txt`, `docs/e5_val_v2.txt`). A typed profile is answered in about 100 ms, the first request included (88 ms), because the app loads its files at startup.
+
+**Cold start on test** (`docs/e3_cold_users_test.csv`, `docs/e3_cold_jobs_test.csv`): 61% of test users have no prior application; the re-ranker is still the best method for them (NDCG@10 0.064 against 0.032 for popularity and Profile match). New jobs (27% of test targets) are reached only by the content retrievers (Recall@100 0.196 for TF-IDF, 0.175 for embeddings, 0.123 for the re-ranker).
 
 ## Limitations and future work
 
@@ -114,8 +116,8 @@ All numbers are in `docs/test_results.csv`. Hard negatives beat random negatives
 - The data is US applications from April to June 2012 in seven independent windows, not the Saudi market.
 - Popularity bias: the re-ranker favours popular jobs; the diversity weight only reduces it.
 - The skill matcher (ESCO, FlashText) is conservative and its precision is not measured.
-- The recruiter view is content only, and the human judgement set is still open.
-- Next: confidence intervals, cold and warm users evaluated separately, richer profile text, diversity-aware training.
+- The recruiter view is content only and does not match years of experience. The re-ranker favours popular jobs and ranks new jobs lower. Its own recommendations are not yet graded in the human judgement set.
+- Next: grade the re-ranker and Profile match in the judgement set, repeat training with several seeds, support Arabic and English CVs with a multilingual embedding model, richer profile text, diversity-aware training and fairer exposure for new jobs.
 
 ## Responsible AI
 
@@ -123,11 +125,11 @@ Hiring is high-stakes: the system ranks and explains and never rejects, scores a
 
 ## Repository layout
 
-`src/` code, `app/` Streamlit app, `tests/` smoke tests, `artifacts/` model and its notes, `docs/` result tables and frozen decisions. `data/` and `results/` are not versioned.
+`src/` code, `app/` Streamlit app, `tests/` smoke tests, `artifacts/` model and its notes, `docs/` result tables, frozen decisions and the report, `eval/` judgement set and the cold-start comparison, `reports/cold_start/` Omnia's cold-start experiment, `archive/` superseded scripts. `data/` and `results/` are not versioned.
 
 ## Human judgement set
 
-`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. The first pass was prepared with AI assistance; reviewer agreement on the original scores is 90.93% (Cohen's kappa 0.843). The 41 disagreements were then resolved by team-approved final scores (451 of 452 pairs have one; ITEM-0156 is unresolved), and the 411 agreed pairs stay provisional. Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
+`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. Because of the time available, the first pass was AI-assisted, so the reviewer agreement (90.93%, Cohen's kappa 0.843) is an upper bound; 40 of the 41 disagreements were resolved with team approval (ITEM-0156 is unresolved). Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
 
 ## How to run (for reviewers)
 
@@ -151,7 +153,7 @@ python src/build_jobs_text.py
 python -m streamlit run app/app.py
 ```
 
-Open http://localhost:8501 (the first search takes about a second, later ones about 100 ms).
+Open http://localhost:8501 (each search takes about 0.1 s).
 
-- Job seeker tab: Bachelor's, Business Administration, 5 years, past roles `customer service representative; sales associate`, skills `customer service, SQL, communication`, state CA, then Recommend jobs. Expected: ten ranked jobs, the shared skills in the Why column, and the supporting sentence in the expander.
-- Recruiter tab: choose a state and a job, or type a new one, then Find candidates. Expected: ten ranked candidates.
+- Job seeker tab: Bachelor's, Business Administration, 5 years, past roles `customer service representative; sales associate`, skills `customer service, SQL, communication`, state CA, then Recommend jobs. Expected: ten ranked jobs, the shared skills, the most similar past role and the city in the Why column, and the supporting sentence in the expander. For a cold-start profile, set Ranking to Profile match (for example Bachelor's, Artificial Intelligence, 0 years, no past roles, skills `Python, Machine Learning, SQL, Data Analysis`, state CA).
+- Recruiter tab: choose a state and a job, or type a new one, then Find candidates. Expected: ten ranked candidates with their past roles and the reasons in the Why column.

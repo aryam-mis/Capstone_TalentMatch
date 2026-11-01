@@ -188,3 +188,5 @@ artifacts/reranker_v0/
 
 artifacts/reranker_v1/
 
+# local notes and assistant outputs
+Claude outputs/

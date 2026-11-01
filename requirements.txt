@@ -8,7 +8,7 @@ faiss-cpu
 scipy
 sentence-transformers
 pyarrow
-lightgbm
+lightgbm==4.7.0
 scikit-learn
 streamlit
 pytest
