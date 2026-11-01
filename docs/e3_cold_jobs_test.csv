@@ -1,0 +1,9 @@
+method,users,NewJobRecall@10,NewJobRecall@50,NewJobRecall@100
+profile_match,23160,0.0518,0.1243,0.1754
+popularity,23160,0.0,0.0,0.0
+tfidf,23160,0.0592,0.1407,0.1962
+content,23160,0.0515,0.1239,0.1754
+collab,23160,0.0,0.0,0.0
+hybrid_rrf3,23160,0.0217,0.0796,0.1214
+logreg,23160,0.0099,0.0582,0.1225
+reranker,23160,0.0316,0.077,0.1233

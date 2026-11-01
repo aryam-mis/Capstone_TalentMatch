@@ -10,6 +10,32 @@ import extract_esco_skills_candidate as esco
 JOBS_TEXT = "data/processed/jobs_text_open.parquet"
 
 
+# words that say nothing about the occupation itself, ignored when comparing job titles
+GENERIC = {"senior", "junior", "sr", "jr", "lead", "staff", "associate", "assistant", "specialist",
+           "representative", "rep", "entry", "level", "full", "part", "time", "temp", "position",
+           "job", "jobs", "needed", "wanted", "opportunity", "hiring", "immediate", "and", "the",
+           "for", "with", "of", "in", "at", "to", "a", "an", "i", "ii", "iii", "iv", "pay",
+           "competitive", "great", "new", "company", "busy", "downtown", "firm"}
+
+
+def title_tokens(title):
+    words = re.findall(r"[a-z][a-z+#]*", str(title).lower())
+    return {w for w in words if len(w) >= 3 and w not in GENERIC}
+
+
+def similar_role(job_title, roles):
+    """The past role that shares the most occupation words with the job title, or None."""
+    jt = title_tokens(job_title)
+    best, best_n = None, 0
+    for r in roles:
+        if not isinstance(r, str) or not r.strip():
+            continue
+        n = len(jt & title_tokens(r))
+        if n > best_n:
+            best, best_n = r.strip(), n
+    return best
+
+
 def snippet(text, label, width=80):
     m = re.search(r"\b" + re.escape(label) + r"\b", text, re.I)
     if not m:
