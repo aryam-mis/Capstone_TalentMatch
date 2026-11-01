@@ -16,6 +16,11 @@ ARTIFACT = "artifacts/reranker_v2"
 PERIOD = dict(open_from="2012-06-18", end="2012-06-27", history_before="2012-06-14")
 POOL_CONTENT = 100
 POOL_POP = 50
+# profile mode: titles that ask for seniority, pushed down for users with < JUNIOR_YEARS
+JUNIOR_YEARS = 3
+SENIOR_PENALTY = 0.05
+SENIOR_RE = (r"(?i)\b(?:senior|sr|lead|principal|staff|architect|manager|director|head|chief|"
+             r"vp|iii|iv)\b")
 
 
 class ProfileRecommender:
@@ -57,11 +62,16 @@ class ProfileRecommender:
               "open jobs:", len(self.jobs))
 
     @staticmethod
-    def profile_text(degree, major, years, roles):
+    def profile_text(degree, major, years, roles, skills=""):
         years = int(max(0, min(40, years)))
         roles = " ; ".join([r.strip() for r in roles[:5] if r.strip()])
-        return (f"degree: {degree}. major: {major}. experience: {years} years. "
-                f"past roles: {roles}").lower()
+        text = (f"degree: {degree}. major: {major}. experience: {years} years. "
+                f"past roles: {roles}")
+        if skills and skills.strip():          # used by the "profile" mode only
+            if not roles:
+                text = text.replace(". past roles: ", "")
+            text += f". skills: {skills.strip()}"
+        return text.lower()
 
     def windows_for(self, state):
         return {w: len(ix) for (w, s), ix in self.groups.items() if s == state}
@@ -75,7 +85,11 @@ class ProfileRecommender:
             self._cache[key] = (ix, emb, ix[order][:POOL_POP])
         return self._cache[key]
 
-    def recommend(self, degree, major, years, roles, state, city="", window=None, k=10):
+    def recommend(self, degree, major, years, roles, state, city="", window=None, k=10,
+                  mode="reranker", skills=""):
+        """mode="reranker": frozen LightGBM v2 (same features as training, skills not used).
+        mode="profile": cold-start profile match, jobs ranked by cosine between the typed
+        profile (+ skills) and the job title/requirements embedding. The model is not used."""
         t0 = time.time()
         state = state.strip().upper()
         counts = self.windows_for(state)
@@ -85,11 +99,27 @@ class ProfileRecommender:
             window = max(counts, key=counts.get)
         ix, emb, pop_ix = self._pool(window, state)
 
-        text = self.profile_text(degree, major, years, roles)
+        text = self.profile_text(degree, major, years, roles,
+                                 skills if mode == "profile" else "")
         q = self.model.encode([text], normalize_embeddings=True,
                               convert_to_numpy=True).astype("float32")[0]
         cos = emb @ q
         top = np.argsort(-cos)[:POOL_CONTENT]
+
+        if mode == "profile":
+            j = self.jobs.iloc[ix[top]]
+            out = j[["Title", "City", "State", "job_pop", "JobID", "WindowID"]].copy()
+            out["content_cos"] = cos[top]
+            out["score"] = cos[top]
+            if years < JUNIOR_YEARS:   # junior profile: push senior titles down
+                senior = out["Title"].fillna("").str.contains(SENIOR_RE, regex=True).values
+                out["score"] = out["score"] - SENIOR_PENALTY * senior
+            out = out.sort_values("score", ascending=False, kind="stable").head(k)
+            out["score"] = out["score"].round(3)
+            out = out.reset_index(drop=True)
+            out.insert(0, "rank", range(1, len(out) + 1))
+            out.attrs.update(seconds=time.time() - t0, window=window, text=text, mode=mode)
+            return out
         content = pd.DataFrame({"ix": ix[top], "content_score": cos[top],
                                 "content_rank": np.arange(1, len(top) + 1)})
         pop = pd.DataFrame({"ix": pop_ix, "pop_rank": np.arange(1, len(pop_ix) + 1)})
@@ -119,6 +149,7 @@ class ProfileRecommender:
         out.attrs["seconds"] = time.time() - t0
         out.attrs["window"] = window
         out.attrs["text"] = text
+        out.attrs["mode"] = mode
         return out
 
 
@@ -131,12 +162,15 @@ def main():
     ap.add_argument("--state", required=True)
     ap.add_argument("--city", default="")
     ap.add_argument("--window", type=int, default=None)
+    ap.add_argument("--mode", choices=["reranker", "profile"], default="reranker")
+    ap.add_argument("--skills", default="")
     a = ap.parse_args()
 
     rec = ProfileRecommender()
     roles = [r for r in a.roles.split(";")]
     for i in range(2):   # the second call shows the steady-state latency
-        res = rec.recommend(a.degree, a.major, a.years, roles, a.state, a.city, a.window)
+        res = rec.recommend(a.degree, a.major, a.years, roles, a.state, a.city, a.window,
+                            mode=a.mode, skills=a.skills)
         print(f"call {i + 1}: {res.attrs['seconds']:.3f} s | window {res.attrs['window']}")
     print("query text:", res.attrs["text"])
     print(res.to_string(index=False))

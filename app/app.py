@@ -1,4 +1,5 @@
 # app/app.py  (Job seeker: free-text profile -> re-ranker v2 + Why | Recruiter: typed new job or existing job)
+import html
 import os
 import sys
 import time
@@ -58,6 +59,7 @@ def job_line(jid, wid):
 
 def show_candidates(top, ms):
     top = top.merge(users_all, on=["UserID", "WindowID"], how="left")
+    top["Major"] = top["Major"].map(lambda m: html.unescape(m) if isinstance(m, str) else m)
     top["score"] = top["score"].round(3)
     top["Why"] = "-"
     st.dataframe(top[["rank", "UserID", "DegreeType", "Major", "TotalYearsExperience", "score", "Why"]],
@@ -102,17 +104,23 @@ with tab1:
     years = c3.number_input("Years of experience", min_value=0, max_value=40, value=5)
     roles_text = st.text_area("Past roles (one per line)",
                               "Customer Service Representative\nSales Associate")
-    skills_text = st.text_area("Skills / CV text (optional, used for 'Why this job?')",
+    skills_text = st.text_area("Skills / CV text (optional, used for 'Why this job?' and Profile match)",
                                "Customer service, SQL, communication")
     c4, c5 = st.columns(2)
     state = c4.selectbox("State", states, index=states.index("CA") if "CA" in states else 0)
     city = c5.text_input("City (optional)", "Los Angeles")
+    ranking = st.radio(
+        "Ranking", ["Re-ranker (LightGBM v2)", "Profile match (cold start)"], horizontal=True,
+        help="Re-ranker: the frozen model; for a new user it leans on city and job popularity. "
+             "Profile match: jobs most similar to your degree, major, roles and skills (content only).")
 
     if st.button("Recommend jobs"):
         roles = [r for r in roles_text.splitlines() if r.strip()]
         deg = "" if degree == DEGREES[0] else degree
+        rmode = "profile" if ranking.startswith("Profile") else "reranker"
         t = time.time()
-        res = rec.recommend(deg, major, years, roles, state, city, k=K)
+        res = rec.recommend(deg, major, years, roles, state, city, k=K,
+                            mode=rmode, skills=skills_text)
         t_rec = (time.time() - t) * 1000
 
         t = time.time()
@@ -127,7 +135,8 @@ with tab1:
         st.dataframe(out[["rank", "Title", "City", "State", "score", "Why", "JobID", "WindowID"]],
                      width="stretch", hide_index=True)
         st.caption(f"response time: {t_rec + t_why:.0f} ms (ranking {t_rec:.0f} ms, explanations "
-                   f"{t_why:.0f} ms) | window {res.attrs['window']} | query text: {res.attrs['text']}")
+                   f"{t_why:.0f} ms) | mode {res.attrs['mode']} | window {res.attrs['window']} | "
+                   f"query text: {res.attrs['text']}")
         st.caption("Skills recognised in your text: "
                    + (", ".join(s["skill"] for s in cv.values()) or "none"))
         for rk, title, e in zip(out["rank"], out["Title"], expl):
