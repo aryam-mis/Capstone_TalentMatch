@@ -3,7 +3,7 @@
 Olo Academy AI Engineering Bootcamp (AIEP), Module 8 capstone, Track C (HR tech, recommendation systems).
 Team: Aryam, Layan, Omnia.
 
-Technical report: [docs/report.md](docs/report.md)
+Read the Full Capstone Project Report: [docs/report.md](docs/report.md)
 
 ## Problem and motivation
 
