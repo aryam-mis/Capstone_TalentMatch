@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "src"))
 from profile_recommender import ProfileRecommender  # noqa: E402
 from recruiter_candidates import RecruiterIndex  # noqa: E402
 from why_skills import WhyMatcher  # noqa: E402
+import extract_esco_skills_candidate as esco  # noqa: E402
 
 st.set_page_config(page_title="TalentMatch", layout="wide")
 
@@ -42,11 +43,50 @@ def get_users():
                                 "TotalYearsExperience"])
 
 
+@st.cache_resource
+def get_history():
+    """Past job titles per user (same source as the user embedding text), sorted for lookup."""
+    h = pd.read_csv("data/processed/user_history_clean.tsv", sep="\t",
+                    usecols=["UserID", "WindowID", "Sequence", "JobTitle"],
+                    dtype={"JobTitle": str})
+    h = h.dropna(subset=["JobTitle"])
+    h = h[h["JobTitle"].str.strip() != ""]
+    return h.sort_values(["UserID", "WindowID", "Sequence"]).reset_index(drop=True)
+
+
 rec = get_rec()
 index = get_index()
 why = get_why()
 users_all = get_users()
+history = get_history()
 states = sorted(rec.jobs.State.dropna().unique().tolist())
+
+
+def past_roles(top, n=5):
+    """First n past job titles of each candidate, joined with ' ; '."""
+    h = history[history["UserID"].isin(top["UserID"])]
+    h = h.merge(top[["UserID", "WindowID"]], on=["UserID", "WindowID"])
+    roles = (h.groupby(["UserID", "WindowID"])["JobTitle"]
+             .apply(lambda s: " ; ".join(s.str.strip().head(n))).rename("Past roles").reset_index())
+    return top.merge(roles, on=["UserID", "WindowID"], how="left")
+
+
+def typed_job_skills(title, requirements):
+    """ESCO skills of a job typed in the recruiter tab: {esco_uri: info}."""
+    t = esco.normalize(title)
+    found = esco.match_skills(f"{title}. {requirements}", t, why.matcher, why.root)
+    return {s["esco_uri"]: s for s in found}
+
+
+def recruiter_why(top, job_sk):
+    """ESCO skills of the job that also appear in the candidate's major or past roles."""
+    out = []
+    for major, roles in zip(top["Major"], top["Past roles"]):
+        text = ". ".join(x for x in (major, roles) if isinstance(x, str) and x.strip())
+        cand = why.cv_skills(text)
+        shared = [job_sk[u]["skill"] for u in cand if u in job_sk]
+        out.append(", ".join(shared) if shared else "-")
+    return out
 
 
 def job_line(jid, wid):
@@ -57,14 +97,20 @@ def job_line(jid, wid):
     return f"{j.Title} | {j.City.title()}, {j.State}"
 
 
-def show_candidates(top, ms):
+def show_candidates(top, ms, job_sk):
+    t = time.time()
     top = top.merge(users_all, on=["UserID", "WindowID"], how="left")
     top["Major"] = top["Major"].map(lambda m: html.unescape(m) if isinstance(m, str) else m)
+    top = past_roles(top)
     top["score"] = top["score"].round(3)
-    top["Why"] = "-"
-    st.dataframe(top[["rank", "UserID", "DegreeType", "Major", "TotalYearsExperience", "score", "Why"]],
+    top["Why"] = recruiter_why(top, job_sk)
+    ms_why = (time.time() - t) * 1000
+    st.dataframe(top[["rank", "UserID", "DegreeType", "Major", "TotalYearsExperience",
+                      "Past roles", "score", "Why"]],
                  width="stretch", hide_index=True)
-    st.caption(f"response time: {ms:.0f} ms")
+    st.caption(f"response time: {ms + ms_why:.0f} ms (search {ms:.0f} ms, explanations "
+               f"{ms_why:.0f} ms) | job skills recognised: "
+               + (", ".join(s["skill"] for s in job_sk.values()) or "none"))
 
 
 def candidates_for_job(jid, wid, k=K):
@@ -93,7 +139,8 @@ def candidates_for_text(title, requirements, state, window=None, k=K):
 
 st.title("TalentMatch")
 st.caption("Open jobs of the test period (2012-06-18 onward). A typed profile is a new user with no "
-           "application history, so the collaborative signal is empty; ranking uses the LightGBM re-ranker.")
+           "application history, so the collaborative signal is empty. Ranking: the LightGBM re-ranker, "
+           "or Profile match (content similarity on profile and skills) for cold-start users.")
 
 tab1, tab2 = st.tabs(["Job seeker", "Recruiter"])
 
@@ -148,7 +195,8 @@ with tab1:
 with tab2:
     st.caption("Candidates are ranked by content similarity (bge-small cosine) between the job "
                "and each user profile, within one window and state. Content only: no "
-               "collaborative signal, and the LightGBM re-ranker is not applied in this direction.")
+               "collaborative signal, and the LightGBM re-ranker is not applied in this direction. "
+               "Why: ESCO skills of the job that also appear in the candidate's major or past roles.")
     mode = st.radio("Job source", ["New job (type it)", "Existing job (by ID)"], horizontal=True)
 
     if mode == "New job (type it)":
@@ -166,7 +214,7 @@ with tab2:
                 st.warning("No users for this state in the index.")
             else:
                 st.write(f"{title} | {jstate}")
-                show_candidates(top, ms)
+                show_candidates(top, ms, typed_job_skills(title, reqs))
                 st.caption(f"window {window} | query text: {text}")
     else:
         top_job = rec.jobs.sort_values("job_pop").iloc[-1]
@@ -181,4 +229,4 @@ with tab2:
                 st.warning("No candidates for this job (is it in the open-jobs index?).")
             else:
                 st.write(job_line(int(jid), int(wid)))
-                show_candidates(top, ms)
+                show_candidates(top, ms, why.job_skills(int(jid), int(wid)))
