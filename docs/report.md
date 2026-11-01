@@ -329,9 +329,9 @@ On validation, ranking the candidates of the same window and state by content si
 
 #### Team-built human judgement set
 
-The brief asks for at least 30 CVs whose top-10 recommendations are graded by two members, with their agreement reported. The 30 CV profiles (degree, experience level, target role and skills, with states assigned for the test) have 452 distinct CV-job pairs graded by two reviewers from 0 (not relevant) to 2 (highly relevant); the pairs cover the top 10 of two configurations, content only and content fused with popularity. The first pass was prepared with AI assistance, which the team documents. The reviewers agree on 411 of 452 pairs (90.93%, Cohen's kappa 0.843, quadratic-weighted 0.898), and all 41 disagreements differ by one grade. Because both sets started from AI suggestions, this agreement is an upper bound on independent agreement, and it describes the original scoring, not the final scores below.
+The brief asks for at least 30 CVs whose top-10 recommendations are graded by two members, with their agreement reported. The 30 CV profiles (degree, experience level, target role and skills, with states assigned for the test) have 452 distinct CV-job pairs graded by two reviewers from 0 (not relevant) to 2 (highly relevant); the pairs cover the top 10 of two configurations, content only and content fused with popularity. Because of the time available, both reviewers started from the same AI-assisted first pass, so their agreement (411 of 452 pairs, 90.93%, Cohen's kappa 0.843, quadratic-weighted 0.898; every disagreement differs by one grade) is an upper bound on independent agreement.
 
-The 41 disagreements were then resolved: for 32 an AI assistant suggested a score that a team member approved, for 6 a team member chose the score, 2 more were approved by a team member, and 1 (ITEM-0156) stays unresolved and gets no final grade. The 411 pairs on which the reviewers agreed keep their common score, still labelled provisional. The final scores are therefore human-approved but not independently double-graded.
+40 of the 41 disagreements were resolved with a team member's approval, and ITEM-0156 stays unresolved. The final scores are therefore human-approved but not independently double-graded.
 
 | Final scores (30 CVs, equal weight per CV) | Content only | Content with popularity |
 | --- | --- | --- |

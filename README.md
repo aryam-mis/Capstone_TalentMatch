@@ -129,7 +129,7 @@ Hiring is high-stakes: the system ranks and explains and never rejects, scores a
 
 ## Human judgement set
 
-`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. The first pass was prepared with AI assistance; reviewer agreement on the original scores is 90.93% (Cohen's kappa 0.843). The 41 disagreements were then resolved by team-approved final scores (451 of 452 pairs have one; ITEM-0156 is unresolved), and the 411 agreed pairs stay provisional. Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
+`eval/judgement_set.csv`: 30 CV profiles and 452 CV-job pairs (the top 10 of two configurations, content only and content fused with popularity), graded 0 to 2 by two reviewers. Because of the time available, the first pass was AI-assisted, so the reviewer agreement (90.93%, Cohen's kappa 0.843) is an upper bound; 40 of the 41 disagreements were resolved with team approval (ITEM-0156 is unresolved). Job texts are left out because they come from the Kaggle data. Tools: `src/prepare_judgement.py`, `src/evaluate_judgement.py` (Omnia) and `src/judgement_metrics.py`.
 
 ## How to run (for reviewers)
 
