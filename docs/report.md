@@ -161,6 +161,7 @@ The re-ranker sees content, collaborative and popularity signals for each user-j
 - **Text Preparation:** The preprocessing pipeline created a combined `text_clean` field using job titles, descriptions, and requirements. However, the final content-based embedding approach used job titles and requirements, as this combination performed better than using the full job text in the team's experiments.
 - **Candidates:** for each user, the union of the top 100 jobs by content cosine, the top 100 by item-item collaborative filtering (users with history only) and the 50 most popular open jobs of the state, all inside the user's window and state.
 - **12 features per user-job pair:** `content_score`, `content_rank`, `collab_score`, `collab_rank`, `pop_rank`, `same_city`, `job_pop`, `job_age_days`, `days_left`, `user_n_hist`, `TotalYearsExperience`, `WorkHistoryCount`. `same_state` is left out because every candidate is already in the user's state.
+-    Job text is lower-cased, built from the title and the first 600 characters of the requirements, and encoded with a maximum sequence length of 128, normalised, in fp16 on a Colab T4, for the 444,522 jobs open in at least one period. The row order of the embeddings was checked against the job table (`src/verify_embeddings.py`).
 
 ### 4.3 Model Selection
 
@@ -254,6 +255,12 @@ The re-ranker is 2.2 times the strongest single baseline, 32% above the best hyb
 
 Recall@100 is capped by the candidate pool. The re-ranker's pool holds 50 popular jobs per user while RRF3 uses 100, so the comparison slightly favours the hybrid, and the re-ranker is still ahead.
 
+#### E1b. How much weight should popularity get in the fusion?
+
+We swept the weight of the popularity source in the reciprocal rank fusion (0, 0.1, 0.3, 0.5 and 1.0) on validation, for the fusion of content, collaborative and popularity and for content with popularity only (figure below). Recall@100 stays almost flat up to a weight of 0.3 and rises sharply from 0.5. For the three-source fusion, going from weight 0 to weight 1 raises Recall@100 from 0.2361 to 0.2934 for all users and from 0.1806 to 0.2632 for users without history. The same weight lowers Recall@100 on new jobs (jobs nobody applied to before the period) from about 0.18 to 0.1307, because popularity can only rank jobs that already have applications. So popularity helps the average user and the cold start, and hurts new jobs. The best value in the sweep is the largest tested weight (1.0), so the true optimum may lie above it; we did not test larger weights. This trade-off is the reason the final system lets the re-ranker learn how to combine the sources instead of using one fixed weight.
+
+![E1b: popularity weight in the fusion](figures/fig_e1_popweight.png)
+
 #### E2. Which text and which embedding model?
 
 ![E2: Recall@100 of the content retriever variants](figures/fig_e2_embeddings.png)
@@ -293,7 +300,7 @@ On validation, 0.15 is the largest weight that loses under 2% of NDCG@10 (1.6%),
 
 #### Recruiter direction
 
-On validation, ranking the candidates of the same window and state by content similarity reaches Recall@10 0.0362 and Recall@20 0.0596, against 0.0086 and 0.0168 for random ranking inside the same pool (46,977 open jobs with at least one real applicant, 3.11 real applicants per job on average, 82.2% of them inside the pool), about four times random at 10 candidates (`src/recruiter_baseline.py`).
+On validation, ranking the candidates of the same window and state by content similarity (job embedding against user embeddings) reaches Recall@10 0.0850 and Recall@20 0.1249. Random ranking inside the same pool gives 0.0086 and 0.0168, and the "most active users" baseline gives 0.0362 and 0.0596 (46,977 open jobs with at least one real applicant, 3.11 real applicants per job on average, 82.2% of them inside the pool). At 10 candidates the content ranking is about ten times random and 2.3 times the most-active baseline (`src/recruiter_baseline.py`, `src/recruiter_candidates.py`).
 
 #### Team-built human judgement set
 
@@ -459,7 +466,7 @@ Open http://localhost:8501. **Example input:** Job seeker tab with Bachelor's, B
 ## Team contributions
 
 - **Aryam:** the open-jobs filter and the fair popularity and TF-IDF baselines, the feature builder and the time-based leakage controls, the LightGBM re-ranker with the popularity candidate source, the Logistic Regression comparison, the hybrid RRF script, experiments E4 and E5, the test pipeline, the Streamlit application, the model artifact with its tests, the bootstrap confidence intervals, and the report.
-- **Layan** (to be confirmed by her): the content and collaborative retrievers, the candidate generation and recruiter index scripts, and experiments E1 to E3.
+- **Layan** : the content (bge-small, FAISS) and collaborative (item-item) retrievers; embedding generation in Colab and its verification; leak-free candidate generation for the training, validation and test periods; the recruiter index and its baselines; experiments E1 to E3 with user-level bootstrap intervals and the popularity-weight sweep; the CV recommendation script used for the judgement set.
 - **Omnia**  job-text cleaning and preparation, ESCO skill extraction and matching for recommendation explanations, participation in the team-built judgement set, and a separate experimental cold-start ranking approach involving experience extraction, seniority matching, location preferences, and caching optimization. The cold-start experiment was not integrated into the final ranking pipeline.
 
 ---
