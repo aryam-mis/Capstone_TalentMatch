@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TalentMatch</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#16202e;--mute:#667085;--line:#e4e7ec;--brand:#2457d6;--brand-soft:#e8eefc;--ok:#0b7a53;--ok-soft:#e3f5ec}
+@media (prefers-color-scheme:dark){:root{--bg:#10141b;--card:#181e28;--ink:#e8ecf2;--mute:#98a2b3;--line:#2a3342;--brand:#6c93ff;--brand-soft:#1f2b49;--ok:#4cc79a;--ok-soft:#173428}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:22px 16px 0;max-width:1100px;margin:0 auto}
+h1{margin:0;font-size:24px;letter-spacing:-.3px}
+.sub{color:var(--mute);margin:4px 0 16px;max-width:760px}
+main{max-width:1100px;margin:0 auto;padding:0 16px 48px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.tab{padding:10px 16px;border:0;background:none;color:var(--mute);font:inherit;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tab[aria-selected=true]{color:var(--brand);border-color:var(--brand)}
+.grid{display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:20px;align-items:start}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 4px}
+label:first-child{margin-top:0}
+input,select,textarea{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+textarea{min-height:64px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--brand);outline-offset:-1px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;padding:8px;border:0;background:var(--bg);color:var(--mute);font:inherit;font-size:13px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--brand-soft);color:var(--brand);font-weight:600}
+.hint{font-size:12px;color:var(--mute);margin-top:4px}
+.actions{display:flex;gap:8px;margin-top:16px}
+.go{flex:1;padding:11px;border:0;border-radius:8px;background:var(--brand);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+.go:disabled{opacity:.6;cursor:wait}
+.ex{padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:none;color:var(--ink);font:inherit;cursor:pointer}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;min-width:110px}
+.stat b{display:block;font-size:18px}.stat span{font-size:12px;color:var(--mute)}
+.item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;display:grid;grid-template-columns:34px 1fr auto;gap:12px}
+.rk{width:34px;height:34px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:700}
+.t{font-weight:650}.m{color:var(--mute);font-size:13px}
+.sc{font-variant-numeric:tabular-nums;text-align:right;font-weight:650}.sc small{display:block;color:var(--mute);font-weight:400;font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{background:var(--ok-soft);color:var(--ok);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600}
+.chip.n{background:var(--brand-soft);color:var(--brand)}
+details{margin-top:8px}summary{cursor:pointer;color:var(--brand);font-size:13px;font-weight:600}
+.ev{font-size:13px;margin:6px 0;color:var(--mute)}.ev b{color:var(--ink)}
+.empty{color:var(--mute);text-align:center;padding:48px 16px;border:1px dashed var(--line);border-radius:12px}
+.err{background:#fde8e8;color:#9b1c1c;padding:12px;border-radius:10px}
+.foot{color:var(--mute);font-size:12px;margin-top:14px}
+
+header{display:flex;align-items:center;gap:14px}
+.logo{width:42px;height:42px;border-radius:11px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:19px;flex:none;box-shadow:0 4px 12px rgba(36,87,214,.28)}
+header .sub{margin:2px 0 0}
+.tabs{position:sticky;top:0;background:var(--bg);z-index:5;padding-top:6px}
+.card,.item,.stat,.kpi{transition:box-shadow .15s,transform .15s}
+.item:hover,.kpi:hover{box-shadow:0 6px 18px rgba(16,24,40,.08);transform:translateY(-1px)}
+.go{box-shadow:0 3px 10px rgba(36,87,214,.25)}.go:hover:not(:disabled){filter:brightness(1.08)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi b{display:block;font-size:26px;letter-spacing:-.5px;color:var(--brand)}
+.kpi span{font-size:12.5px;color:var(--mute)}
+.dash{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;margin-bottom:18px}
+@media(max-width:900px){.dash{grid-template-columns:1fr}}
+h2{font-size:15px;margin:0 0 4px}.cap{font-size:12.5px;color:var(--mute);margin:0 0 12px}
+.bar{display:grid;grid-template-columns:150px 1fr 56px;gap:10px;align-items:center;margin:7px 0;font-size:13px}
+.bar .tr{height:16px;background:var(--bg);border-radius:6px;overflow:hidden}
+.bar .fl{height:100%;background:var(--line);border-radius:6px;transition:width .5s}
+.bar.hi .fl{background:var(--brand)}.bar.hi{font-weight:700}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:560px){.bar{grid-template-columns:110px 1fr 50px}}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.step{flex:1;min-width:120px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:12.5px}
+.step b{display:block;font-size:13px;margin-bottom:2px}
+.arrow{align-self:center;color:var(--mute)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.pair div{border-radius:10px;padding:10px 12px;background:var(--bg);border:1px solid var(--line)}
+.pair .on{background:var(--brand-soft);border-color:transparent}
+.pair b{display:block;font-size:20px}.pair span{font-size:12px;color:var(--mute)}
+.tl{display:grid;grid-template-columns:1290087fr 154298fr 153355fr;gap:4px;margin-top:6px;min-height:54px}
+.tl div{border-radius:8px;padding:8px 10px;font-size:12px;background:var(--bg);border:1px solid var(--line);min-width:0}
+.tl .te{background:var(--brand-soft);border-color:transparent}
+.tl b{display:block;font-size:12.5px}
+.exps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.note{font-size:12px;color:var(--mute);margin-top:14px}
+.seg.small{max-width:360px;margin-bottom:12px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">TM</div>
+  <div><h1>TalentMatch</h1>
+  <p class="sub">Ranks jobs for a profile and candidates for a job, and shows why. It ranks and explains; the recruiter decides. Data: open jobs of the test period (US, 2012).</p></div>
+</header>
+<main>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="t-js" aria-selected="true">Job seeker</button>
+    <button class="tab" role="tab" id="t-rc" aria-selected="false">Recruiter</button>
+    <button class="tab" role="tab" id="t-rs" aria-selected="false">Results</button>
+  </div>
+
+  <section id="p-js" class="grid">
+    <form class="card" id="f-js">
+      <label for="degree">Degree</label><select id="degree"></select>
+      <div class="row">
+        <div><label for="major">Major</label><input id="major"></div>
+        <div><label for="years">Years of experience</label><input id="years" type="number" min="0" max="40"></div>
+      </div>
+      <label for="roles">Past roles (one per line)</label><textarea id="roles"></textarea>
+      <label for="skills">Skills / CV text (optional)</label><textarea id="skills"></textarea>
+      <div class="hint">Used for “Why this job?” and Profile match.</div>
+      <div class="row">
+        <div><label for="state">State</label><select id="state"></select></div>
+        <div><label for="city">City (optional)</label><input id="city"></div>
+      </div>
+      <label>Ranking</label>
+      <div class="seg" id="mode">
+        <button type="button" data-v="reranker" aria-pressed="true">Re-ranker (LightGBM v2)</button>
+        <button type="button" data-v="profile" aria-pressed="false">Profile match</button>
+      </div>
+      <div class="hint">Profile match = jobs most similar to your degree, major, roles and skills (content only, for new users).</div>
+      <div class="actions"><button class="go" id="go-js">Recommend jobs</button><button type="button" class="ex" id="ex-js">Example</button></div>
+    </form>
+    <div id="out-js"><div class="empty">Fill in the profile and press “Recommend jobs”.</div></div>
+  </section>
+
+  <section id="p-rc" class="grid" hidden>
+    <form class="card" id="f-rc">
+      <div class="seg" id="src">
+        <button type="button" data-v="new" aria-pressed="true">New job (type it)</button>
+        <button type="button" data-v="id" aria-pressed="false">Existing job (by ID)</button>
+      </div>
+      <div id="rc-new">
+        <label for="jtitle">Job title</label><input id="jtitle">
+        <label for="jreq">Requirements / description</label><textarea id="jreq" style="min-height:110px"></textarea>
+        <label for="jstate">State of the job</label><select id="jstate"></select>
+      </div>
+      <div id="rc-id" hidden>
+        <div class="row">
+          <div><label for="jid">JobID</label><input id="jid" type="number"></div>
+          <div><label for="wid">WindowID</label><input id="wid" type="number"></div>
+        </div>
+      </div>
+      <div class="hint">Content similarity (bge-small cosine) within one window and state. The re-ranker is not applied in this direction.</div>
+      <div class="actions"><button class="go" id="go-rc">Find candidates</button><button type="button" class="ex" id="ex-rc">Example</button></div>
+    </form>
+    <div id="out-rc"><div class="empty">Type a job and press “Find candidates”.</div></div>
+  </section>
+
+  <section id="p-rs" hidden>
+    <div class="kpis">
+      <div class="kpi"><b>0.0801</b><span>NDCG@10, LightGBM re-ranker (test)</span></div>
+      <div class="kpi"><b>2.2×</b><span>vs popularity by state (0.0360)</span></div>
+      <div class="kpi"><b>+32%</b><span>vs Hybrid RRF3 (0.0607)</span></div>
+      <div class="kpi"><b>+27%</b><span>vs Logistic Regression (0.0631)</span></div>
+      <div class="kpi"><b>47,214</b><span>test users</span></div>
+    </div>
+
+    <div class="dash">
+      <div class="card">
+        <h2>Method comparison</h2>
+        <p class="cap">Test period, 47,214 users, evaluate.py.</p>
+        <div class="seg small" id="metric">
+          <button type="button" data-v="ndcg" aria-pressed="true">NDCG@10</button>
+          <button type="button" data-v="p10" aria-pressed="false">P@10</button>
+          <button type="button" data-v="map" aria-pressed="false">MAP@10</button>
+          <button type="button" data-v="r100" aria-pressed="false">Recall@100</button>
+        </div>
+        <div id="bars"></div>
+      </div>
+      <div class="card">
+        <h2>How a profile becomes 10 jobs</h2>
+        <p class="cap">Two-stage recommender.</p>
+        <div class="flow" style="flex-direction:column">
+          <div class="step"><b>1. Candidates</b>Content (bge-small + FAISS), item-item collaborative, state popularity top 50</div>
+          <div class="step"><b>2. Features</b>12 numbers per job in three groups</div>
+          <div class="step"><b>3. LightGBM LambdaRank</b>Scores every candidate (v2, seed 42)</div>
+          <div class="step"><b>4. Top 10 + Why</b>ESCO skill matching with evidence snippet</div>
+        </div>
+        <p class="note">Typed profile answered in about 100 ms once warm (1.3 s first call).</p>
+      </div>
+    </div>
+
+    <div class="exps">
+      <div class="card"><h2>E4 · Hard vs random negatives</h2><p class="cap">NDCG@10 of the re-ranker by training negatives.</p>
+        <div class="pair"><div class="on"><b>0.0744</b><span>hard negatives</span></div><div><b>0.0642</b><span>random negatives</span></div></div></div>
+      <div class="card"><h2>E5 · Popularity penalty λ = 0.15</h2><p class="cap">Share of recommendations on the 1% most popular jobs.</p>
+        <div class="pair"><div class="on"><b>14.2%</b><span>with penalty</span></div><div><b>18.9%</b><span>without</span></div></div>
+        <p class="note">Cost: −2.2% NDCG@10.</p></div>
+      <div class="card"><h2>Recruiter view · Recall@10</h2><p class="cap">Real applicants found in the top 10 candidates.</p>
+        <div class="pair"><div class="on"><b>0.0362</b><span>TalentMatch</span></div><div><b>0.0086</b><span>random in pool</span></div></div></div>
+      <div class="card"><h2>Human judgement · 30 CVs</h2><p class="cap">Two reviewers, provisional (AI-assisted first pass).</p>
+        <div class="pair"><div class="on"><b>90.93%</b><span>agreement</span></div><div><b>0.843</b><span>Cohen's kappa</span></div></div></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <h2>Time-based split (no leakage)</h2>
+      <p class="cap">Applications per period. The model is trained on the last week of train, early-stopped on validation, judged once on test.</p>
+      <div class="tl">
+        <div><b>Train</b>up to 2012-06-05<br>1,290,087 apps</div>
+        <div><b>Val</b>06-06 to 06-13<br>154,298</div>
+        <div class="te"><b>Test</b>06-18 to 06-26<br>153,355</div>
+      </div>
+    </div>
+    <p class="note">Source: docs/test_results.csv, docs/e5_test.txt, docs/report.md. Scores in the other tabs are comparable only inside one list.</p>
+  </section>
+  <p class="foot">Scores are comparable only inside one list. City and missing fields can act as proxies; use for ranking and explanation, never for rejection.</p>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let meta=null,mode="reranker",src="new";
+
+function seg(id,cb){const el=$(id);el.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;
+  el.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b));cb(b.dataset.v)})}
+seg("mode",v=>mode=v);
+seg("src",v=>{src=v;$("rc-new").hidden=v!=="new";$("rc-id").hidden=v!=="id"});
+
+function tab(w){["js","rc","rs"].forEach(k=>{$("t-"+k).setAttribute("aria-selected",k===w);$("p-"+k).hidden=k!==w})}
+$("t-js").onclick=()=>tab("js");$("t-rc").onclick=()=>tab("rc");$("t-rs").onclick=()=>tab("rs");
+
+const M=[["Collaborative (item-item)",.0108,.0274,.0174,.1035],["Content (bge-small)",.0095,.0300,.0196,.1661],
+ ["TF-IDF",.0109,.0340,.0218,.1864],["Popularity by state",.0177,.0360,.0211,.2196],["Hybrid RRF",.0157,.0466,.0302,.2309],
+ ["Hybrid RRF3",.0246,.0607,.0372,.2844],["Logistic Regression",.0262,.0631,.0391,.2999],["LightGBM re-ranker",.0304,.0801,.0513,.3060]];
+const MI={p10:1,ndcg:2,map:3,r100:4};
+function bars(k){const i=MI[k],mx=Math.max(...M.map(r=>r[i]));
+  $("bars").innerHTML=[...M].sort((a,b)=>b[i]-a[i]).map(r=>`<div class="bar ${r[0].startsWith("LightGBM")?"hi":""}"><span>${r[0]}</span><div class="tr"><div class="fl" style="width:${r[i]/mx*100}%"></div></div><span class="v">${r[i].toFixed(4)}</span></div>`).join("")}
+seg("metric",bars);bars("ndcg");
+
+function stats(o){return `<div class="stats">
+ <div class="stat"><b>${o.ms_total} ms</b><span>total</span></div>
+ <div class="stat"><b>${o.ms_rank??o.ms_search} ms</b><span>${o.ms_rank!=null?"ranking":"search"}</span></div>
+ <div class="stat"><b>${o.ms_why} ms</b><span>explanations</span></div>
+ ${o.window!=null?`<div class="stat"><b>${o.window}</b><span>window</span></div>`:""}</div>`}
+
+function chips(w){let h="";(w.skills||[]).forEach(s=>h+=`<span class="chip">${esc(s)}</span>`);
+  if(w.role)h+=`<span class="chip n">role: ${esc(w.role)}</span>`;
+  if(w.same_city)h+=`<span class="chip n">same city</span>`;
+  return h||`<span class="m">no shared skill found</span>`}
+
+function renderJobs(o){
+  let h=stats(o);
+  h+=`<div class="m" style="margin-bottom:10px">Mode: ${esc(o.mode)} · skills recognised in your text: ${esc((o.cv_skills||[]).join(", ")||"none")}</div>`;
+  o.rows.forEach(r=>{
+    h+=`<div class="item"><div class="rk">${r.rank}</div><div>
+      <div class="t">${esc(r.title)}</div><div class="m">${esc(r.city)}, ${esc(r.state)} · JobID ${r.job_id} / window ${r.window_id}</div>
+      <div class="chips">${chips(r.why)}</div>
+      ${r.evidence.length?`<details><summary>Why this job? (${r.evidence.length} evidence)</summary>${r.evidence.map(e=>
+        `<div class="ev"><b>${esc(e.skill)}</b> (${esc(e.source)}): …${esc(e.context)}…</div>`).join("")}</details>`:""}
+      </div><div class="sc">${r.score}<small>score</small></div></div>`});
+  $("out-js").innerHTML=h}
+
+function renderCands(o){
+  let h=stats(o)+`<div class="t" style="margin-bottom:4px">${esc(o.header)}</div>
+   <div class="m" style="margin-bottom:10px">Job skills recognised: ${esc((o.job_skills||[]).join(", ")||"none")}</div>`;
+  o.rows.forEach(r=>{
+    h+=`<div class="item"><div class="rk">${r.rank}</div><div>
+      <div class="t">User ${r.user_id}${r.degree?` · ${esc(r.degree)}`:""}${r.major?` · ${esc(r.major)}`:""}</div>
+      <div class="m">${r.years!=null?r.years+" years experience · ":""}${esc(r.past_roles||"no past roles listed")}</div>
+      <div class="chips">${chips(r.why)}</div></div>
+      <div class="sc">${r.score}<small>cosine</small></div></div>`});
+  $("out-rc").innerHTML=h}
+
+async function call(url,body,out,render,btn){
+  btn.disabled=true;const old=btn.textContent;btn.textContent="Working…";
+  try{const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    const j=await r.json();if(!r.ok)throw new Error(j.detail||r.statusText);render(j)}
+  catch(e){$(out).innerHTML=`<div class="err">${esc(e.message)}</div>`}
+  finally{btn.disabled=false;btn.textContent=old}}
+
+$("f-js").onsubmit=e=>{e.preventDefault();
+  call("/api/jobs",{degree:$("degree").value,major:$("major").value,years:+$("years").value||0,
+    roles:$("roles").value,skills:$("skills").value,state:$("state").value,city:$("city").value,mode},
+    "out-js",renderJobs,$("go-js"))};
+$("f-rc").onsubmit=e=>{e.preventDefault();
+  if(src==="new")call("/api/candidates",{title:$("jtitle").value,requirements:$("jreq").value,state:$("jstate").value},"out-rc",renderCands,$("go-rc"));
+  else call("/api/candidates_by_id",{job_id:+$("jid").value,window_id:+$("wid").value},"out-rc",renderCands,$("go-rc"))};
+
+function fillJs(){$("degree").value="Bachelor's";$("major").value="Business Administration";$("years").value=5;
+  $("roles").value="Customer Service Representative\nSales Associate";$("skills").value="Customer service, SQL, communication";
+  $("state").value="CA";$("city").value="Los Angeles"}
+function fillRc(){$("jtitle").value="Customer Service Representative";
+  $("jreq").value="Answer inbound customer calls, resolve billing questions and document each case. Previous call center experience preferred.";
+  $("jstate").value="CA"}
+$("ex-js").onclick=fillJs;$("ex-rc").onclick=fillRc;
+
+fetch("/api/meta").then(r=>r.json()).then(m=>{meta=m;
+  $("degree").innerHTML=m.degrees.map(d=>`<option>${esc(d)}</option>`).join("");
+  const so=m.states.map(s=>`<option>${esc(s)}</option>`).join("");$("state").innerHTML=so;$("jstate").innerHTML=so;
+  $("jid").value=m.example_job.job_id;$("wid").value=m.example_job.window_id;fillJs();fillRc()});
+</script>
+</body>
+</html>
