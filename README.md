@@ -157,3 +157,5 @@ Open http://localhost:8501 (each search takes about 0.1 s).
 
 - Job seeker tab: Bachelor's, Business Administration, 5 years, past roles `customer service representative; sales associate`, skills `customer service, SQL, communication`, state CA, then Recommend jobs. Expected: ten ranked jobs, the shared skills, the most similar past role and the city in the Why column, and the supporting sentence in the expander. For a cold-start profile, set Ranking to Profile match (for example Bachelor's, Artificial Intelligence, 0 years, no past roles, skills `Python, Machine Learning, SQL, Data Analysis`, state CA).
 - Recruiter tab: choose a state and a job, or type a new one, then Find candidates. Expected: ten ranked candidates with their past roles and the reasons in the Why column.
+
+[Demo video](docs/demo.mp4)
