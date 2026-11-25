@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -105,7 +105,7 @@ h2{font-size:15px;margin:0 0 4px}.cap{font-size:12.5px;color:var(--mute);margin:
       <label for="degree">Degree</label><select id="degree"></select>
       <div class="row">
         <div><label for="major">Major</label><input id="major"></div>
-        <div><label for="years">Years of experience</label><input id="years" type="number" min="0" max="40"></div>
+        <div><label for="years">Years of experience</label><input id="years" type="text" inputmode="numeric" autocomplete="off"></div>
       </div>
       <label for="roles">Past roles (one per line)</label><textarea id="roles"></textarea>
       <label for="skills">Skills / CV text (optional)</label><textarea id="skills"></textarea>
@@ -138,8 +138,8 @@ h2{font-size:15px;margin:0 0 4px}.cap{font-size:12.5px;color:var(--mute);margin:
       </div>
       <div id="rc-id" hidden>
         <div class="row">
-          <div><label for="jid">JobID</label><input id="jid" type="number"></div>
-          <div><label for="wid">WindowID</label><input id="wid" type="number"></div>
+          <div><label for="jid">JobID</label><input id="jid" type="text" inputmode="numeric" autocomplete="off"></div>
+          <div><label for="wid">WindowID</label><input id="wid" type="text" inputmode="numeric" autocomplete="off"></div>
         </div>
       </div>
       <div class="hint">Content similarity (bge-small cosine) within one window and state. The re-ranker is not applied in this direction.</div>
@@ -209,6 +209,7 @@ h2{font-size:15px;margin:0 0 4px}.cap{font-size:12.5px;color:var(--mute);margin:
 </main>
 <script>
 const $=id=>document.getElementById(id);
+const num=v=>parseInt(String(v).replace(/[٠-٩]/g,d=>d.charCodeAt(0)-1632).replace(/[۰-۹]/g,d=>d.charCodeAt(0)-1776),10)||0;
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let meta=null,mode="reranker",src="new";
 
@@ -270,12 +271,12 @@ async function call(url,body,out,render,btn){
   finally{btn.disabled=false;btn.textContent=old}}
 
 $("f-js").onsubmit=e=>{e.preventDefault();
-  call("/api/jobs",{degree:$("degree").value,major:$("major").value,years:+$("years").value||0,
+  call("/api/jobs",{degree:$("degree").value,major:$("major").value,years:Math.min(40,Math.max(0,num($("years").value))),
     roles:$("roles").value,skills:$("skills").value,state:$("state").value,city:$("city").value,mode},
     "out-js",renderJobs,$("go-js"))};
 $("f-rc").onsubmit=e=>{e.preventDefault();
   if(src==="new")call("/api/candidates",{title:$("jtitle").value,requirements:$("jreq").value,state:$("jstate").value},"out-rc",renderCands,$("go-rc"));
-  else call("/api/candidates_by_id",{job_id:+$("jid").value,window_id:+$("wid").value},"out-rc",renderCands,$("go-rc"))};
+  else call("/api/candidates_by_id",{job_id:num($("jid").value),window_id:num($("wid").value)},"out-rc",renderCands,$("go-rc"))};
 
 function fillJs(){$("degree").value="Bachelor's";$("major").value="Business Administration";$("years").value=5;
   $("roles").value="Customer Service Representative\nSales Associate";$("skills").value="Customer service, SQL, communication";
